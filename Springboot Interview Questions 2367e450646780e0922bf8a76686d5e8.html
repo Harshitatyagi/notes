@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Springboot Interview Questions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2367e450-6467-80e0-922b-f8a76686d5e8" class="page sans"><header><h1 class="page-title">Springboot Interview Questions</h1><p class="page-description"></p></header><div class="page-body"><p id="2367e450-6467-8016-847f-c9394702a6aa" class="">
+</p><p id="2367e450-6467-802b-84b3-c1bd86bb3396" class="">
+</p><p id="2367e450-6467-808d-b3af-e5ef66a0fbc9" class="">
+</p><hr id="2367e450-6467-8075-89e5-c90d0230e584"/><h2 id="2367e450-6467-80b4-87a8-c300c0352d07" class="">✅ Spring Boot Interview Q&amp;A Notes</h2><hr id="2367e450-6467-8031-9920-c83c00e1f8a3"/><h3 id="2367e450-6467-80fb-8bb4-f153a94d778a" class=""><strong>1. What do you understand by Spring Boot?</strong></h3><p id="2367e450-6467-80ee-86f8-f0c2ab002133" class="">Spring Boot is an extension of the Spring framework that simplifies the setup and development of new Spring applications.</p><p id="2367e450-6467-8036-90c0-d6a3cbbb3e47" class="">It removes the need for boilerplate configuration and allows developers to get started quickly with production-ready applications.</p><hr id="2367e450-6467-80b8-84ba-c89b997c2f23"/><h3 id="2367e450-6467-8033-826c-c3bfeefccb8e" class=""><strong>2. What do you understand by Spring?</strong></h3><p id="2367e450-6467-80af-b6ad-dce9124b8c4d" class="">Spring is a Java framework that provides infrastructure support for developing Java applications.</p><p id="2367e450-6467-80a2-9216-f104a639417f" class="">It helps in building loosely coupled, testable, and maintainable code using <strong>Dependency Injection (DI)</strong> and <strong>Aspect-Oriented Programming (AOP)</strong>.</p><hr id="2367e450-6467-8018-b0dd-c29c092518cf"/><h3 id="2367e450-6467-80f2-a523-e271e2573bb0" class=""><strong>3. Explain JAR and WAR and their related topics.</strong></h3><ul id="2367e450-6467-803b-95fd-e6b6973a2dc4" class="bulleted-list"><li style="list-style-type:disc"><strong>JAR (Java ARchive)</strong>: Packages Java classes and metadata into a single file. Used for standalone applications.</li></ul><ul id="2367e450-6467-8098-a494-c50a90a5e19e" class="bulleted-list"><li style="list-style-type:disc"><strong>WAR (Web Application ARchive)</strong>: Includes servlets, JSPs, and other web resources. Used for deploying on external servers like Tomcat.</li></ul><p id="2367e450-6467-8017-85a0-cd1d90f3fdca" class="">Spring Boot prefers <strong>JAR packaging</strong> as it embeds the server within the app (e.g., Tomcat), making deployment simpler.</p><hr id="2367e450-6467-80d7-a84b-cd9bbc9bc5c8"/><h3 id="2367e450-6467-80e6-9654-e0ec22722e62" class=""><strong>4. How does Spring differ from Spring Boot?</strong></h3><table id="2367e450-6467-80a8-bf1e-f5d21510159f" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-8003-8f02-d1917d715133"><th id="l_fy" class="simple-table-header-color simple-table-header">Feature</th><th id="ZA;X" class="simple-table-header-color simple-table-header">Spring</th><th id="[]CG" class="simple-table-header-color simple-table-header">Spring Boot</th></tr></thead><tbody><tr id="2367e450-6467-8042-8045-d6f57ba5a39e"><td id="l_fy" class="">Configuration</td><td id="ZA;X" class="">Manual</td><td id="[]CG" class="">Auto-configured</td></tr><tr id="2367e450-6467-8070-9e92-c46da60c9bc5"><td id="l_fy" class="">Server</td><td id="ZA;X" class="">Requires external server</td><td id="[]CG" class="">Comes with embedded servers</td></tr><tr id="2367e450-6467-8070-9211-f9a920530bf7"><td id="l_fy" class="">Setup</td><td id="ZA;X" class="">Verbose</td><td id="[]CG" class="">Quick with starters and dependencies</td></tr><tr id="2367e450-6467-80e9-9fed-ce55e3243ed6"><td id="l_fy" class="">Goal</td><td id="ZA;X" class="">Framework for Java apps</td><td id="[]CG" class="">Simplified way to build Spring apps</td></tr></tbody></table><hr id="2367e450-6467-8002-8187-cfe1f72819a3"/><h3 id="2367e450-6467-8018-afb6-ecc315b8a199" class=""><strong>5. What are the main features of Spring Boot?</strong></h3><ul id="2367e450-6467-80e0-a28d-fe0a8d851e57" class="bulleted-list"><li style="list-style-type:disc"><strong>Auto-configuration</strong></li></ul><ul id="2367e450-6467-8034-aed2-e3f17d5c5f0f" class="bulleted-list"><li style="list-style-type:disc"><strong>Spring Boot Starters</strong></li></ul><ul id="2367e450-6467-801c-946e-ff1e61c820cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Spring Boot CLI</strong></li></ul><ul id="2367e450-6467-800d-b7ec-e07255fc7105" class="bulleted-list"><li style="list-style-type:disc"><strong>Embedded servers</strong></li></ul><ul id="2367e450-6467-80b9-8f1b-fd198669ee0d" class="bulleted-list"><li style="list-style-type:disc"><strong>Production-ready features</strong> (via Actuator)</li></ul><ul id="2367e450-6467-8017-b2a2-da855c54b27d" class="bulleted-list"><li style="list-style-type:disc"><strong>No XML configuration needed</strong></li></ul><hr id="2367e450-6467-80c6-ad29-dcd523986111"/><h3 id="2367e450-6467-8047-a59b-c5f010faf18c" class=""><strong>6. Explain Auto-Configuration in simple terms.</strong></h3><p id="2367e450-6467-80a1-98d0-dc579886911b" class="">Think of auto-configuration as Spring Boot “guessing” what you want and setting it up for you.</p><p id="2367e450-6467-806b-afba-d7debfc3de99" class=""><strong>Example:</strong></p><p id="2367e450-6467-80ed-992e-d4745b585a8a" class="">If <code>spring-boot-starter-web</code> is on the classpath, Spring Boot configures Tomcat, Jackson, MVC, etc., without you needing to write any configuration.</p><p id="2367e450-6467-80f4-b714-eb9185992b98" class=""><strong>Layman Example:</strong></p><p id="2367e450-6467-80c5-85ad-d055289ec9f6" class="">Like opening MS Word and it automatically enables spell check, grammar, page size—based on what document type you start.</p><hr id="2367e450-6467-803e-99eb-c8122bdf2631"/><h3 id="2367e450-6467-80c8-9d2f-d1f4a1fa17fc" class=""><strong>7. Give another example of auto-configuration.</strong></h3><p id="2367e450-6467-80fe-bbc9-f4e2507eebfe" class="">If you add <code>spring-boot-starter-data-jpa</code>, Spring Boot:</p><ul id="2367e450-6467-807c-be2f-ddf771825012" class="bulleted-list"><li style="list-style-type:disc">Detects JPA on classpath</li></ul><ul id="2367e450-6467-8046-b44b-f4681cb82420" class="bulleted-list"><li style="list-style-type:disc">Auto-configures <code>DataSource</code>, <code>EntityManagerFactory</code>, and <code>TransactionManager</code></li></ul><ul id="2367e450-6467-8020-916b-c0d00dbb601b" class="bulleted-list"><li style="list-style-type:disc">Sets up connection to the database if properties are provided</li></ul><hr id="2367e450-6467-804c-82cd-c78df77d3a72"/><h3 id="2367e450-6467-80d0-9797-fbb6846bde5d" class=""><strong>8. What are Spring Boot Starters?</strong></h3><p id="2367e450-6467-803f-b737-ebf5f46552ec" class="">Starters are dependency descriptors.</p><p id="2367e450-6467-808c-9c56-d87a806d7d36" class="">They bundle common dependencies needed for a specific feature into a single dependency.</p><p id="2367e450-6467-8098-b1d2-dc67a34f838d" class=""><strong>Example:</strong></p><ul id="2367e450-6467-80e1-80c4-c8479ee7be38" class="bulleted-list"><li style="list-style-type:disc"><code>spring-boot-starter-web</code>: Includes Spring MVC + embedded Tomcat + Jackson</li></ul><ul id="2367e450-6467-80f5-9085-c099c8e80466" class="bulleted-list"><li style="list-style-type:disc"><code>spring-boot-starter-data-jpa</code>: Includes Spring Data JPA + Hibernate</li></ul><hr id="2367e450-6467-801f-bc3f-f3dfff3d07eb"/><h3 id="2367e450-6467-80ce-9931-c9b3302d2dd9" class=""><strong>9. What is the purpose of </strong><code><strong>@SpringBootApplication</strong></code><strong> annotation?</strong></h3><p id="2367e450-6467-8037-a752-d0c0cacc5026" class="">It&#x27;s a shortcut for:</p><ul id="2367e450-6467-80d4-9871-c248b5885afe" class="bulleted-list"><li style="list-style-type:disc"><code>@Configuration</code></li></ul><ul id="2367e450-6467-80a6-a06c-db6411548eed" class="bulleted-list"><li style="list-style-type:disc"><code>@EnableAutoConfiguration</code></li></ul><ul id="2367e450-6467-801f-aa88-d4054aa6c835" class="bulleted-list"><li style="list-style-type:disc"><code>@ComponentScan</code></li></ul><p id="2367e450-6467-8036-8493-d52404fa7661" class="">Used on the main class to indicate it’s the Spring Boot app’s entry point.</p><hr id="2367e450-6467-80c3-9262-d1c00ffc69a1"/><h3 id="2367e450-6467-80b3-9c48-d906c8742815" class=""><strong>10. Do we use </strong><code><strong>@EnableAutoConfiguration</strong></code><strong> and </strong><code><strong>@ComponentScan</strong></code><strong> elsewhere?</strong></h3><p id="2367e450-6467-80b7-a90e-d87ce863fb43" class="">No, generally you don’t. Since <code>@SpringBootApplication</code> includes them, using them separately is not required unless customizing behavior.</p><hr id="2367e450-6467-8019-b723-c9d012f0c83d"/><h3 id="2367e450-6467-8057-a237-e5db9c1f9cda" class=""><strong>11. Explain </strong><code><strong>@Configuration</strong></code><strong> annotation.</strong></h3><p id="2367e450-6467-80cf-b63f-dae4d1e0f105" class="">Marks a class as a configuration class that contains bean definitions.</p><p id="2367e450-6467-8017-815b-ee20db47f4cc" class="">🟢 Differences from <code>@Component</code>:</p><ul id="2367e450-6467-804d-85f7-d974a3dd971d" class="bulleted-list"><li style="list-style-type:disc">Used for <strong>Java-based configuration</strong>.</li></ul><ul id="2367e450-6467-804c-878b-f241a3dd47db" class="bulleted-list"><li style="list-style-type:disc">Methods annotated with <code>@Bean</code> return singleton beans.</li></ul><ul id="2367e450-6467-809c-a532-d8bfbd3ea035" class="bulleted-list"><li style="list-style-type:disc">More powerful and explicit than component scanning.</li></ul><hr id="2367e450-6467-8031-b63a-df67f1434ea8"/><h3 id="2367e450-6467-803a-863c-caa782ecbd72" class=""><strong>12. Example of </strong><code><strong>@Configuration</strong></code><strong> vs </strong><code><strong>@Component</strong></code><strong>:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80d0-b8df-cabdd27b6541" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Configuration
+public class AppConfig {
+   @Bean
+   public MyService myService() {
+      return new MyService();
+   }
+}
+</code></pre><p id="2367e450-6467-8063-b1bf-eee6cd0661a4" class="">If you just annotate <code>MyService</code> with <code>@Component</code>, Spring will manage it but not in a centralized configuration file.</p><hr id="2367e450-6467-80c3-be6f-de430335ee62"/><h3 id="2367e450-6467-80cc-a0a5-fef02a6314d2" class=""><strong>13. Role of </strong><code><strong>application.properties</strong></code><strong> in Spring Boot?</strong></h3><p id="2367e450-6467-80a5-92f2-dee3c7c874a4" class="">Used for external configuration:</p><ul id="2367e450-6467-80ab-a80b-f1a80cd8435c" class="bulleted-list"><li style="list-style-type:disc">Port: <code>server.port=8081</code></li></ul><ul id="2367e450-6467-80c9-8f61-f16aaf244628" class="bulleted-list"><li style="list-style-type:disc">DB config: <code>spring.datasource.url=...</code></li></ul><ul id="2367e450-6467-80a8-9554-c0223a907088" class="bulleted-list"><li style="list-style-type:disc">Logging: <code>logging.level.org.springframework=DEBUG</code></li></ul><hr id="2367e450-6467-8060-babd-fcdfbfb9757f"/><h3 id="2367e450-6467-80ac-880c-ec844d4331a7" class=""><strong>14. How do you access application properties in code?</strong></h3><ul id="2367e450-6467-80e0-88dc-e9ebafcf091e" class="bulleted-list"><li style="list-style-type:disc">Using <code>@Value(&quot;${property.name}&quot;)</code></li></ul><ul id="2367e450-6467-80d8-8e26-ecd5076f8b68" class="bulleted-list"><li style="list-style-type:disc">Or by binding to a <code>@ConfigurationProperties</code> class</li></ul><hr id="2367e450-6467-8021-9e1f-f23929034a9a"/><h3 id="2367e450-6467-804d-a0ab-c23e0b291a4e" class=""><strong>15. What is Spring Boot DevTools?</strong></h3><p id="2367e450-6467-806b-aef5-ec7d63ccbcb4" class="">A set of tools for rapid development:</p><ul id="2367e450-6467-80d9-8871-d46f3a3ff7e2" class="bulleted-list"><li style="list-style-type:disc">Auto-restart on file changes</li></ul><ul id="2367e450-6467-80a5-a4a2-d7aa2289fae7" class="bulleted-list"><li style="list-style-type:disc">Live reload in browsers</li></ul><ul id="2367e450-6467-8006-91fe-e3d11316b82c" class="bulleted-list"><li style="list-style-type:disc">Disables template caching for Thymeleaf/Freemarker</li></ul><hr id="2367e450-6467-809a-a07e-f47bf6f046eb"/><h3 id="2367e450-6467-802b-9a91-fa9165b51e03" class=""><strong>16. What are Embedded Servers in Spring Boot?</strong></h3><p id="2367e450-6467-80c8-a92b-fc00025a5de7" class="">Servers embedded inside the Spring Boot JAR, so no need for external deployment.</p><p id="2367e450-6467-805a-a743-fb8aed92c923" class=""><strong>Common Embedded Servers:</strong></p><ul id="2367e450-6467-8094-bb2e-d91bfb9e8b91" class="bulleted-list"><li style="list-style-type:disc">Tomcat (default)</li></ul><ul id="2367e450-6467-80f9-bad3-fd9578f84250" class="bulleted-list"><li style="list-style-type:disc">Jetty</li></ul><ul id="2367e450-6467-8089-9304-e284e15a899b" class="bulleted-list"><li style="list-style-type:disc">Undertow</li></ul><hr id="2367e450-6467-80cc-815c-e359d068b287"/><h3 id="2367e450-6467-80f7-8a66-c52b4a243348" class=""><strong>17. What is Spring Boot Actuator?</strong></h3><p id="2367e450-6467-8080-b044-ff5410590ff9" class="">Actuator exposes production-ready endpoints like:</p><ul id="2367e450-6467-8047-b98c-fd9d15c1ea35" class="bulleted-list"><li style="list-style-type:disc"><code>/actuator/health</code></li></ul><ul id="2367e450-6467-8089-8a4d-dcaeea98b4c7" class="bulleted-list"><li style="list-style-type:disc"><code>/actuator/metrics</code></li></ul><ul id="2367e450-6467-80b8-be22-de2a35baa2ca" class="bulleted-list"><li style="list-style-type:disc"><code>/actuator/env</code><p id="2367e450-6467-807f-8e48-cf2a687829e2" class="">Useful for monitoring and management.</p></li></ul><hr id="2367e450-6467-809f-90e1-c8a7df231726"/><h3 id="2367e450-6467-80d7-80ba-ed31f4892769" class=""><strong>18. What is the purpose of Spring Boot Starter Parent?</strong></h3><p id="2367e450-6467-802f-8cfd-c82849bdd4ed" class="">Provides:</p><ul id="2367e450-6467-800d-a0ea-e49bc097e02a" class="bulleted-list"><li style="list-style-type:disc">Dependency management</li></ul><ul id="2367e450-6467-806c-9972-c07698632319" class="bulleted-list"><li style="list-style-type:disc">Plugin configuration (for Maven)</li></ul><ul id="2367e450-6467-8003-8394-e32cbf0c8dee" class="bulleted-list"><li style="list-style-type:disc">Default Java version, encoding, etc.</li></ul><p id="2367e450-6467-8015-967a-fd32905733aa" class="">It avoids version conflicts by aligning all dependencies.</p><hr id="2367e450-6467-80b8-a091-cb8c0f006e24"/><h3 id="2367e450-6467-8053-88d3-e668bdf67e5b" class=""><strong>19. What does </strong><code><strong>@RestController</strong></code><strong> do?</strong></h3><p id="2367e450-6467-80fb-a45b-ecbdc90dbab3" class="">Combines:</p><ul id="2367e450-6467-80ff-a84d-f026d22a9913" class="bulleted-list"><li style="list-style-type:disc"><code>@Controller</code></li></ul><ul id="2367e450-6467-8062-8753-ede3dac66ff8" class="bulleted-list"><li style="list-style-type:disc"><code>@ResponseBody</code></li></ul><p id="2367e450-6467-804f-8c18-ef7a5b6608ea" class="">Used to return JSON/XML directly instead of rendering a view.</p><hr id="2367e450-6467-8070-9514-d0ce4060c547"/><h3 id="2367e450-6467-80d1-811a-d54e163fde8c" class=""><strong>20. What are </strong><code><strong>@Controller</strong></code><strong> and </strong><code><strong>@ResponseBody</strong></code><strong>?</strong></h3><ul id="2367e450-6467-8004-a86e-e0567299157e" class="bulleted-list"><li style="list-style-type:disc"><code>@Controller</code>: Handles web requests and returns views (like HTML).</li></ul><ul id="2367e450-6467-80f2-a791-f5e4a5782d4f" class="bulleted-list"><li style="list-style-type:disc"><code>@ResponseBody</code>: Tells Spring to write the return value directly to the HTTP response body.</li></ul><p id="2367e450-6467-8041-a9c9-e0465abc0c99" class=""><code>@RestController = @Controller + @ResponseBody</code></p><hr id="2367e450-6467-8048-96b8-ebe70b546b59"/><h3 id="2367e450-6467-8016-b529-fd5c2e9c8142" class=""><strong>21. If I return plain text from </strong><code><strong>@Controller</strong></code><strong>, what happens?</strong></h3><p id="2367e450-6467-805b-a439-d2e11543e22d" class="">Spring tries to resolve the string as a <strong>view name</strong> (like a JSP or Thymeleaf page).</p><p id="2367e450-6467-8088-a08c-d7239499aa9d" class="">Use <code>@ResponseBody</code> if you want to return raw text instead of a view.</p><hr id="2367e450-6467-809f-8391-e50794df56e2"/><h3 id="2367e450-6467-8057-9df1-e93b803a1063" class=""><strong>22. Difference between </strong><code><strong>@Component</strong></code><strong>, </strong><code><strong>@Service</strong></code><strong>, </strong><code><strong>@Repository</strong></code><strong>, and </strong><code><strong>@Controller</strong></code><strong>?</strong></h3><table id="2367e450-6467-80cf-8cf8-def6fd5015ee" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-809c-a252-c231cc31dbed"><th id="ZOSW" class="simple-table-header-color simple-table-header">Annotation</th><th id="?=[v" class="simple-table-header-color simple-table-header">Purpose</th></tr></thead><tbody><tr id="2367e450-6467-80f7-8b4c-f385976ed6e5"><td id="ZOSW" class=""><code>@Component</code></td><td id="?=[v" class="">Generic stereotype for any bean</td></tr><tr id="2367e450-6467-803f-b9a2-e3830da16155"><td id="ZOSW" class=""><code>@Service</code></td><td id="?=[v" class="">Used for service/business logic layer</td></tr><tr id="2367e450-6467-801a-84e1-ff48a0c883f7"><td id="ZOSW" class=""><code>@Repository</code></td><td id="?=[v" class="">DAO layer + exception translation</td></tr><tr id="2367e450-6467-803c-8221-f5c3e406d670"><td id="ZOSW" class=""><code>@Controller</code></td><td id="?=[v" class="">Handles web requests</td></tr></tbody></table><p id="2367e450-6467-80b4-a8de-e915e9856edf" class="">All are detected via <strong>component scanning</strong> and managed by Spring&#x27;s container.</p><hr id="2367e450-6467-807e-a40f-ff2a08c1d755"/><h3 id="2367e450-6467-806b-981b-c93ffffa2fe8" class=""><strong>23. Does </strong><code><strong>@Service</strong></code><strong> or </strong><code><strong>@Repository</strong></code><strong> behave differently from </strong><code><strong>@Component</strong></code><strong>?</strong></h3><p id="2367e450-6467-808a-b17a-e03cd5f1dec3" class="">Internally, they behave the same as <code>@Component</code>, but are used for semantic clarity and may enable special behavior:</p><ul id="2367e450-6467-808e-9f1c-e1855f81ed02" class="bulleted-list"><li style="list-style-type:disc"><code>@Repository</code> enables automatic exception translation.</li></ul><ul id="2367e450-6467-805b-8a02-ddacbe000b26" class="bulleted-list"><li style="list-style-type:disc"><code>@Service</code> may be used by AOP for business logic interceptors.</li></ul><hr id="2367e450-6467-8032-97e9-d375553b3ea6"/><h3 id="2367e450-6467-808d-bd84-f98ff54a1341" class=""><strong>24. How does Spring Boot handle dependency management?</strong></h3><p id="2367e450-6467-80fe-8ae8-c5fba0b025a1" class="">Through:</p><ul id="2367e450-6467-809a-9f1e-d2052dc7e255" class="bulleted-list"><li style="list-style-type:disc"><strong>Spring Boot Starter Parent</strong></li></ul><ul id="2367e450-6467-801a-9e9d-c468515fdf81" class="bulleted-list"><li style="list-style-type:disc"><strong>Starters</strong> with curated dependencies</li></ul><ul id="2367e450-6467-80d8-a678-f989bdfdf2dd" class="bulleted-list"><li style="list-style-type:disc">Avoids version mismatch via <code>dependencyManagement</code> block</li></ul><hr id="2367e450-6467-8067-8fa5-eea8810d2f09"/><h3 id="2367e450-6467-80f4-a441-c6a93387d88f" class=""><strong>25. Role of </strong><code><strong>@Value</strong></code><strong> annotation?</strong></h3><p id="2367e450-6467-80f9-9ef2-c22f1a239825" class="">Injects values from:</p><ul id="2367e450-6467-80dd-b139-f262b4de2795" class="bulleted-list"><li style="list-style-type:disc"><code>application.properties</code></li></ul><ul id="2367e450-6467-8021-832b-edc51cba72dd" class="bulleted-list"><li style="list-style-type:disc">Environment variables</li></ul><ul id="2367e450-6467-80b2-a427-f89f3a51f49e" class="bulleted-list"><li style="list-style-type:disc">Command-line arguments</li></ul><p id="2367e450-6467-80ff-9fd6-c7c7e5b87e35" class=""><strong>Example:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-807d-876e-c0dd33e3b0e0" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Value(&quot;${app.name}&quot;)
+private String appName;
+</code></pre><hr id="2367e450-6467-8052-aa49-e23683829d02"/><h3 id="2367e450-6467-8030-bf3a-e64c6ee87e59" class=""><strong>26. How do you handle exceptions in Spring Boot?</strong></h3><ol type="1" id="2367e450-6467-80aa-a9a1-dc8999af0d38" class="numbered-list" start="1"><li><strong>Using </strong><code><strong>@ControllerAdvice</strong></code> + <code>@ExceptionHandler</code></li></ol><ol type="1" id="2367e450-6467-801c-8971-d092f8677cd8" class="numbered-list" start="2"><li><strong>Global Handling</strong> for all controllers</li></ol><ol type="1" id="2367e450-6467-806a-9658-e12e67738230" class="numbered-list" start="3"><li><strong>Return custom error responses</strong></li></ol><hr id="2367e450-6467-8031-a8dd-c53937fd880d"/><h3 id="2367e450-6467-808d-9b4c-cba912b6e434" class=""><strong>27. Example of realistic exception handling</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8098-aefc-c4057da7ee33" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@ControllerAdvice
+public class GlobalExceptionHandler {
+
+   @ExceptionHandler(UserNotFoundException.class)
+   public ResponseEntity&lt;String&gt; handleUserNotFound(UserNotFoundException ex) {
+      return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);
+   }
+}
+</code></pre><hr id="2367e450-6467-8003-aba1-c94014b6f1c6"/><h3 id="2367e450-6467-8067-aa86-c339fbee6169" class=""><strong>28. What is a Record in Spring Boot?</strong></h3><p id="2367e450-6467-80d8-8bf0-c596fc6cc04c" class="">Java Records are immutable data classes introduced in Java 14+.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8040-9741-dc5cc770ed69" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public record UserDTO(String name, int age) {}
+</code></pre><ul id="2367e450-6467-804a-88d5-de41f0f0edb4" class="bulleted-list"><li style="list-style-type:disc">Auto-generates constructor, getters, <code>equals()</code>, <code>hashCode()</code>, <code>toString()</code></li></ul><ul id="2367e450-6467-80ed-8cbd-dd7973550156" class="bulleted-list"><li style="list-style-type:disc">Ideal for DTOs</li></ul><hr id="2367e450-6467-806e-9592-c52e6148dd80"/><h3 id="2367e450-6467-8097-8601-e92164ebcace" class=""><strong>29. How does Spring Boot support externalized configuration?</strong></h3><p id="2367e450-6467-80da-b469-e96a34386bec" class="">Via:</p><ul id="2367e450-6467-8064-ae70-cb5176a1ebfb" class="bulleted-list"><li style="list-style-type:disc"><code>application.properties</code> / <code>application.yml</code></li></ul><ul id="2367e450-6467-80eb-98f7-e4440582a957" class="bulleted-list"><li style="list-style-type:disc">Environment variables</li></ul><ul id="2367e450-6467-808c-bdc2-fde0d291bdbd" class="bulleted-list"><li style="list-style-type:disc"><code>@Value</code> and <code>@ConfigurationProperties</code></li></ul><ul id="2367e450-6467-8031-a894-edf8eb2597f5" class="bulleted-list"><li style="list-style-type:disc">Command-line arguments</li></ul><hr id="2367e450-6467-80f7-954c-e037022a6bf4"/><h3 id="2367e450-6467-8026-9965-d5025ab5e1df" class=""><strong>30. Different ways to package a Spring Boot application?</strong></h3><ul id="2367e450-6467-809f-b17f-de906dd4ff8e" class="bulleted-list"><li style="list-style-type:disc"><strong>Executable JAR</strong> (default)</li></ul><ul id="2367e450-6467-8062-8148-dd03c1defadb" class="bulleted-list"><li style="list-style-type:disc"><strong>WAR file</strong> (for external servers)</li></ul><ul id="2367e450-6467-8027-9c1d-d647d447c144" class="bulleted-list"><li style="list-style-type:disc"><strong>Docker image</strong></li></ul><ul id="2367e450-6467-808e-9ff4-c2ca5a29586d" class="bulleted-list"><li style="list-style-type:disc">RPM/DEB using tools like Jib or Spring Boot Buildpacks</li></ul><hr id="2367e450-6467-80c0-9f81-f3788fb88dbd"/><h3 id="2367e450-6467-80db-8d1a-ef93c548e750" class=""><strong>31. How do you secure a Spring Boot application?</strong></h3><ul id="2367e450-6467-80f2-8b99-e67c1b7a7675" class="bulleted-list"><li style="list-style-type:disc">Use <strong>Spring Security</strong></li></ul><ul id="2367e450-6467-805f-8aa3-de39b7461f2d" class="bulleted-list"><li style="list-style-type:disc">Add <code>spring-boot-starter-security</code></li></ul><ul id="2367e450-6467-80c7-8481-df62aa70c777" class="bulleted-list"><li style="list-style-type:disc">Configure custom login, roles, and access control</li></ul><ul id="2367e450-6467-80c0-80ed-da65e330dfff" class="bulleted-list"><li style="list-style-type:disc">Use JWT, OAuth2, Basic Auth, etc.</li></ul><hr id="2367e450-6467-8012-abf5-f4991bf7ee27"/><h3 id="2367e450-6467-800e-9d24-e97320822b13" class=""><strong>32. Role of </strong><code><strong>@EnableAutoConfiguration</strong></code><strong> annotation?</strong></h3><p id="2367e450-6467-808d-a80d-e68756b282ec" class="">It tells Spring Boot to automatically configure beans based on classpath contents, properties, etc.</p><hr id="2367e450-6467-8079-8754-e9c502093213"/><h3 id="2367e450-6467-80fd-a8db-d198beb034e4" class=""><strong>33. What is the significance of </strong><code><strong>@Entity</strong></code><strong>?</strong></h3><ul id="2367e450-6467-806e-ae3d-db40281f3d5e" class="bulleted-list"><li style="list-style-type:disc">Maps a Java class to a database table.</li></ul><ul id="2367e450-6467-8074-91dd-f68c795f6d7e" class="bulleted-list"><li style="list-style-type:disc">Used with JPA/Hibernate.</li></ul><ul id="2367e450-6467-80e6-8888-d50752d17630" class="bulleted-list"><li style="list-style-type:disc">Each instance represents a row in the table.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80a5-b768-eb11556a35bc" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">@Entity
+public class User {
+   @Id
+   private Long id;
+   private String name;
+}
+</code></pre><hr id="2367e450-6467-80ba-bdd4-fa8bf959e9f1"/><h3 id="2367e450-6467-8093-ade5-d4c84ec96e05" class=""><strong>34. Common Testing Annotations in Spring Boot</strong></h3><ul id="2367e450-6467-8032-bb2a-c0eef11be1a1" class="bulleted-list"><li style="list-style-type:disc"><code>@SpringBootTest</code>: Loads full application context</li></ul><ul id="2367e450-6467-804b-8132-c38658725fa6" class="bulleted-list"><li style="list-style-type:disc"><code>@WebMvcTest</code>: For controller layer testing</li></ul><ul id="2367e450-6467-8083-b146-c91b1cfc5623" class="bulleted-list"><li style="list-style-type:disc"><code>@DataJpaTest</code>: JPA/Hibernate testing</li></ul><ul id="2367e450-6467-8078-b8ca-dbe73f778a8a" class="bulleted-list"><li style="list-style-type:disc"><code>@MockBean</code>: Add mocks to context</li></ul><ul id="2367e450-6467-8010-9f3d-e52be42d7754" class="bulleted-list"><li style="list-style-type:disc"><code>@TestConfiguration</code>: Custom config for tests</li></ul><hr id="2367e450-6467-8037-bad8-e93ef1b6d77a"/><p id="2367e450-6467-806e-937e-c9156763e628" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

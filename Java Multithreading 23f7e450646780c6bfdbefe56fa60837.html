@@ -1,0 +1,923 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Java Multithreading</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="23f7e450-6467-80c6-bfdb-efe56fa60837" class="page sans"><header><h1 class="page-title">Java Multithreading</h1><p class="page-description"></p></header><div class="page-body"><p id="23f7e450-6467-80f8-9e2a-ee7ea59f1215" class="">
+</p><p id="23f7e450-6467-80b3-82e7-fd854701ea47" class="">🧵 What is Multithreading in Java?</p><hr id="23f7e450-6467-80a9-b3bf-eed234e69453"/><p id="23f7e450-6467-80fd-8755-d94dcd6e5a72" class="">Multithreading is a programming technique where <strong>multiple threads run concurrently within a single process</strong>. It allows a program to perform multiple tasks at the same time, improving <strong>efficiency and responsiveness</strong>, especially in scenarios involving <strong>I/O operations</strong>, <strong>UI updates</strong>, or <strong>parallel computations</strong>.</p><ul id="23f7e450-6467-802e-9df4-c1b1abe24c99" class="bulleted-list"><li style="list-style-type:disc">In Java, multithreading is supported through the <code>java.lang.Thread</code> class and the <code>Runnable</code> interface.</li></ul><ul id="23f7e450-6467-8052-ad84-e373dc0e77b1" class="bulleted-list"><li style="list-style-type:disc">Each thread has its own <strong>call stack</strong> but shares the <strong>heap memory</strong> with other threads in the same process.</li></ul><p id="23f7e450-6467-807e-b413-f0c40537e1ff" class="">A thread is an independent sequential path of execution within a program</p><h3 id="23f7e450-6467-80a3-8aa4-c45e7031db56" class="">✅ Advantages of Multithreading:</h3><ul id="23f7e450-6467-80c7-a058-d2e3b4df40e3" class="bulleted-list"><li style="list-style-type:disc">Better CPU utilization (no idle time)</li></ul><ul id="23f7e450-6467-805e-8948-ec5b2ca23df9" class="bulleted-list"><li style="list-style-type:disc">Efficient I/O handling (non-blocking UI)</li></ul><ul id="23f7e450-6467-8041-82d6-f9002510a10a" class="bulleted-list"><li style="list-style-type:disc">Parallel execution of tasks</li></ul><ul id="23f7e450-6467-80f8-8bd6-c25d2071300e" class="bulleted-list"><li style="list-style-type:disc">Simplified modeling of real-world concurrent behavior</li></ul><hr id="23f7e450-6467-80aa-86cb-c56f4373638e"/><h3 id="23f7e450-6467-80b4-b66a-fd463052acae" class="">🧵 Difference Between a Thread and a Process</h3><table id="23f7e450-6467-80f7-859c-cf79b3b328cb" class="simple-table"><thead class="simple-table-header"><tr id="23f7e450-6467-80bf-b652-d9e947a83dde"><th id="EL\:" class="simple-table-header-color simple-table-header">Feature</th><th id="\Px[" class="simple-table-header-color simple-table-header">Thread</th><th id="VqV@" class="simple-table-header-color simple-table-header">Process</th></tr></thead><tbody><tr id="23f7e450-6467-8043-a1dd-ce17a67f3345"><td id="EL\:" class=""><strong>Definition</strong></td><td id="\Px[" class="">Smallest unit of execution within a process</td><td id="VqV@" class="">Independent executing program</td></tr><tr id="23f7e450-6467-80c2-9169-d91ee0f1756a"><td id="EL\:" class=""><strong>Memory</strong></td><td id="\Px[" class="">Shares memory with other threads of same process</td><td id="VqV@" class="">Has its own memory space</td></tr><tr id="23f7e450-6467-80ef-918d-d6e20816e8c1"><td id="EL\:" class=""><strong>Communication</strong></td><td id="\Px[" class="">Easy, since threads share the same address space</td><td id="VqV@" class="">Inter-process communication (IPC) is complex</td></tr><tr id="23f7e450-6467-80bf-8593-dc3e29d10ad2"><td id="EL\:" class=""><strong>Context Switching</strong></td><td id="\Px[" class="">Faster and less overhead</td><td id="VqV@" class="">Slower, with higher overhead</td></tr><tr id="23f7e450-6467-8073-bc92-c6abbec6cda0"><td id="EL\:" class=""><strong>Crash Impact</strong></td><td id="\Px[" class="">One thread crash may affect the entire process</td><td id="VqV@" class="">Crash is isolated to the process itself</td></tr><tr id="23f7e450-6467-804f-b735-de22b737b381"><td id="EL\:" class=""><strong>Creation Time</strong></td><td id="\Px[" class="">Lightweight and faster to create</td><td id="VqV@" class="">Heavyweight and slower to start</td></tr><tr id="23f7e450-6467-8096-9e2a-ca1941f60cd8"><td id="EL\:" class=""><strong>Example in Java</strong></td><td id="\Px[" class=""><code>Thread t = new Thread();</code></td><td id="VqV@" class="">Running two separate Java applications</td></tr></tbody></table><hr id="23f7e450-6467-8001-a5f3-d8727d94d003"/><hr id="23f7e450-6467-8071-a1e6-f20b19937f5e"/><h3 id="23f7e450-6467-805c-a89a-efaad6840dcf" class="">🧵 Main Thread, User Thread &amp; Daemon Thread in Java</h3><hr id="23f7e450-6467-8065-b373-e94df38fcaca"/><h3 id="23f7e450-6467-80d9-92e0-fb210ae65e01" class="">🟢 <strong>Main Thread</strong></h3><ul id="23f7e450-6467-805c-80da-ea4c42c99e88" class="bulleted-list"><li style="list-style-type:disc">When a Java program starts, the <strong>JVM automatically creates one thread</strong>: the <strong>main thread</strong>.</li></ul><ul id="23f7e450-6467-800f-9877-ec7d51b92138" class="bulleted-list"><li style="list-style-type:disc">This thread executes the <code>main()</code> method and is responsible for starting other threads if needed.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-8065-81d0-ca16908fc257" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Main {
+    public static void main(String[] args) {
+        System.out.println(&quot;Current Thread: &quot; + Thread.currentThread().getName());
+    }
+}
+// Output: Current Thread: main
+</code></pre><hr id="23f7e450-6467-80c0-b1bf-df4ac3160e80"/><h3 id="23f7e450-6467-8076-8b8a-e61718ec979d" class="">🧑‍💻 <strong>User Thread (Non-Daemon Thread)</strong></h3><ul id="23f7e450-6467-80dd-ba32-fe0135b135fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Default type of thread</strong> when you create one using <code>new Thread()</code>.</li></ul><ul id="23f7e450-6467-80ea-9781-faf15aacb9d5" class="bulleted-list"><li style="list-style-type:disc">The <strong>JVM keeps running</strong> as long as at least one <strong>user thread</strong> is alive.</li></ul><ul id="23f7e450-6467-8029-b4b1-da8a355bfe8e" class="bulleted-list"><li style="list-style-type:disc">Used for tasks that need to <strong>complete fully</strong> before the application exits.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-809e-930e-f82d505e8370" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread userThread = new Thread(() -&gt; {
+    System.out.println(&quot;User thread running...&quot;);
+});
+userThread.start();
+</code></pre><hr id="23f7e450-6467-8077-b34d-c2b203bd3b6a"/><h3 id="23f7e450-6467-805a-b309-d35ae38961e7" class="">👻 <strong>Daemon Thread</strong></h3><ul id="23f7e450-6467-8014-8bd0-c29ad7866ee3" class="bulleted-list"><li style="list-style-type:disc">A <strong>background thread</strong> that runs in support of user threads.</li></ul><ul id="23f7e450-6467-80b2-b8c4-d1e69fd74596" class="bulleted-list"><li style="list-style-type:disc"><strong>JVM exits</strong> automatically when only daemon threads remain.</li></ul><ul id="23f7e450-6467-809f-b064-c9a5afbca5e1" class="bulleted-list"><li style="list-style-type:disc">Use cases: garbage collection, monitoring, background logging, etc.</li></ul><h3 id="23f7e450-6467-80f5-96e4-c8d097e82616" class="">🔹 Marking a thread as daemon:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-8089-830e-ddef74801a04" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread daemonThread = new Thread(() -&gt; {
+    while (true) {
+        System.out.println(&quot;Daemon thread running...&quot;);
+    }
+});
+daemonThread.setDaemon(true); // Must be called before start()
+daemonThread.start();
+</code></pre><blockquote id="23f7e450-6467-80f2-9ece-c4e704614021" class="">⚠️ If setDaemon(true) is called after start(), it throws IllegalThreadStateException.</blockquote><hr id="23f7e450-6467-80eb-8d62-e676a099378d"/><h3 id="23f7e450-6467-8029-8867-d075c608b0ad" class="">🔍 Key Differences</h3><table id="23f7e450-6467-8061-bc3b-d19719b60fea" class="simple-table"><thead class="simple-table-header"><tr id="23f7e450-6467-8029-8c88-ee721518b0a0"><th id="WwB\" class="simple-table-header-color simple-table-header">Feature</th><th id="~iOC" class="simple-table-header-color simple-table-header">User Thread</th><th id="&gt;dK;" class="simple-table-header-color simple-table-header">Daemon Thread</th></tr></thead><tbody><tr id="23f7e450-6467-80be-b724-cbfd3b003179"><td id="WwB\" class=""><strong>Purpose</strong></td><td id="~iOC" class="">Executes main tasks</td><td id="&gt;dK;" class="">Provides background support</td></tr><tr id="23f7e450-6467-804d-8526-fc1d0c31f5ba"><td id="WwB\" class=""><strong>JVM Behavior</strong></td><td id="~iOC" class="">JVM waits for all to finish</td><td id="&gt;dK;" class="">JVM exits if only daemon threads remain</td></tr><tr id="23f7e450-6467-8056-8f0f-ec8ab8936abd"><td id="WwB\" class=""><strong>Lifecycle</strong></td><td id="~iOC" class="">Must complete</td><td id="&gt;dK;" class="">Can be killed when no user thread exists</td></tr><tr id="23f7e450-6467-80c7-8b0e-d1fe88bc35d4"><td id="WwB\" class=""><strong>Default Type</strong></td><td id="~iOC" class="">Yes</td><td id="&gt;dK;" class="">No (<code>setDaemon(true)</code> required)</td></tr><tr id="23f7e450-6467-800e-afbe-e151a70f843f"><td id="WwB\" class=""><strong>Examples</strong></td><td id="~iOC" class="">File reading, DB ops, network</td><td id="&gt;dK;" class="">GC, memory monitor, log cleaner</td></tr></tbody></table><hr id="23f7e450-6467-800d-97dd-d401e51a5b9b"/><p id="23f7e450-6467-8033-8b03-d158448de5b0" class="">
+</p><hr id="23f7e450-6467-8008-86eb-ccdde4b1475c"/><h2 id="23f7e450-6467-80bf-830d-e9a5d70ee441" class="">🔑 Multithreading Core Concepts – Deep Dive for Learning &amp; Interviews</h2><hr id="23f7e450-6467-8096-b35c-d49e9174479d"/><h3 id="23f7e450-6467-80f9-914f-da338e586a34" class="">1️⃣ <strong>Creating a Thread and Providing the Code That Gets Executed</strong></h3><h3 id="23f7e450-6467-8080-aa57-c0d63bcf43c1" class="">🔸 Learning View:</h3><p id="23f7e450-6467-8060-8a73-c16ef864024d" class="">In Java, a <strong>thread</strong> represents a unit of execution. To create a thread and specify the task it should perform, you have two main options:</p><h3 id="23f7e450-6467-8014-8cb2-ee7531f2d852" class="">✅ a. Extend the <code>Thread</code> class:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-804f-8e9b-f2cc85250e1e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class MyThread extends Thread {
+    public void run() {
+        System.out.println(&quot;Thread is running...&quot;);
+    }
+}
+
+MyThread t1 = new MyThread();
+t1.start(); // Calls run() internally via a new thread
+</code></pre><h3 id="23f7e450-6467-80dc-9a20-e30044cf4929" class="">✅ b. Implement the <code>Runnable</code> interface (preferred):</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-807d-9d7e-c13d88ace34c" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println(&quot;Runnable thread running...&quot;);
+    }
+}
+
+Thread t2 = new Thread(new MyRunnable());
+t2.start();
+</code></pre><h3 id="23f7e450-6467-80d7-ae8b-f42a89097ac1" class="">✅ c. Using Lambda (concise form from Java 8):</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-808d-9472-ee4f5b6adf4c" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t3 = new Thread(() -&gt; System.out.println(&quot;Thread with lambda&quot;));
+t3.start();
+</code></pre><blockquote id="23f7e450-6467-80da-ae48-cdeb21e80ec7" class="">🔍 Why prefer Runnable?<p id="23f7e450-6467-8059-b1e1-f8b743d35c54" class="">Allows the class to extend another class (Java supports only single inheritance) and separates the task (<code>run</code>) from the thread control (<code>Thread</code>).</p></blockquote><hr id="23f7e450-6467-8068-aa21-ded87fe97ef0"/><h3 id="23f7e450-6467-80a6-a0db-d3f8309d971c" class="">💼 Interview View:</h3><p id="23f7e450-6467-80c3-964d-e3d0a7c7d7ee" class=""><strong>Q: How do you create a thread in Java? What&#x27;s the difference between extending </strong><code><strong>Thread</strong></code><strong> and implementing </strong><code><strong>Runnable</strong></code><strong>?</strong></p><p id="23f7e450-6467-8066-bfe8-d2dc80725c94" class=""><strong>A:</strong></p><p id="23f7e450-6467-8079-ad3d-f1fc700a81f5" class="">Java allows thread creation via:</p><ul id="23f7e450-6467-8024-a01a-e8eede58ff55" class="bulleted-list"><li style="list-style-type:disc">Extending <code>Thread</code> – not flexible due to single inheritance.</li></ul><ul id="23f7e450-6467-806e-82de-d040da53a9ad" class="bulleted-list"><li style="list-style-type:disc">Implementing <code>Runnable</code> – preferred due to better design and separation of concern.</li></ul><p id="23f7e450-6467-801f-9067-def60a9916b7" class="">Using the <code>Runnable</code> approach promotes loose coupling and better reusability.</p><hr id="23f7e450-6467-80ea-8c39-d02e6d1a09a6"/><h3 id="23f7e450-6467-8012-a615-c119b0fac75c" class="">2️⃣ <strong>Accessing Common Data – The Role of Synchronization</strong></h3><h3 id="23f7e450-6467-801e-990a-f857be3cbe11" class="">🔸 Learning View:</h3><p id="23f7e450-6467-8018-8dbc-f98024e75010" class="">When multiple threads operate on <strong>shared data</strong>, inconsistencies may occur due to race conditions. To handle this, Java provides <strong>synchronization</strong> mechanisms.</p><h3 id="23f7e450-6467-8044-b39a-ca54ef8b788e" class="">✅ Synchronizing a Method:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-8008-8d4b-ec991edaeda0" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public synchronized void increment() {
+    count++;
+}
+</code></pre><h3 id="23f7e450-6467-802f-bc8a-ccee52966c23" class="">✅ Synchronizing a Block:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-800d-9374-f67b2b415887" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">synchronized(this) {
+    count++;
+}
+</code></pre><h3 id="23f7e450-6467-80f5-93f0-cd5a30fa4cd0" class="">🔹 Other ways to manage concurrency:</h3><ul id="23f7e450-6467-8020-8a49-ded6f1c31abc" class="bulleted-list"><li style="list-style-type:disc"><code>ReentrantLock</code> – more flexible than synchronized</li></ul><ul id="23f7e450-6467-80cc-959f-c0fca0dd762a" class="bulleted-list"><li style="list-style-type:disc"><code>AtomicInteger</code>, <code>ConcurrentHashMap</code> – thread-safe data structures from <code>java.util.concurrent</code></li></ul><blockquote id="23f7e450-6467-8037-b98a-c00cb427f677" class="">🧠 Always synchronize on shared resources, not local variables.</blockquote><hr id="23f7e450-6467-80b9-924c-d6ce27da337d"/><h3 id="23f7e450-6467-803d-9bd8-c2da9490ead0" class="">💼 Interview View:</h3><p id="23f7e450-6467-80dd-828c-c6f85355dba0" class=""><strong>Q: What is a race condition? How do you avoid it in Java?</strong></p><p id="23f7e450-6467-80e1-a51c-e4bcde04c870" class=""><strong>A:</strong></p><p id="23f7e450-6467-8071-ba56-ed6b98df8f48" class="">A <strong>race condition</strong> occurs when multiple threads access and modify shared data concurrently, leading to unpredictable results.</p><p id="23f7e450-6467-80e2-bac0-db283c060913" class="">We avoid it using:</p><ul id="23f7e450-6467-801b-97ce-e6235da9ceff" class="bulleted-list"><li style="list-style-type:disc"><code>synchronized</code> blocks/methods</li></ul><ul id="23f7e450-6467-80df-b743-de5c1ac3938c" class="bulleted-list"><li style="list-style-type:disc">Higher-level concurrency utilities (<code>ReentrantLock</code>, <code>Atomic*</code> classes)</li></ul><p id="23f7e450-6467-80fb-b326-f01ebf41b876" class=""><strong>Q: Difference between </strong><code><strong>synchronized</strong></code><strong> method and block?</strong></p><p id="23f7e450-6467-80fe-bd66-dfd1857be6dc" class=""><strong>A:</strong></p><ul id="23f7e450-6467-80b8-9805-e854686a1212" class="bulleted-list"><li style="list-style-type:disc">Method: locks the entire object</li></ul><ul id="23f7e450-6467-804f-8ecf-fa3d251cf579" class="bulleted-list"><li style="list-style-type:disc">Block: allows more fine-grained control (e.g., synchronize only critical sections)</li></ul><hr id="23f7e450-6467-808a-9c62-d721e34a9cb4"/><h3 id="23f7e450-6467-80ce-a1ea-cd09dee818ed" class="">3️⃣ <strong>Thread Lifecycle – States and Transitions</strong></h3><h3 id="23f7e450-6467-8011-b856-f166e36bbb56" class="">🔸 Learning View:</h3><p id="23f7e450-6467-8095-8e0f-fe3637f29588" class="">Java threads go through the following <strong>lifecycle states</strong>:</p><table id="23f7e450-6467-80fd-98d7-ea395d3d1498" class="simple-table"><thead class="simple-table-header"><tr id="23f7e450-6467-8037-8f79-effa25180531"><th id="~mrm" class="simple-table-header-color simple-table-header">State</th><th id="PxOf" class="simple-table-header-color simple-table-header">Description</th></tr></thead><tbody><tr id="23f7e450-6467-807f-9c68-f2bca7c95a3d"><td id="~mrm" class=""><strong>New</strong></td><td id="PxOf" class="">Thread object created but not started</td></tr><tr id="23f7e450-6467-8050-b0a1-ca9236cf229c"><td id="~mrm" class=""><strong>Runnable</strong></td><td id="PxOf" class="">Thread eligible for execution (waiting for CPU)</td></tr><tr id="23f7e450-6467-80b0-a013-f2f7b5eeac45"><td id="~mrm" class=""><strong>Running</strong></td><td id="PxOf" class="">Thread is currently executing its task</td></tr><tr id="23f7e450-6467-8017-8154-d734cae32683"><td id="~mrm" class=""><strong>Blocked</strong></td><td id="PxOf" class="">Thread waiting to acquire a lock</td></tr><tr id="23f7e450-6467-80da-a3f6-e5aa939801f9"><td id="~mrm" class=""><strong>Waiting</strong></td><td id="PxOf" class="">Thread waiting indefinitely for another thread (e.g., <code>join()</code>, <code>wait()</code>)</td></tr><tr id="23f7e450-6467-8080-b803-ccc0479d8e90"><td id="~mrm" class=""><strong>Timed Waiting</strong></td><td id="PxOf" class="">Thread waiting for a specific time (e.g., <code>sleep()</code>, <code>join(timeout)</code>)</td></tr><tr id="23f7e450-6467-8030-8001-f112ffe2e658"><td id="~mrm" class=""><strong>Terminated</strong></td><td id="PxOf" class="">Thread has completed execution or was stopped</td></tr></tbody></table><h3 id="23f7e450-6467-8096-ae96-e8ee1db847c5" class="">🔁 Common Methods That Influence State:</h3><ul id="23f7e450-6467-80d4-b001-ef1acc259ef1" class="bulleted-list"><li style="list-style-type:disc"><code>start()</code>: New → Runnable</li></ul><ul id="23f7e450-6467-8029-8a9e-f43894ea238b" class="bulleted-list"><li style="list-style-type:disc"><code>sleep()</code>: Running → Timed Waiting</li></ul><ul id="23f7e450-6467-8050-843b-e7a272122084" class="bulleted-list"><li style="list-style-type:disc"><code>join()</code>: Running → Waiting</li></ul><ul id="23f7e450-6467-807f-aeb9-d4a8a6445518" class="bulleted-list"><li style="list-style-type:disc"><code>wait()</code>: Running → Waiting</li></ul><ul id="23f7e450-6467-801b-9031-f23c2cbca9af" class="bulleted-list"><li style="list-style-type:disc"><code>notify()/notifyAll()</code>: Waiting → Runnable</li></ul><ul id="23f7e450-6467-80ee-a5cb-d33133017c73" class="bulleted-list"><li style="list-style-type:disc"><code>yield()</code>: Running → Runnable</li></ul><h3 id="23f7e450-6467-805c-a35c-c67f01a28a3d" class="">🔁 Diagram:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23f7e450-6467-8071-9abd-ed6780e9a00d" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[New] --&gt; start() --&gt; [Runnable] --&gt; [Running]
+               ↘               ↘
+           [Blocked/Waiting] ←-- sync/wait
+               ↓
+         [Runnable] --&gt; [Terminated]
+</code></pre><hr id="23f7e450-6467-8090-abca-cbd1b459614e"/><h3 id="23f7e450-6467-804c-b096-f0496c37824c" class="">💼 Interview View:</h3><p id="23f7e450-6467-8027-8e41-e98d5df6d761" class=""><strong>Q: Can you explain the thread lifecycle in Java?</strong></p><p id="23f7e450-6467-80b3-a154-d362fae3287e" class=""><strong>A:</strong></p><p id="23f7e450-6467-80c7-aea0-f4f8f4ef68dd" class="">A thread moves through various states like New, Runnable, Running, Blocked, Waiting, and Terminated. Transitions depend on method calls (<code>start</code>, <code>sleep</code>, <code>wait</code>, etc.) and resource locks.</p><p id="23f7e450-6467-80ff-8ced-eaef5b71c8d7" class=""><strong>Q: What&#x27;s the difference between </strong><code><strong>wait()</strong></code><strong> and </strong><code><strong>sleep()</strong></code><strong>?</strong></p><p id="23f7e450-6467-8027-a11f-d661ee8a21b8" class=""><strong>A:</strong></p><ul id="23f7e450-6467-80f4-a745-d57a1cc88725" class="bulleted-list"><li style="list-style-type:disc"><code>wait()</code> – releases the monitor (used with synchronization)</li></ul><ul id="23f7e450-6467-8062-a4c2-f70d54ba1429" class="bulleted-list"><li style="list-style-type:disc"><code>sleep()</code> – just pauses the thread, doesn’t release locks</li></ul><p id="23f7e450-6467-8007-8795-f3db966f8c81" class=""><strong>Q: When does a thread enter the Blocked state?</strong></p><p id="23f7e450-6467-8006-8c98-e8827d0cb43d" class=""><strong>A:</strong></p><p id="23f7e450-6467-806b-9d0e-ec759a67f7d0" class="">When it tries to access a synchronized block/method that’s already locked by another thread.</p><p id="24c7e450-6467-80bd-831f-d9d910cbbfd7" class="">
+</p><p id="24c7e450-6467-804d-a794-e7548a12092d" class="">
+</p><p id="24c7e450-6467-80d8-ba68-c97c239c11a4" class="">
+</p><p id="24c7e450-6467-80e9-862f-cdc317d92ee1" class="">Java basics</p><hr id="23f7e450-6467-8067-ab3f-f62bfe0002b2"/><table id="24c7e450-6467-80b9-bd75-e8c0bedb49b6" class="simple-table"><thead class="simple-table-header"><tr id="24c7e450-6467-8046-bdf2-f37f9876a86f"><th id="\rQS" class="simple-table-header-color simple-table-header">Level</th><th id="MTuU" class="simple-table-header-color simple-table-header">Term</th><th id="eVG|" class="simple-table-header-color simple-table-header">1-Line Meaning</th></tr></thead><tbody><tr id="24c7e450-6467-806d-adab-d1773c57b0f5"><td id="\rQS" class=""><strong>Low (Closest to Machine)</strong></td><td id="MTuU" class=""><strong>Hardware / OS</strong></td><td id="eVG|" class="">The physical machine &amp; OS where your program runs.</td></tr><tr id="24c7e450-6467-809b-965b-da92956a5d47"><td id="\rQS" class=""></td><td id="MTuU" class=""><strong>JVM (Java Virtual Machine)</strong></td><td id="eVG|" class="">Converts Java bytecode to machine code and executes it, hiding OS/hardware differences.</td></tr><tr id="24c7e450-6467-80a2-ab1b-dde3cdd0b579"><td id="\rQS" class=""></td><td id="MTuU" class=""><strong>JIT (Just-In-Time Compiler)</strong></td><td id="eVG|" class="">JVM component that compiles bytecode to native machine code at runtime for performance.</td></tr><tr id="24c7e450-6467-8049-ab29-e5fcf996c141"><td id="\rQS" class=""><strong>Mid (Runtime Environment)</strong></td><td id="MTuU" class=""><strong>JRE (Java Runtime Environment)</strong></td><td id="eVG|" class="">JVM + Java class libraries needed to run Java programs.</td></tr><tr id="24c7e450-6467-8016-a20d-ea2d813f646a"><td id="\rQS" class=""><strong>High (Development)</strong></td><td id="MTuU" class=""><strong>JDK (Java Development Kit)</strong></td><td id="eVG|" class="">JRE + compilers (<code>javac</code>) + tools for building, debugging, and packaging Java apps.</td></tr><tr id="24c7e450-6467-80d1-b938-fe3792f8f4c2"><td id="\rQS" class=""><strong>API/Framework Layer</strong></td><td id="MTuU" class=""><strong>JDBC (Java Database Connectivity)</strong></td><td id="eVG|" class="">API to connect Java apps to relational databases.</td></tr><tr id="24c7e450-6467-8055-b133-f0e08f7c89ce"><td id="\rQS" class=""></td><td id="MTuU" class=""><strong>Java Libraries &amp; Frameworks</strong></td><td id="eVG|" class="">Higher-level tools (Spring, Hibernate, JavaFX) built on the JDK.</td></tr></tbody></table><p id="24c7e450-6467-80a5-a2e5-c29024a3bf3f" class="">
+</p><p id="24c7e450-6467-805b-bdf0-ef444ae769d9" class="">
+</p><p id="24c7e450-6467-8064-b47f-e7275e18d33d" class="">
+</p><p id="24c7e450-6467-80a3-b381-d7e58ad1ecbe" class="">🧵 <strong>Creating a Thread from Runnable &amp; Using Lambda</strong> – Q&amp;A</p><hr id="24c7e450-6467-8013-b9c5-feea5051ca85"/><hr id="24c7e450-6467-80cc-829c-f845e746cb52"/><h3 id="24c7e450-6467-801f-8cb6-ec5d675b1e40" class=""><strong>Q1: How do you create a thread using the </strong><code><strong>Runnable</strong></code><strong> interface?</strong></h3><p id="24c7e450-6467-8015-b786-fd3fd412c370" class=""><strong>A:</strong></p><p id="24c7e450-6467-80ae-a0a0-f0565e225c02" class="">You implement the <code>Runnable</code> interface (which has a single <code>run()</code> method), then pass the instance to a <code>Thread</code> object and start it.</p><p id="24c7e450-6467-8070-ae3c-f0a35a7fd472" class=""><strong>Example:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80f9-bea7-f21e06b86234" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class MyTask implements Runnable {
+    public void run() {
+        System.out.println(&quot;Task is running...&quot;);
+    }
+}
+
+Runnable task = new MyTask();
+Thread t = new Thread(task);
+t.start();
+</code></pre><hr id="24c7e450-6467-803d-9150-c0c7adf478f8"/><h3 id="24c7e450-6467-8074-ba87-c2c2a1d5872c" class=""><strong>Q2: Why use </strong><code><strong>Runnable</strong></code><strong> instead of extending </strong><code><strong>Thread</strong></code><strong>?</strong></h3><p id="24c7e450-6467-8043-b340-f6c98b478836" class=""><strong>A:</strong></p><ul id="24c7e450-6467-8072-9ae3-d144a1fffe59" class="bulleted-list"><li style="list-style-type:disc">Java supports <strong>single inheritance</strong> → implementing <code>Runnable</code> allows your class to extend another class.</li></ul><ul id="24c7e450-6467-8033-9fce-dfd705a8b517" class="bulleted-list"><li style="list-style-type:disc">Separates the <strong>task logic</strong> from the <strong>thread control</strong>, improving design and testability.</li></ul><ul id="24c7e450-6467-808a-b937-d9f968f74e5c" class="bulleted-list"><li style="list-style-type:disc">Encourages loose coupling between code and thread management.</li></ul><hr id="24c7e450-6467-80f0-9202-ddef6423bec7"/><h3 id="24c7e450-6467-80e5-b01b-c3537b0fdadb" class=""><strong>Q3: How can we create a </strong><code><strong>Runnable</strong></code><strong> using a lambda function?</strong></h3><p id="24c7e450-6467-8077-96a8-fabd60745d56" class=""><strong>A:</strong></p><p id="24c7e450-6467-8078-89f9-c7ef565c22da" class="">Since <code>Runnable</code> is a <strong>functional interface</strong> (only one abstract method), we can use a lambda expression to provide its implementation.</p><p id="24c7e450-6467-80cb-b967-f38c383c9bab" class=""><strong>Example:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-8038-97af-fcb0bd629e21" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t = new Thread(() -&gt; {
+    System.out.println(&quot;Task via lambda is running...&quot;);
+});
+t.start();
+</code></pre><hr id="24c7e450-6467-802f-96c7-d6bef3569bb1"/><h3 id="24c7e450-6467-80f2-b086-d116a44023e1" class=""><strong>Q4: How do we name the thread when using a lambda?</strong></h3><p id="24c7e450-6467-8056-80f5-ec0463d5f311" class=""><strong>A:</strong></p><p id="24c7e450-6467-8083-9ebb-ef506cdd0b66" class="">You can use the two-argument <code>Thread</code> constructor:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80fe-8313-d1f8ba9bad9f" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t = new Thread(() -&gt; {
+    System.out.println(&quot;Running: &quot; + Thread.currentThread().getName());
+}, &quot;Worker-1&quot;);
+
+t.start();
+</code></pre><p id="24c7e450-6467-80b8-823a-c19e68833c57" class=""><strong>Output:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80b5-82b7-f6b72532eb7a" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Running: Worker-1
+</code></pre><hr id="24c7e450-6467-80a4-b4f6-c1ef8274bb21"/><h3 id="24c7e450-6467-80a8-9ebb-d1c133c3c4ae" class=""><strong>Q5: What are the advantages of using a lambda for </strong><code><strong>Runnable</strong></code><strong>?</strong></h3><p id="24c7e450-6467-80f1-8b69-c061ce3644d5" class=""><strong>A:</strong></p><ul id="24c7e450-6467-8024-97c7-d6556ca1cdd6" class="bulleted-list"><li style="list-style-type:disc">More concise code (no separate class needed)</li></ul><ul id="24c7e450-6467-80b0-85ee-d757f58761af" class="bulleted-list"><li style="list-style-type:disc">Improves readability for short tasks</li></ul><ul id="24c7e450-6467-8034-83d3-efaa2486f9a7" class="bulleted-list"><li style="list-style-type:disc">Works well with streams &amp; functional programming style</li></ul><hr id="24c7e450-6467-8096-b58c-ec5e41fb3e1c"/><h3 id="24c7e450-6467-80db-8775-ebb78f46e44c" class=""><strong>Q6: Common Interview Follow-Up</strong></h3><p id="24c7e450-6467-8025-85f4-c6ee5d8677da" class=""><strong>Q:</strong> Is a lambda-based <code>Runnable</code> any different from an anonymous inner class <code>Runnable</code>?</p><p id="24c7e450-6467-808e-a1a6-d590cc8ee328" class=""><strong>A:</strong> Functionally, they behave the same. The difference is <strong>syntax and readability</strong> — lambdas are shorter and capture variables more cleanly.</p><hr id="24c7e450-6467-8045-a94c-c3322ee7575f"/><p id="24c7e450-6467-803d-afd9-f95d9c652cc2" class="">If you want, I can next prepare a <strong>Q&amp;A note on “Thread Naming in Java”</strong> so your Notion multithreading section is complete and consistent. That would tie directly to the <code>&quot;thread2&quot;</code> discussion we just had.</p><p id="24c7e450-6467-80e3-a29e-f7b62ad174ee" class="">
+</p><p id="24c7e450-6467-80e3-b749-dc5d254e875b" class="">
+</p><hr id="24c7e450-6467-80b2-93fb-ee0daa8fbc3c"/><h2 id="24c7e450-6467-8081-994c-fe36c1d85ca8" class="">⚡ Race Condition &amp; Synchronization in Java</h2><hr id="24c7e450-6467-80ba-aa08-c78dff44ccdc"/><h3 id="24c7e450-6467-80bf-b411-ee1fc0b5e507" class="">🧩 <strong>Race Condition</strong></h3><h3 id="24c7e450-6467-807c-a808-d8b446d38620" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-800f-8424-d7ff6a3c293f" class="">A <strong>race condition</strong> occurs when <strong>two or more threads</strong> try to access and modify <strong>shared data</strong> at the same time, and the final outcome depends on the <strong>timing</strong> of their execution.</p><h3 id="24c7e450-6467-80e6-ab3f-d43977437938" class=""><strong>Example (without synchronization)</strong>:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80bf-ad75-dfe9b2cf5b35" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Counter {
+    private int count = 0;
+    public void increment() {
+        count++;
+    }
+    public int getCount() {
+        return count;
+    }
+}
+
+Counter counter = new Counter();
+
+Runnable task = () -&gt; {
+    for (int i = 0; i &lt; 1000; i++) counter.increment();
+};
+
+Thread t1 = new Thread(task);
+Thread t2 = new Thread(task);
+t1.start();
+t2.start();
+t1.join();
+t2.join();
+
+System.out.println(counter.getCount()); // Expected: 2000, may be less due to race condition
+</code></pre><p id="24c7e450-6467-8013-a728-fb2e83e4cac9" class=""><strong>Why less than 2000?</strong></p><ul id="24c7e450-6467-804c-b76d-f304136af69a" class="bulleted-list"><li style="list-style-type:disc"><code>count++</code> is <strong>not atomic</strong>; it involves read → increment → write steps.</li></ul><ul id="24c7e450-6467-804c-bebd-eec58becda9a" class="bulleted-list"><li style="list-style-type:disc">If threads interleave at the wrong time, increments are lost.</li></ul><hr id="24c7e450-6467-80ec-bba0-c863c8d8a9ff"/><h3 id="24c7e450-6467-8037-8075-d5ec38667b27" class="">🛡 <strong>Synchronization</strong></h3><h3 id="24c7e450-6467-809e-bd7e-ef1fb91a9d2e" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-805b-87d8-e6e108e72d45" class=""><strong>Synchronization</strong> ensures that only <strong>one thread</strong> can access a shared resource at a time, preventing race conditions.</p><hr id="24c7e450-6467-8079-a1a5-ddd1ad1dbef8"/><h3 id="24c7e450-6467-809a-8d82-c18c12c2e81d" class=""><strong>1. Synchronized Method</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80aa-a243-e6d89596da01" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public synchronized void increment() {
+    count++;
+}
+</code></pre><ul id="24c7e450-6467-80fa-8ff4-e17c155e7afd" class="bulleted-list"><li style="list-style-type:disc">Locks the <strong>entire method</strong> for the object (<code>this</code>).</li></ul><ul id="24c7e450-6467-8047-abba-fe291ff1315f" class="bulleted-list"><li style="list-style-type:disc">Only one thread can execute this method at a time on the same object.</li></ul><hr id="24c7e450-6467-80e8-ac12-dfd04e6d4e4b"/><h3 id="24c7e450-6467-802d-a7da-c93e97a89ef3" class=""><strong>2. Synchronized Block</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80cc-9916-dca11377d0be" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void increment() {
+    synchronized (this) {
+        count++;
+    }
+}
+</code></pre><ul id="24c7e450-6467-8064-bd31-e57d5b94dbda" class="bulleted-list"><li style="list-style-type:disc">Locks only the <strong>critical section</strong>.</li></ul><ul id="24c7e450-6467-8017-9ea7-d28685c9b7fb" class="bulleted-list"><li style="list-style-type:disc">Allows better performance by not locking unrelated code.</li></ul><hr id="24c7e450-6467-80d9-8bbc-d48036bf7ce5"/><h3 id="24c7e450-6467-8005-928a-ceabf4d86121" class=""><strong>3. Static Synchronization</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80c7-bc7b-f6c0b842133d" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public static synchronized void incrementStatic() { ... }
+</code></pre><ul id="24c7e450-6467-80c2-8454-e64d18f81055" class="bulleted-list"><li style="list-style-type:disc">Locks on the <strong>Class object</strong> (shared among all instances).</li></ul><hr id="24c7e450-6467-8026-afd9-f0f8c2a10738"/><h3 id="24c7e450-6467-80b2-af77-f69823953dea" class=""><strong>4. Advanced Alternatives</strong></h3><ul id="24c7e450-6467-807e-94fa-e2dadb7441c2" class="bulleted-list"><li style="list-style-type:disc"><code>ReentrantLock</code> — More control over locking/unlocking.</li></ul><ul id="24c7e450-6467-80c1-ac7c-e923bbc22a7a" class="bulleted-list"><li style="list-style-type:disc"><code>AtomicInteger</code> — Performs atomic operations without explicit synchronization.</li></ul><ul id="24c7e450-6467-8013-a53f-c70f137eb130" class="bulleted-list"><li style="list-style-type:disc">Concurrent collections like <code>ConcurrentHashMap</code>.</li></ul><hr id="24c7e450-6467-8054-9ee6-d118048f268c"/><h3 id="24c7e450-6467-8099-8fd3-da9e21acdbaa" class="">🔍 <strong>Important Notes</strong></h3><ul id="24c7e450-6467-8081-9942-cc831e15cf7b" class="bulleted-list"><li style="list-style-type:disc">Synchronization can reduce performance due to blocking.</li></ul><ul id="24c7e450-6467-8051-bb49-ff6297d97f32" class="bulleted-list"><li style="list-style-type:disc">Avoid synchronizing <strong>long operations</strong> or <strong>I/O</strong> to prevent bottlenecks.</li></ul><ul id="24c7e450-6467-8085-bdee-e3388e579f24" class="bulleted-list"><li style="list-style-type:disc">Always synchronize <strong>on the smallest possible scope</strong>.</li></ul><hr id="24c7e450-6467-80ec-86ed-fec582813bd6"/><h2 id="24c7e450-6467-8083-8e46-c30105b1e612" class="">💼 <strong>Interview Q&amp;A</strong></h2><p id="24c7e450-6467-800a-8dd8-e5d91d9d9aef" class=""><strong>Q1:</strong> What is a race condition?</p><p id="24c7e450-6467-8003-8acf-cb952757645c" class=""><strong>A:</strong> A race condition occurs when multiple threads modify shared data concurrently without proper synchronization, causing unpredictable results.</p><hr id="24c7e450-6467-808f-97b1-fd200fb6f144"/><p id="24c7e450-6467-8081-ad09-d203a0e28555" class=""><strong>Q2:</strong> How do you prevent race conditions in Java?</p><p id="24c7e450-6467-8014-aed6-c0d8dba32431" class=""><strong>A:</strong> By using synchronization mechanisms such as:</p><ul id="24c7e450-6467-80f0-8343-ed78e60b9b91" class="bulleted-list"><li style="list-style-type:disc"><code>synchronized</code> methods or blocks</li></ul><ul id="24c7e450-6467-80e9-897f-e6a19f7564f3" class="bulleted-list"><li style="list-style-type:disc"><code>Lock</code> API (<code>ReentrantLock</code>)</li></ul><ul id="24c7e450-6467-80e7-ba48-d562501aa413" class="bulleted-list"><li style="list-style-type:disc">Atomic variables (<code>AtomicInteger</code>, etc.)</li></ul><ul id="24c7e450-6467-8050-9c6f-dc6b08ac9c1f" class="bulleted-list"><li style="list-style-type:disc">Thread-safe collections (<code>ConcurrentHashMap</code>)</li></ul><hr id="24c7e450-6467-80de-a6ac-f17be88043d6"/><p id="24c7e450-6467-8038-9911-f8733f46b0b1" class=""><strong>Q3:</strong> Difference between synchronized method and synchronized block?</p><p id="24c7e450-6467-80ef-ae88-d784d9bb209c" class=""><strong>A:</strong></p><ul id="24c7e450-6467-8025-889d-f12fead809d9" class="bulleted-list"><li style="list-style-type:disc">Method: Locks the <strong>whole method</strong>.</li></ul><ul id="24c7e450-6467-8006-80a4-da16dae6f402" class="bulleted-list"><li style="list-style-type:disc">Block: Locks only the critical section, improving performance.</li></ul><hr id="24c7e450-6467-80a1-beb8-d74f03b8a90e"/><p id="24c7e450-6467-805c-8b7d-f6a422c69623" class=""><strong>Q4:</strong> Does <code>synchronized</code> make a method atomic?</p><p id="24c7e450-6467-80ce-afe7-d7c4d415f8af" class=""><strong>A:</strong> Yes, for the scope of that method/block — it ensures only one thread executes it at a time for the same lock object.</p><hr id="24c7e450-6467-80d8-a5b5-fcafcad391ae"/><p id="24c7e450-6467-804a-a159-d8485816d54a" class=""><strong>Q5:</strong> Can a synchronized method call another synchronized method?</p><p id="24c7e450-6467-804c-9d27-f7d9f541b47c" class=""><strong>A:</strong> Yes, Java locks are <strong>reentrant</strong>, so a thread can acquire the same lock multiple times without deadlock.</p><hr id="24c7e450-6467-807a-aeb0-d073f4b0b083"/><p id="24c7e450-6467-8090-b16c-f1617fb54397" class="">If you want, I can next cover <strong>Deadlock, Livelock, and Starvation</strong> — these are the <strong>next logical concurrency topics</strong> interviewers usually ask after race condition &amp; synchronization. Would you like me to move to that?</p><p id="24c7e450-6467-8080-89ac-c8845ff7d5ef" class="">
+</p><p id="24c7e450-6467-80e3-9ebc-c7ba0c7cd593" class=""><strong>Q:</strong> What does the <code>volatile</code> keyword do in Java?</p><p id="24c7e450-6467-8014-b6ac-e34170fae47e" class=""><strong>A:</strong> <code>volatile</code> ensures that a variable is always read from and written to the main memory, making its latest value immediately visible to all threads, but it does not provide atomicity for compound operations.</p><p id="24c7e450-6467-80d2-a7d4-e673c70b54f3" class="">
+</p><p id="24c7e450-6467-8019-9913-c05a1f859014" class="">
+</p><p id="24c7e450-6467-80bc-b137-fe68d096ebcf" class="">
+</p><hr id="24c7e450-6467-80b1-867d-e15fb15ca901"/><h2 id="24c7e450-6467-8065-8bb3-f7e7fd69f8dd" class="">📦 Producer–Consumer Problem</h2><hr id="24c7e450-6467-80ca-a470-fcc40674d780"/><h3 id="24c7e450-6467-8017-bea0-fba427de6757" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-802e-8882-db7f22720f4c" class="">The <strong>Producer–Consumer Problem</strong> is a classic <strong>multi-threading synchronization</strong> problem where:</p><ul id="24c7e450-6467-801d-bfc4-dbde211b6fa0" class="bulleted-list"><li style="list-style-type:disc"><strong>Producer</strong> thread(s) generate data (produce items) and put them into a <strong>shared buffer</strong>.</li></ul><ul id="24c7e450-6467-80d6-b146-e09fc32db4a3" class="bulleted-list"><li style="list-style-type:disc"><strong>Consumer</strong> thread(s) take data from the buffer and process it.</li></ul><ul id="24c7e450-6467-80bf-a924-cd7c9e7b5e8a" class="bulleted-list"><li style="list-style-type:disc">The buffer has a <strong>fixed size</strong> → producers must wait if it’s full, consumers must wait if it’s empty.</li></ul><hr id="24c7e450-6467-80e6-9055-f8e8f241c02b"/><h3 id="24c7e450-6467-8092-802c-f074e5c3c6b1" class=""><strong>Key Challenges</strong></h3><ol type="1" id="24c7e450-6467-80ea-8327-fe909ef5615d" class="numbered-list" start="1"><li><strong>Data consistency</strong> – Multiple threads access the same buffer.</li></ol><ol type="1" id="24c7e450-6467-8071-8fca-e7a248d94560" class="numbered-list" start="2"><li><strong>Synchronization</strong> – Avoid race conditions when adding/removing items.</li></ol><ol type="1" id="24c7e450-6467-80cf-aad3-eec673c9bcc7" class="numbered-list" start="3"><li><strong>Coordination</strong> – Ensure producers wait when buffer is full and consumers wait when buffer is empty.</li></ol><hr id="24c7e450-6467-80b3-8e46-d502eef98588"/><h3 id="24c7e450-6467-8048-abe8-d34069609960" class=""><strong>Common Solutions</strong></h3><hr id="24c7e450-6467-809b-88a4-e3537f86d744"/><h3 id="24c7e450-6467-80eb-99bd-f3ea382e3893" class=""><strong>1. Using </strong><code><strong>wait()</strong></code><strong> and </strong><code><strong>notify()</strong></code></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-808f-9016-de42e2fcbe0f" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">import java.util.LinkedList;
+import java.util.Queue;
+
+class Buffer {
+    private Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+    private final int LIMIT = 5;
+
+    public synchronized void produce(int value) throws InterruptedException {
+        while (queue.size() == LIMIT) {
+            wait(); // wait if buffer is full
+        }
+        queue.add(value);
+        System.out.println(&quot;Produced: &quot; + value);
+        notifyAll(); // wake up consumers
+    }
+
+    public synchronized int consume() throws InterruptedException {
+        while (queue.isEmpty()) {
+            wait(); // wait if buffer is empty
+        }
+        int value = queue.poll();
+        System.out.println(&quot;Consumed: &quot; + value);
+        notifyAll(); // wake up producers
+        return value;
+    }
+}
+
+public class ProducerConsumerExample {
+    public static void main(String[] args) {
+        Buffer buffer = new Buffer();
+
+        Thread producer = new Thread(() -&gt; {
+            int value = 0;
+            try {
+                while (true) buffer.produce(value++);
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        });
+
+        Thread consumer = new Thread(() -&gt; {
+            try {
+                while (true) buffer.consume();
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        });
+
+        producer.start();
+        consumer.start();
+    }
+}
+</code></pre><hr id="24c7e450-6467-8090-a07b-e08c184e2a04"/><h3 id="24c7e450-6467-8043-8bca-c039eba49964" class=""><strong>2. Using </strong><code><strong>BlockingQueue</strong></code><strong> (Simpler)</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-8007-b5a3-e7e9d827655e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+public class ProducerConsumerBQ {
+    public static void main(String[] args) {
+        BlockingQueue&lt;Integer&gt; queue = new ArrayBlockingQueue&lt;&gt;(5);
+
+        Thread producer = new Thread(() -&gt; {
+            int value = 0;
+            try {
+                while (true) {
+                    queue.put(value);
+                    System.out.println(&quot;Produced: &quot; + value++);
+                }
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        });
+
+        Thread consumer = new Thread(() -&gt; {
+            try {
+                while (true) {
+                    System.out.println(&quot;Consumed: &quot; + queue.take());
+                }
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        });
+
+        producer.start();
+        consumer.start();
+    }
+}
+</code></pre><ul id="24c7e450-6467-803a-ba29-c31f66d2d6b0" class="bulleted-list"><li style="list-style-type:disc"><code>put()</code> waits if full</li></ul><ul id="24c7e450-6467-80a0-9f7d-f005d67f79cd" class="bulleted-list"><li style="list-style-type:disc"><code>take()</code> waits if empty</li></ul><ul id="24c7e450-6467-809a-8d0d-f5bd5224fb55" class="bulleted-list"><li style="list-style-type:disc">Automatically handles synchronization.</li></ul><hr id="24c7e450-6467-8017-b0b4-cb1055e8cb33"/><h3 id="24c7e450-6467-8042-98c4-c1797615c57e" class=""><strong>Interview Q&amp;A</strong></h3><p id="24c7e450-6467-8045-9870-c2ed6cf5b95c" class=""><strong>Q1:</strong> Why is synchronization needed in the Producer–Consumer problem?</p><p id="24c7e450-6467-804b-a97b-d86fc97bd6a3" class=""><strong>A:</strong> To prevent race conditions and ensure proper coordination between producer and consumer threads.</p><hr id="24c7e450-6467-80b4-b598-f209e0925842"/><p id="24c7e450-6467-808a-8fb5-f3cefb6c528f" class=""><strong>Q2:</strong> Difference between <code>wait()</code> and <code>sleep()</code> in this problem?</p><p id="24c7e450-6467-8020-8f5f-f64d142b6fab" class=""><strong>A:</strong></p><ul id="24c7e450-6467-8009-a9bf-f5df9cef7664" class="bulleted-list"><li style="list-style-type:disc"><code>wait()</code> releases the lock and allows other threads to acquire it.</li></ul><ul id="24c7e450-6467-800b-b097-c07ac26e7ee8" class="bulleted-list"><li style="list-style-type:disc"><code>sleep()</code> just pauses the thread but <strong>holds the lock</strong>.</li></ul><hr id="24c7e450-6467-809b-8ef4-f12220a79326"/><p id="24c7e450-6467-8023-9e56-c85bc911629c" class=""><strong>Q3:</strong> Why use <code>BlockingQueue</code> over <code>wait()</code>/<code>notify()</code>?</p><p id="24c7e450-6467-80f4-938f-e00977f5b27e" class=""><strong>A:</strong> It simplifies implementation by handling synchronization, blocking, and thread-safety internally.</p><hr id="24c7e450-6467-80c7-967b-cfc2a98c1f8e"/><p id="24c7e450-6467-8054-8e67-c49cbd3772ab" class=""><strong>Q4:</strong> What happens if you remove synchronization?</p><p id="24c7e450-6467-80df-a22d-ca28d05081ba" class=""><strong>A:</strong> Race conditions may occur, items may be lost, or buffer may overflow/underflow.</p><hr id="24c7e450-6467-80f6-8ace-d7f1aa4549e6"/><p id="24c7e450-6467-804d-a3e0-cc98c9851339" class="">
+</p><p id="24c7e450-6467-8064-81d4-dfcbf93ec0f6" class="">
+</p><hr id="24c7e450-6467-8044-bbb1-ce5afb232418"/><h2 id="24c7e450-6467-804d-837e-c42d4af760f8" class="">🧵 Thread <code>yield()</code>, <code>join()</code>, and Scheduling in Java</h2><hr id="24c7e450-6467-8071-b9b6-f497dab07787"/><h3 id="24c7e450-6467-8086-b29f-c5826546f523" class=""><strong>1. </strong><code><strong>Thread.yield()</strong></code></h3><h3 id="24c7e450-6467-809d-b99c-cb2c1611d16d" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-8007-bc81-e0c9258eb32f" class=""><code>yield()</code> is a <strong>static method</strong> that hints to the thread scheduler:</p><blockquote id="24c7e450-6467-80c8-9f2c-e14fb213edd0" class="">&quot;I’m willing to pause and let other threads run.&quot;</blockquote><p id="24c7e450-6467-80a7-87c7-f0c9d2184371" class="">It <strong>does not guarantee</strong> that the thread will stop immediately or that other threads will run — it’s just a <strong>request</strong>.</p><h3 id="24c7e450-6467-805a-a120-fb097a784f59" class=""><strong>Key Points</strong></h3><ul id="24c7e450-6467-80aa-9577-d5990b5e0cf9" class="bulleted-list"><li style="list-style-type:disc">Belongs to the <strong>current thread</strong>.</li></ul><ul id="24c7e450-6467-8033-9621-c1386f49fad1" class="bulleted-list"><li style="list-style-type:disc">Gives <strong>equal-priority threads</strong> a chance to execute.</li></ul><ul id="24c7e450-6467-80a3-a33d-d6e53176f357" class="bulleted-list"><li style="list-style-type:disc">No effect on higher/lower priority threads if scheduler decides otherwise.</li></ul><ul id="24c7e450-6467-801a-9f85-f4359342174a" class="bulleted-list"><li style="list-style-type:disc">Used for <strong>fine-tuning CPU utilization</strong>, but rarely needed in modern Java.</li></ul><p id="24c7e450-6467-80f1-8218-dacc2e958c0a" class=""><strong>Example:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80fb-a032-f18f4fd5cec7" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t1 = new Thread(() -&gt; {
+    for (int i = 0; i &lt; 5; i++) {
+        System.out.println(Thread.currentThread().getName());
+        Thread.yield();
+    }
+});
+t1.start();
+</code></pre><hr id="24c7e450-6467-80df-8860-d4fb81e46206"/><h3 id="24c7e450-6467-8057-bad3-ca4adfb33c2a" class=""><strong>2. </strong><code><strong>join()</strong></code></h3><h3 id="24c7e450-6467-806b-a675-cc9db3414e52" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-80b6-85fb-f4b5ef476e85" class=""><code>join()</code> allows one thread to <strong>wait for the completion</strong> of another thread.</p><h3 id="24c7e450-6467-8031-bc66-f3f7fad91359" class=""><strong>Key Points</strong></h3><ul id="24c7e450-6467-80aa-a32b-f183ce4518ff" class="bulleted-list"><li style="list-style-type:disc">Calling <code>t.join()</code> makes the <strong>current thread</strong> wait until thread <code>t</code> finishes.</li></ul><ul id="24c7e450-6467-808a-af7f-efd8c3ab47cb" class="bulleted-list"><li style="list-style-type:disc">Useful when you want <strong>sequential execution</strong> in a multi-threaded program.</li></ul><ul id="24c7e450-6467-8049-959d-e7eca5c773d6" class="bulleted-list"><li style="list-style-type:disc">Overloaded versions:<ul id="24c7e450-6467-8040-ac8d-c2152ad1809f" class="bulleted-list"><li style="list-style-type:circle"><code>join()</code> → Wait indefinitely.</li></ul><ul id="24c7e450-6467-80e7-b233-fa8972f274d6" class="bulleted-list"><li style="list-style-type:circle"><code>join(milliseconds)</code> → Wait up to given time.</li></ul></li></ul><p id="24c7e450-6467-80fc-a545-fc546c9f1d59" class=""><strong>Example:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80ba-bb18-fc64e7874cd3" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t1 = new Thread(() -&gt; {
+    for (int i = 0; i &lt; 3; i++) System.out.println(&quot;Thread 1: &quot; + i);
+});
+
+Thread t2 = new Thread(() -&gt; {
+    try {
+        t1.join(); // t2 waits for t1 to finish
+        System.out.println(&quot;Thread 2 starts after Thread 1&quot;);
+    } catch (InterruptedException e) { e.printStackTrace(); }
+});
+
+t1.start();
+t2.start();
+</code></pre><hr id="24c7e450-6467-809c-99b9-ee3b6a019be0"/><h3 id="24c7e450-6467-8098-be09-da010b84d0c4" class=""><strong>3. Thread Scheduling</strong></h3><h3 id="24c7e450-6467-8038-bf15-dd6d5fd78ffe" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-80d9-b04c-cac179d0201e" class="">Thread scheduling is how the <strong>JVM + OS decide</strong> which thread runs at a given time.</p><h3 id="24c7e450-6467-80e2-836d-fccc8801eb10" class=""><strong>Key Points</strong></h3><ul id="24c7e450-6467-808b-a11a-c034d35ca8fc" class="bulleted-list"><li style="list-style-type:disc"><strong>Managed by JVM + OS</strong>, not directly by you.</li></ul><ul id="24c7e450-6467-80d0-8991-c8ad962c8ab6" class="bulleted-list"><li style="list-style-type:disc">Based on:<ul id="24c7e450-6467-8049-b472-ee48d40292e3" class="bulleted-list"><li style="list-style-type:circle">Thread <strong>priority</strong> (1 to 10 in Java, default = 5)</li></ul><ul id="24c7e450-6467-8081-b46a-ee73e8bdbdf9" class="bulleted-list"><li style="list-style-type:circle">OS-level scheduling algorithm (usually <strong>time slicing</strong> or <strong>preemptive priority</strong>)</li></ul></li></ul><ul id="24c7e450-6467-807c-b81e-d65d18e0fdf5" class="bulleted-list"><li style="list-style-type:disc">Methods:<ul id="24c7e450-6467-80f7-b15a-d378ff95d33c" class="bulleted-list"><li style="list-style-type:circle"><code>setPriority(int)</code> — Suggest priority (not guaranteed).</li></ul><ul id="24c7e450-6467-8040-9aaf-e5f23a5b086b" class="bulleted-list"><li style="list-style-type:circle"><code>getPriority()</code> — Retrieve thread’s priority.</li></ul></li></ul><hr id="24c7e450-6467-80fe-9cd3-df4fcdbc255e"/><h3 id="24c7e450-6467-8075-bffb-eb0826ab305c" class=""><strong>Comparison Table</strong></h3><table id="24c7e450-6467-80f2-b68c-c3460e1fdf14" class="simple-table"><thead class="simple-table-header"><tr id="24c7e450-6467-80b1-9bdf-e50a409d46af"><th id="p]xM" class="simple-table-header-color simple-table-header">Feature</th><th id="eLtJ" class="simple-table-header-color simple-table-header">Purpose</th><th id="aHkh" class="simple-table-header-color simple-table-header">Blocking?</th><th id="`=&lt;|" class="simple-table-header-color simple-table-header">Guarantee?</th></tr></thead><tbody><tr id="24c7e450-6467-8085-a5b9-ddbbc39cdad3"><td id="p]xM" class=""><code>yield()</code></td><td id="eLtJ" class="">Suggests giving CPU to others</td><td id="aHkh" class="">No</td><td id="`=&lt;|" class="">No</td></tr><tr id="24c7e450-6467-80c4-8eef-e33b1a9e7775"><td id="p]xM" class=""><code>join()</code></td><td id="eLtJ" class="">Wait for another thread to finish</td><td id="aHkh" class="">Yes</td><td id="`=&lt;|" class="">Yes</td></tr><tr id="24c7e450-6467-808e-baee-dfe17f1019e5"><td id="p]xM" class="">Scheduler</td><td id="eLtJ" class="">Decides which thread runs next</td><td id="aHkh" class="">N/A</td><td id="`=&lt;|" class="">N/A</td></tr></tbody></table><hr id="24c7e450-6467-8087-93e2-ffb3ee371b95"/><h3 id="24c7e450-6467-8010-ab93-cdcfa9ec97d0" class=""><strong>Interview Q&amp;A</strong></h3><p id="24c7e450-6467-8032-a8dc-d04b28b88587" class=""><strong>Q1:</strong> What’s the difference between <code>sleep()</code> and <code>yield()</code>?</p><p id="24c7e450-6467-80d9-8c04-f4c5bef4b606" class=""><strong>A:</strong></p><ul id="24c7e450-6467-804a-815c-d734178c5bc9" class="bulleted-list"><li style="list-style-type:disc"><code>sleep()</code> pauses the thread for a set time <strong>and holds CPU if uninterruptible</strong>.</li></ul><ul id="24c7e450-6467-80d1-84b4-f21501bbaaa2" class="bulleted-list"><li style="list-style-type:disc"><code>yield()</code> just hints the scheduler to switch to another thread.</li></ul><hr id="24c7e450-6467-803e-8dc2-c2ba7eadf7d6"/><p id="24c7e450-6467-8048-9db6-ca0139659ea3" class=""><strong>Q2:</strong> Does <code>yield()</code> guarantee another thread will run?</p><p id="24c7e450-6467-8076-97fe-ddb97133cec1" class=""><strong>A:</strong> No, it’s a <strong>hint</strong> — the scheduler may ignore it.</p><hr id="24c7e450-6467-8035-ae02-d9be7e695b8b"/><p id="24c7e450-6467-80e0-9d8a-dff15f96314d" class=""><strong>Q3:</strong> What happens if you call <code>join()</code> on the current thread?</p><p id="24c7e450-6467-80ad-b58b-d1d2120862d6" class=""><strong>A:</strong> It will cause the thread to wait for itself → <strong>deadlock</strong>.</p><hr id="24c7e450-6467-8030-8b56-eeaf87751de6"/><p id="24c7e450-6467-807c-ab50-e10be266bc7e" class=""><strong>Q4:</strong> Can thread priority ensure order of execution?</p><p id="24c7e450-6467-808b-ba0b-e856021f7b47" class=""><strong>A:</strong> No, priority is just a <strong>suggestion</strong> to the scheduler; behavior is platform-dependent.</p><hr id="24c7e450-6467-806b-9cb3-e0860517d2c2"/><p id="24c7e450-6467-808d-9997-dfe7b6d8eec2" class="">If you want, I can also prepare a <strong>flow diagram</strong> showing <code>yield()</code>, <code>join()</code>, and scheduling interaction — makes remembering these much easier for interviews. Would you like me to do that?</p><p id="24c7e450-6467-8001-89b7-fab2a9407090" class="">
+</p><p id="24c7e450-6467-803d-b943-d354a347af28" class="">
+</p><hr id="24c7e450-6467-801a-8084-f1425c2420dd"/><h2 id="24c7e450-6467-80f5-945b-c070876d0cfd" class="">🎯 Thread Priority in Java</h2><hr id="24c7e450-6467-800a-a006-f2d9d0dc43ad"/><h3 id="24c7e450-6467-808e-bd13-e1882a04fb04" class=""><strong>Definition</strong></h3><p id="24c7e450-6467-806c-bb74-e354bd521e49" class="">Thread priority is a <strong>suggestion</strong> to the <strong>thread scheduler</strong> about the importance of a thread compared to others.</p><p id="24c7e450-6467-809d-843d-dd94c857bfcc" class="">In Java, each thread has a priority <strong>integer from 1 to 10</strong>.</p><hr id="24c7e450-6467-80e1-a338-fdb61bdd96de"/><h3 id="24c7e450-6467-8023-b0c6-c0f7cde2149d" class=""><strong>Priority Constants</strong></h3><p id="24c7e450-6467-80ff-87cb-d48dd006755e" class="">Java’s <code>Thread</code> class defines three commonly used constants:</p><table id="24c7e450-6467-80bc-b8d3-f15fae62ce8b" class="simple-table"><thead class="simple-table-header"><tr id="24c7e450-6467-80dd-8196-ecad73c840d2"><th id="H}\h" class="simple-table-header-color simple-table-header">Constant</th><th id="\nEY" class="simple-table-header-color simple-table-header">Value</th><th id="Cq&gt;V" class="simple-table-header-color simple-table-header">Meaning</th></tr></thead><tbody><tr id="24c7e450-6467-80a1-b2c5-c34b988bf4e3"><td id="H}\h" class=""><code>Thread.MIN_PRIORITY</code></td><td id="\nEY" class="">1</td><td id="Cq&gt;V" class="">Least important</td></tr><tr id="24c7e450-6467-80c2-bdef-fdada53b8dc9"><td id="H}\h" class=""><code>Thread.NORM_PRIORITY</code></td><td id="\nEY" class="">5</td><td id="Cq&gt;V" class="">Default priority</td></tr><tr id="24c7e450-6467-80b4-92c9-d77fc7cc2b41"><td id="H}\h" class=""><code>Thread.MAX_PRIORITY</code></td><td id="\nEY" class="">10</td><td id="Cq&gt;V" class="">Most important</td></tr></tbody></table><hr id="24c7e450-6467-80ab-95cb-efce9f03845b"/><h3 id="24c7e450-6467-80a4-847f-d02e95a1aea3" class=""><strong>How It Works</strong></h3><ul id="24c7e450-6467-801e-8546-ef4238c1477f" class="bulleted-list"><li style="list-style-type:disc">Scheduler <strong>may</strong> prefer higher-priority threads, but <strong>priority is not a guarantee</strong> — behavior is <strong>platform + JVM dependent</strong>.</li></ul><ul id="24c7e450-6467-8079-9bcb-c17237f7140f" class="bulleted-list"><li style="list-style-type:disc">Default priority = <strong>parent thread’s priority</strong> (main thread usually has priority <strong>5</strong>).</li></ul><ul id="24c7e450-6467-80cf-ade3-de1308b3e774" class="bulleted-list"><li style="list-style-type:disc">Can be changed using:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-80d7-b077-f0f1a31c165c" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">thread.setPriority(int newPriority);
+thread.getPriority();
+</code></pre><hr id="24c7e450-6467-80e8-a704-ffe95102ee74"/><h3 id="24c7e450-6467-80da-b994-f48af62e866c" class=""><strong>Example</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="24c7e450-6467-8079-a7be-ebf6e133b967" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class PriorityExample {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -&gt; System.out.println(&quot;Low priority&quot;));
+        Thread t2 = new Thread(() -&gt; System.out.println(&quot;High priority&quot;));
+
+        t1.setPriority(Thread.MIN_PRIORITY); // 1
+        t2.setPriority(Thread.MAX_PRIORITY); // 10
+
+        t1.start();
+        t2.start();
+    }
+}
+</code></pre><p id="24c7e450-6467-8077-8ad0-e76f9d751de0" class=""><strong>Note:</strong> Even with high priority, <code>t2</code> might not run first.</p><hr id="24c7e450-6467-8044-8087-cd3df876b10c"/><h3 id="24c7e450-6467-8061-b30a-fcb28a14834d" class=""><strong>Key Points</strong></h3><ul id="24c7e450-6467-80d1-8603-d4fc6c1f6b4c" class="bulleted-list"><li style="list-style-type:disc">Thread priority affects <strong>scheduling</strong>, not <strong>execution speed</strong>.</li></ul><ul id="24c7e450-6467-80f9-b50d-c388c0a7c8f4" class="bulleted-list"><li style="list-style-type:disc">Priority only works <strong>within the same JVM process</strong>.</li></ul><ul id="24c7e450-6467-809d-8716-f8609ba94ec2" class="bulleted-list"><li style="list-style-type:disc">OS scheduler ultimately decides execution order.</li></ul><ul id="24c7e450-6467-80d1-ad52-d29040175cf0" class="bulleted-list"><li style="list-style-type:disc">Overusing priorities can make programs <strong>unpredictable</strong>.</li></ul><hr id="24c7e450-6467-8099-9613-c1aed5fd224e"/><h3 id="24c7e450-6467-8035-8d4a-d88c88520246" class=""><strong>Interview Q&amp;A</strong></h3><p id="24c7e450-6467-80cf-875d-cce222deb539" class=""><strong>Q1:</strong> What’s the range of thread priority in Java?</p><p id="24c7e450-6467-801f-bd1b-c9416b982d07" class=""><strong>A:</strong> 1 (min) to 10 (max), with default = 5.</p><hr id="24c7e450-6467-80f4-8a93-ec66998c2abb"/><p id="24c7e450-6467-8048-9580-cc0dde5d9300" class=""><strong>Q2:</strong> Does higher priority mean faster execution?</p><p id="24c7e450-6467-8014-a61f-c7c8f7feeb85" class=""><strong>A:</strong> No, it only increases the chance of being chosen first by the scheduler.</p><hr id="24c7e450-6467-80af-84b9-c78f0e39106a"/><p id="24c7e450-6467-8047-acb8-fd6b4bfafa36" class=""><strong>Q3:</strong> What happens if you set a priority outside 1–10?</p><p id="24c7e450-6467-8069-b6af-d2d4fbb179ec" class=""><strong>A:</strong> <code>IllegalArgumentException</code> is thrown.</p><hr id="24c7e450-6467-807d-8665-f615b9b41773"/><p id="24c7e450-6467-801e-98fc-ede6b1334446" class=""><strong>Q4:</strong> Can thread priority behavior vary across platforms?</p><p id="24c7e450-6467-80e8-9af0-ca90f99f4022" class=""><strong>A:</strong> Yes — it depends on the OS thread scheduler’s implementation.</p><hr id="24c7e450-6467-80db-8d38-ed6b7500b608"/><p id="24c7e450-6467-807e-bddd-c8f1ad81cf00" class="">If you want, I can next make <strong>notes on </strong><code><strong>sleep()</strong></code><strong> and </strong><code><strong>interrupt()</strong></code><strong> in threads</strong>, since they’re often asked together with <code>priority()</code> in interviews. Would you like me to prepare that?</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

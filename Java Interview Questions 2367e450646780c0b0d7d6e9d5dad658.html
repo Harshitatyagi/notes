@@ -1,0 +1,822 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Java Interview Questions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2367e450-6467-80c0-b0d7-d6e9d5dad658" class="page sans"><header><h1 class="page-title">Java Interview Questions</h1><p class="page-description"></p></header><div class="page-body"><p id="2367e450-6467-803d-9857-c108ca2ee8e0" class="">
+</p><p id="2367e450-6467-8021-8ede-d6f7abb312e0" class="">
+</p><p id="2367e450-6467-80ce-b587-eb362831863b" class="">Q1. What is Java and why is it not considered a pure object-oriented programming language?</p><hr id="2367e450-6467-8043-861d-e1d10f094913"/><hr id="2367e450-6467-8004-a326-c471afa95f03"/><p id="2367e450-6467-805c-947d-e20cf222cae2" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8077-afce-dff3344fd56e" class="">Java is a high-level, class-based, object-oriented programming language designed to have as few implementation dependencies as possible. It was developed by Sun Microsystems and is now maintained by Oracle. Java follows the object-oriented paradigm closely but is <strong>not considered 100% object-oriented</strong> because it supports <strong>primitive data types</strong> (int, char, boolean, etc.) which are <strong>not objects</strong>.</p><p id="2367e450-6467-801e-b4b4-f866e118e410" class="">Java uses <strong>wrapper classes</strong> (like Integer, Character, Boolean) to work with primitives in an object-oriented way, but this is optional. In pure object-oriented languages like Smalltalk, everything is an object.</p><hr id="2367e450-6467-80a2-9285-dbd3fef1c773"/><h3 id="2367e450-6467-80dc-914e-e81782dd77bc" class="">Q2. What are the key components required to run a Java program?</h3><p id="2367e450-6467-80aa-bb21-e14b3563c181" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8084-af7b-eadddacad15a" class="">To run a Java program, the following components are needed:</p><ol type="1" id="2367e450-6467-8096-9f46-efe0b55b7c13" class="numbered-list" start="1"><li><strong>JDK (Java Development Kit):</strong> Contains tools to compile, debug, and run Java programs. Includes JRE.</li></ol><ol type="1" id="2367e450-6467-80f4-900a-c674eccf954f" class="numbered-list" start="2"><li><strong>JRE (Java Runtime Environment):</strong> Contains JVM and libraries required to run applications.</li></ol><ol type="1" id="2367e450-6467-8033-83ae-ff2074cfbf52" class="numbered-list" start="3"><li><strong>JVM (Java Virtual Machine):</strong> Interprets bytecode (.class file) and executes it on the host machine.</li></ol><ol type="1" id="2367e450-6467-806d-b62a-c903579e6897" class="numbered-list" start="4"><li><strong>.java file:</strong> Source code.</li></ol><ol type="1" id="2367e450-6467-801e-add9-ce6e9c2526de" class="numbered-list" start="5"><li><strong>.class file:</strong> Compiled bytecode by the Java compiler.</li></ol><hr id="2367e450-6467-8089-8b09-e9a231b9557c"/><h3 id="2367e450-6467-8020-a14d-db92dfd4a260" class="">Q3. What are the main features of Java?</h3><p id="2367e450-6467-802f-a981-fc0f76e40f69" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-80f3-a5e5-ea020416a276" class="bulleted-list"><li style="list-style-type:disc"><strong>Object-Oriented:</strong> Everything is organized as objects and classes.</li></ul><ul id="2367e450-6467-803b-ba7a-e4f5b20fc419" class="bulleted-list"><li style="list-style-type:disc"><strong>Platform-Independent:</strong> &quot;Write Once, Run Anywhere&quot; using bytecode and JVM.</li></ul><ul id="2367e450-6467-806c-8f00-eb17715fc241" class="bulleted-list"><li style="list-style-type:disc"><strong>Simple &amp; Familiar:</strong> Syntax is close to C++ but with less complexity.</li></ul><ul id="2367e450-6467-80a8-a3b0-f66e9b0ed2e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Secure:</strong> Bytecode verification and sandbox execution.</li></ul><ul id="2367e450-6467-80c2-8534-fa1ac31d33de" class="bulleted-list"><li style="list-style-type:disc"><strong>Robust:</strong> Strong memory management, exception handling.</li></ul><ul id="2367e450-6467-80d3-978b-dca02f0bff47" class="bulleted-list"><li style="list-style-type:disc"><strong>Multithreaded:</strong> Supports concurrent execution via threads.</li></ul><ul id="2367e450-6467-8090-9fc4-d75a776a2ae2" class="bulleted-list"><li style="list-style-type:disc"><strong>High Performance:</strong> Through Just-In-Time (JIT) compiler.</li></ul><ul id="2367e450-6467-80ae-9d9f-e7403151406c" class="bulleted-list"><li style="list-style-type:disc"><strong>Dynamic:</strong> Supports loading classes dynamically at runtime.</li></ul><hr id="2367e450-6467-80a5-ae40-fe498725c0be"/><h3 id="2367e450-6467-80e9-bbc3-c7bf425ee205" class="">Q4. What is the Java String Pool?</h3><p id="2367e450-6467-8091-bf14-e6726a023187" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8068-bf4d-c7926ddb2372" class="">The <strong>String Pool</strong> is a special memory area in the heap where Java stores string literals.</p><p id="2367e450-6467-808f-aa90-d5be8d86fbf6" class="">When a string is created using <strong>double quotes</strong>, JVM checks the pool:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8002-87a5-cba1a3c2f75e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s1 = &quot;hello&quot;; // Stored in the string pool
+String s2 = &quot;hello&quot;; // Reuses s1
+</code></pre><p id="2367e450-6467-809d-866e-f374b73bead5" class="">But when using <code>new</code> keyword:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8023-83b1-cbbdaa59947f" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">String s3 = new String(&quot;hello&quot;); // Stored in heap, not the pool
+</code></pre><p id="2367e450-6467-80e1-bb81-cc5078d95704" class="">You can force pool usage using <code>intern()</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80e8-b2be-d49fdba06a9a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">s3.intern();
+</code></pre><p id="2367e450-6467-80dd-9e03-e352d3e3074f" class="">Benefits: saves memory and improves performance.</p><hr id="2367e450-6467-8034-a0bf-e2238f329370"/><h3 id="2367e450-6467-80bd-a23f-fdb3a2509f6e" class="">Q5. What are Wrapper Classes in Java?</h3><p id="2367e450-6467-8058-8d3d-ca7bbf33bb2f" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8019-9555-dbc2144292df" class="">Wrapper classes <strong>convert primitive types into objects</strong>. For example:</p><ul id="2367e450-6467-806c-95de-e798e46a2db7" class="bulleted-list"><li style="list-style-type:disc"><code>int</code> → <code>Integer</code></li></ul><ul id="2367e450-6467-80b8-9be5-f90d46fbfd55" class="bulleted-list"><li style="list-style-type:disc"><code>char</code> → <code>Character</code></li></ul><p id="2367e450-6467-80ac-92cb-cd2657996c81" class="">Java supports <strong>autoboxing</strong> and <strong>unboxing</strong>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8067-9f3d-c753aa166190" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Integer a = 10; // Autoboxing
+int b = a; // Unboxing
+</code></pre><p id="2367e450-6467-8042-b4d7-c348d59e41f4" class="">Use cases:</p><ul id="2367e450-6467-8027-ade6-f50d47c0dd1d" class="bulleted-list"><li style="list-style-type:disc">Collections (like ArrayList) can only store objects.</li></ul><ul id="2367e450-6467-803e-8bdc-cfd9af54dd2d" class="bulleted-list"><li style="list-style-type:disc">Useful for type conversion and utilities.</li></ul><hr id="2367e450-6467-80e0-9178-ed17cbc9e4fe"/><h3 id="2367e450-6467-80c0-849e-eea191bb7e16" class="">Q6. Scenario-based Question on Collections in Java</h3><p id="2367e450-6467-8049-ba80-eca1e2d1804f" class=""><strong>Scenario:</strong> You want to store unique user IDs while maintaining insertion order.</p><p id="2367e450-6467-8098-882c-d9b9b892fc28" class=""><strong>Solution:</strong> Use <code>LinkedHashSet</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8012-badc-c7d5c348dd0f" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Set&lt;String&gt; userIds = new LinkedHashSet&lt;&gt;();
+userIds.add(&quot;UID1&quot;);
+userIds.add(&quot;UID2&quot;);
+</code></pre><p id="2367e450-6467-8073-b36e-c199ee567093" class=""><strong>Alternate Scenario:</strong> Retrieve sorted data automatically → Use <code>TreeMap</code> or <code>TreeSet</code>.</p><p id="2367e450-6467-8089-9c39-fc4b22370b09" class=""><strong>Concurrency Requirement:</strong> Use <code>ConcurrentHashMap</code> or <code>CopyOnWriteArrayList</code>.</p><hr id="2367e450-6467-8082-8c81-d886a31043e4"/><h3 id="2367e450-6467-808d-9d64-cfa29ee27d70" class="">Q7. What is the use of <code>this</code> and <code>super</code> keywords?</h3><p id="2367e450-6467-8061-a919-d9e907ec9994" class=""><strong>this:</strong> Refers to the current instance of a class. Used to:</p><ul id="2367e450-6467-801f-9518-f07587fb4962" class="bulleted-list"><li style="list-style-type:disc">Differentiate between instance variables and parameters.</li></ul><ul id="2367e450-6467-8044-87e1-fadc358babab" class="bulleted-list"><li style="list-style-type:disc">Call one constructor from another (constructor chaining).</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-802e-9027-caa4e116e5a5" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class A {
+   int x;
+   A(int x) {
+     this.x = x; // disambiguation
+   }
+}
+</code></pre><p id="2367e450-6467-80af-bdee-cc49f53b5e17" class=""><strong>super:</strong> Refers to the immediate parent class. Used to:</p><ul id="2367e450-6467-80c9-a9d3-e22266d8f05d" class="bulleted-list"><li style="list-style-type:disc">Access parent methods/constructors.</li></ul><ul id="2367e450-6467-8037-a3b2-ea8d56cce63c" class="bulleted-list"><li style="list-style-type:disc">Call overridden methods.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80f0-87ef-e64b7b5b2b21" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class B extends A {
+   B() {
+     super(5); // call parent constructor
+   }
+}
+</code></pre><hr id="2367e450-6467-80cc-8104-ccab17448b28"/><h3 id="2367e450-6467-8010-a801-cdc59847fdd9" class="">Q8. Difference between Static and Instance Methods</h3><table id="2367e450-6467-8058-a194-e5bc44f94767" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-806a-aa04-ee203fd4de32"><th id="AZaG" class="simple-table-header-color simple-table-header">Feature</th><th id="Jm:A" class="simple-table-header-color simple-table-header">Static Method</th><th id="I=YP" class="simple-table-header-color simple-table-header">Instance Method</th></tr></thead><tbody><tr id="2367e450-6467-80b7-9e71-c4f5d9aee45e"><td id="AZaG" class="">Belongs To</td><td id="Jm:A" class="">Class</td><td id="I=YP" class="">Object</td></tr><tr id="2367e450-6467-80b1-8499-fd94c433ccbf"><td id="AZaG" class="">Invocation</td><td id="Jm:A" class="">ClassName.method()</td><td id="I=YP" class="">object.method()</td></tr><tr id="2367e450-6467-80bc-bb13-c70a41961274"><td id="AZaG" class="">Access Instance Data</td><td id="Jm:A" class="">No</td><td id="I=YP" class="">Yes</td></tr><tr id="2367e450-6467-8073-9981-ed7906c12e86"><td id="AZaG" class="">Example</td><td id="Jm:A" class=""><code>Math.abs(-3)</code></td><td id="I=YP" class=""><code>str.length()</code></td></tr><tr id="2367e450-6467-8071-baec-ef968b790ac3"><td id="AZaG" class="">Memory</td><td id="Jm:A" class="">Loaded at class loading</td><td id="I=YP" class="">Per object</td></tr></tbody></table><hr id="2367e450-6467-80df-a24c-c93c1c360ebd"/><h3 id="2367e450-6467-8028-8f41-cb411b54643e" class="">Q9. What are Constructors and their types?</h3><p id="2367e450-6467-8073-947e-de80d0be70de" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8083-86ac-de7461f77588" class="">Constructors are special methods invoked at the time of object creation.</p><p id="2367e450-6467-808c-b655-c4b7e9b97fdd" class=""><strong>Types:</strong></p><ol type="1" id="2367e450-6467-802f-b720-d1bbc71afb35" class="numbered-list" start="1"><li><strong>Default Constructor:</strong> No parameters.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80a7-b230-efa71dca17d4" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class A {
+  A() { System.out.println(&quot;Default&quot;); }
+}
+</code></pre><ol type="1" id="2367e450-6467-80b8-aee0-cf7fbf9a0d28" class="numbered-list" start="1"><li><strong>Parameterized Constructor:</strong> With arguments.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8046-a12b-c99f3e777ab7" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">A(int x) { this.x = x; }
+</code></pre><ol type="1" id="2367e450-6467-80f0-929a-d8c1e2a8a49b" class="numbered-list" start="1"><li><strong>Copy Constructor:</strong> Manually create one to copy another object.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80cd-869e-e86741947e72" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">A(A obj) { this.x = obj.x; }
+</code></pre><p id="2367e450-6467-80d7-89e2-f6ccfd8b2baf" class="">Java does not provide a default copy constructor like C++.</p><hr id="2367e450-6467-806a-a3d1-dd76ed99f0a1"/><h3 id="2367e450-6467-8025-b4e8-e10434257cf5" class="">Q10. Difference between StringBuffer and StringBuilder</h3><table id="2367e450-6467-8059-8e9e-dcfdd3e7cd3d" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-8011-8f54-d02d11dfa6f1"><th id="m~}j" class="simple-table-header-color simple-table-header">Feature</th><th id="sHm@" class="simple-table-header-color simple-table-header">StringBuffer</th><th id="vOvy" class="simple-table-header-color simple-table-header">StringBuilder</th></tr></thead><tbody><tr id="2367e450-6467-80e6-8216-cd8d7271894e"><td id="m~}j" class="">Thread Safe</td><td id="sHm@" class="">Yes (synchronized methods)</td><td id="vOvy" class="">No</td></tr><tr id="2367e450-6467-80f6-a31d-e326e42d2d99"><td id="m~}j" class="">Performance</td><td id="sHm@" class="">Slower</td><td id="vOvy" class="">Faster</td></tr><tr id="2367e450-6467-80dc-a894-dec40084e1dd"><td id="m~}j" class="">Introduced In</td><td id="sHm@" class="">JDK 1.0</td><td id="vOvy" class="">JDK 1.5</td></tr><tr id="2367e450-6467-8002-af29-e178c6b80396"><td id="m~}j" class="">Use Case</td><td id="sHm@" class="">Multi-threaded environment</td><td id="vOvy" class="">Single-threaded environment</td></tr></tbody></table><p id="2367e450-6467-80d0-b925-e0758859cf23" class="">Example:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8062-9c5f-eb43c4d0e529" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+sb.append(&quot; World&quot;);
+</code></pre><p id="2367e450-6467-8036-ba31-ef355f8fe3ed" class="">Use <code>StringBuilder</code> when thread safety is not a concern for better performance.</p><hr id="2367e450-6467-800d-a8da-d45c4dd7291f"/><p id="2367e450-6467-80eb-bf4a-f40cb318fab6" class="">Let me know when you&#x27;re ready for Q11–Q30!</p><hr id="2367e450-6467-80c7-bb86-cafa4a3d853b"/><h3 id="2367e450-6467-8087-b8b3-e0fd4ed9bd7e" class="">Q11. Abstract Classes vs Interfaces</h3><p id="2367e450-6467-80a4-afe2-e1ceac285da8" class=""><strong>Answer:</strong></p><table id="2367e450-6467-800a-a24a-ea6f20e452fe" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-80fd-bda9-e19f59a95b12"><th id=";&gt;pi" class="simple-table-header-color simple-table-header">Feature</th><th id="wIQ&gt;" class="simple-table-header-color simple-table-header">Abstract Class</th><th id="Md`^" class="simple-table-header-color simple-table-header">Interface</th></tr></thead><tbody><tr id="2367e450-6467-80a4-8787-dde97de74e87"><td id=";&gt;pi" class="">Methods</td><td id="wIQ&gt;" class="">Can have abstract and concrete methods</td><td id="Md`^" class="">Can have abstract, default, and static methods (Java 8+)</td></tr><tr id="2367e450-6467-80a0-aa09-cba162577949"><td id=";&gt;pi" class="">Variables</td><td id="wIQ&gt;" class="">Can have instance variables</td><td id="Md`^" class="">Only public static final variables</td></tr><tr id="2367e450-6467-80ad-a061-e4df7c26ce46"><td id=";&gt;pi" class="">Constructors</td><td id="wIQ&gt;" class="">Can have constructors</td><td id="Md`^" class="">Cannot have constructors</td></tr><tr id="2367e450-6467-80c4-9682-fdd4a4e79a0f"><td id=";&gt;pi" class="">Inheritance</td><td id="wIQ&gt;" class="">A class can extend only one abstract class</td><td id="Md`^" class="">A class can implement multiple interfaces</td></tr></tbody></table><p id="2367e450-6467-802c-8743-d9107ffc940d" class=""><strong>When to use:</strong></p><ul id="2367e450-6467-80b7-9f46-ffe38eddab17" class="bulleted-list"><li style="list-style-type:disc">Use abstract class when behaviors are closely related.</li></ul><ul id="2367e450-6467-80c3-9867-fe6537ec0225" class="bulleted-list"><li style="list-style-type:disc">Use interface when behaviors are shared across unrelated classes.</li></ul><hr id="2367e450-6467-8075-8e68-f350aa79d49e"/><h3 id="2367e450-6467-80fd-a7a1-ea0233773a7e" class="">Q12. Method Overloading and Can we overload the main() method?</h3><p id="2367e450-6467-8032-baaf-f6c285b805ae" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8075-92ca-d45f375041ef" class=""><strong>Method Overloading</strong> means defining multiple methods with the same name but different parameter lists (type, number, or order).</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8099-9b2c-f9eed7fc7de7" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">void print(String s) {}
+void print(int i) {}
+</code></pre><p id="2367e450-6467-8071-aa4f-dbc7dfb38b57" class=""><strong>Yes</strong>, we can overload the <code>main()</code> method, but only the signature <code>public static void main(String[] args)</code> is called by JVM. Others must be called manually.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80c3-883e-c35e6f834fe8" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public static void main(String[] args) {
+    main(5);
+}
+
+public static void main(int x) {
+    System.out.println(&quot;Overloaded main: &quot; + x);
+}
+</code></pre><hr id="2367e450-6467-8028-b600-d238afda4c95"/><h3 id="2367e450-6467-8098-84fd-fb0ba898d71e" class="">Q13. Method Overriding</h3><p id="2367e450-6467-8014-a103-fe3715950bf1" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8089-a5f1-def14657e424" class="">Method overriding is when a subclass provides a specific implementation for a method already defined in the parent class.</p><p id="2367e450-6467-80c9-bee5-faa91addffd2" class="">Rules:</p><ul id="2367e450-6467-806d-b3d0-f783c386d0a2" class="bulleted-list"><li style="list-style-type:disc">Must have same method signature.</li></ul><ul id="2367e450-6467-80ca-ade7-c7761edf7a0b" class="bulleted-list"><li style="list-style-type:disc">Access modifier must be same or more accessible.</li></ul><ul id="2367e450-6467-8022-9dbd-cdd23fdb8cb2" class="bulleted-list"><li style="list-style-type:disc">Cannot override <code>final</code>, <code>static</code>, or <code>private</code> methods.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80b1-865d-df557162b22e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">class Parent {
+    void greet() {
+        System.out.println(&quot;Hello from Parent&quot;);
+    }
+}
+class Child extends Parent {
+    @Override
+    void greet() {
+        System.out.println(&quot;Hello from Child&quot;);
+    }
+}
+</code></pre><hr id="2367e450-6467-809a-88d5-f682dad199b4"/><h3 id="2367e450-6467-8013-b041-f2af439add8e" class="">Q14. Exception Handling in Java</h3><p id="2367e450-6467-8017-b99e-df265fd99952" class=""><strong>Answer:</strong></p><p id="2367e450-6467-80ac-ac0a-f258d39ef907" class="">Java uses a robust exception handling mechanism to handle runtime errors.</p><p id="2367e450-6467-80f7-af5e-f82c7b864039" class=""><strong>Keywords:</strong></p><ul id="2367e450-6467-8021-b2d9-f6e81fe5fbd0" class="bulleted-list"><li style="list-style-type:disc"><code>try</code> – block where code might throw exception</li></ul><ul id="2367e450-6467-80c2-98c3-dbf35babea66" class="bulleted-list"><li style="list-style-type:disc"><code>catch</code> – handles specific exception</li></ul><ul id="2367e450-6467-8079-a48f-c311dc6187e4" class="bulleted-list"><li style="list-style-type:disc"><code>finally</code> – executes whether or not exception occurred</li></ul><ul id="2367e450-6467-801d-b42b-ec5072c430d8" class="bulleted-list"><li style="list-style-type:disc"><code>throw</code> – used to explicitly throw an exception</li></ul><ul id="2367e450-6467-8096-aa29-e01837718069" class="bulleted-list"><li style="list-style-type:disc"><code>throws</code> – declares exceptions in method signature</li></ul><p id="2367e450-6467-806f-8ede-c5e7f6ca6a55" class=""><strong>Types:</strong></p><ul id="2367e450-6467-80d2-a548-dbc74c5bf509" class="bulleted-list"><li style="list-style-type:disc"><strong>Checked Exceptions:</strong> Handled at compile-time (IOException)</li></ul><ul id="2367e450-6467-8055-8f13-f6a160ce4501" class="bulleted-list"><li style="list-style-type:disc"><strong>Unchecked Exceptions:</strong> Occur at runtime (NullPointerException)</li></ul><hr id="2367e450-6467-8014-a865-e91c5199370a"/><h3 id="2367e450-6467-8019-9b3e-e29bacba42dd" class="">Q15. Lifecycle of a Thread</h3><p id="2367e450-6467-8091-b4af-fa3ee2839d84" class=""><strong>Answer:</strong></p><ol type="1" id="2367e450-6467-8026-850b-d9a25da0db3c" class="numbered-list" start="1"><li><strong>New:</strong> Thread is created using <code>new Thread()</code>.</li></ol><ol type="1" id="2367e450-6467-8094-bfb5-d530f2bf393b" class="numbered-list" start="2"><li><strong>Runnable:</strong> Thread is eligible to run but not yet selected by the scheduler.</li></ol><ol type="1" id="2367e450-6467-80ee-b923-d01783d1be30" class="numbered-list" start="3"><li><strong>Running:</strong> Thread is executing.</li></ol><ol type="1" id="2367e450-6467-8074-abf9-ccaafc8500d0" class="numbered-list" start="4"><li><strong>Blocked/Waiting:</strong> Thread is waiting for resources or signal.</li></ol><ol type="1" id="2367e450-6467-8095-a144-c1b5f99e1630" class="numbered-list" start="5"><li><strong>Terminated:</strong> Thread has completed or aborted.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-804e-b30d-d8a5c02a2337" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Thread t = new Thread();
+t.start(); // Runnable -&gt; Running
+</code></pre><hr id="2367e450-6467-80d8-b3cf-d49256e91531"/><h3 id="2367e450-6467-8018-adb9-db6f785ce2dc" class="">Q16. Singleton Class</h3><p id="2367e450-6467-8057-b363-cf72f33a8956" class=""><strong>Answer:</strong></p><p id="2367e450-6467-806e-815d-d809665ba823" class="">A Singleton class ensures only one instance is created and provides a global point of access.</p><p id="2367e450-6467-80b8-b562-cadacc7251b9" class=""><strong>Why use it?</strong></p><ul id="2367e450-6467-804e-ab5d-f4bac5e25a49" class="bulleted-list"><li style="list-style-type:disc">Logging, caching, configuration classes.</li></ul><p id="2367e450-6467-802b-a4bc-cb444e4f90c7" class=""><strong>Implementation:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-803f-a3e4-da87d1cdab98" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Singleton {
+    private static Singleton instance = null;
+    private Singleton() {}
+    public static Singleton getInstance() {
+        if(instance == null) instance = new Singleton();
+        return instance;
+    }
+}
+</code></pre><p id="2367e450-6467-809e-b51a-eaef8ad390f6" class="">For thread safety, use synchronized blocks or enum-based singleton.</p><hr id="2367e450-6467-800d-baa3-ebc7851ad4ff"/><h3 id="2367e450-6467-80cf-886d-e3068b1a9197" class="">Q17. Aggregation vs Composition</h3><p id="2367e450-6467-80a0-a09b-ebd230408bfb" class=""><strong>Answer:</strong></p><table id="2367e450-6467-80fc-9a9c-f36ef02fccd0" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-80f0-9195-fcd0e9ee914b"><th id="ykS}" class="simple-table-header-color simple-table-header">Feature</th><th id="QCFh" class="simple-table-header-color simple-table-header">Aggregation</th><th id="FzuA" class="simple-table-header-color simple-table-header">Composition</th></tr></thead><tbody><tr id="2367e450-6467-8006-91b2-d56925468a68"><td id="ykS}" class="">Definition</td><td id="QCFh" class="">Has-A relationship (weak)</td><td id="FzuA" class="">Stronger Has-A (dependent)</td></tr><tr id="2367e450-6467-8055-8d22-d57898a0b175"><td id="ykS}" class="">Lifespan</td><td id="QCFh" class="">Child can exist independently</td><td id="FzuA" class="">Child cannot exist without parent</td></tr><tr id="2367e450-6467-8012-9134-fd72d18b7fbd"><td id="ykS}" class="">Example</td><td id="QCFh" class="">Department has Students</td><td id="FzuA" class="">House has Rooms</td></tr></tbody></table><hr id="2367e450-6467-806e-9d60-c44c6b9ca96c"/><h3 id="2367e450-6467-809a-9554-fbd852ce270f" class="">Q18. Anonymous Inner Class</h3><p id="2367e450-6467-804f-9b81-dbaf404ac5d0" class=""><strong>Answer:</strong></p><p id="2367e450-6467-8015-b24c-df9ef30d2b3b" class="">An anonymous inner class is a class without a name and is declared and instantiated in a single expression.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8046-9349-ecd8fef5a1c7" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Runnable r = new Runnable() {
+    public void run() {
+        System.out.println(&quot;Thread running&quot;);
+    }
+};
+new Thread(r).start();
+</code></pre><p id="2367e450-6467-8004-b7a9-e25f28864394" class=""><strong>Use Case:</strong> GUI event handling, quick implementation of interface or abstract class methods.</p><hr id="2367e450-6467-8039-bbbe-ddb17693b1aa"/><h3 id="2367e450-6467-80a1-adc2-e1683c3ebf35" class="">Q19. Difference between Implicit and Explicit Type Conversion</h3><p id="2367e450-6467-80fc-b80f-c7d58ae9755f" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-8091-b8a7-c4849cb8c6d7" class="bulleted-list"><li style="list-style-type:disc"><strong>Implicit (Widening):</strong> Performed by the compiler.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8087-8006-f75edd081c85" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">int a = 10;
+long b = a; // int to long
+</code></pre><ul id="2367e450-6467-80de-9592-f20849e8e184" class="bulleted-list"><li style="list-style-type:disc"><strong>Explicit (Narrowing):</strong> Done manually using casting.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8029-a485-c16328488204" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">double d = 10.5;
+int i = (int) d; // double to int
+</code></pre><p id="2367e450-6467-809c-a227-dae51bbccaae" class="">Explicit conversion may lead to data loss.</p><hr id="2367e450-6467-8010-9dbe-eb86e6db52c6"/><h3 id="2367e450-6467-8066-916b-cee2aa17ff8a" class="">Q20. Purpose of <code>volatile</code> keyword</h3><p id="2367e450-6467-80da-a57e-fdc1494a4099" class=""><strong>Answer:</strong></p><p id="2367e450-6467-80b8-af3d-cddeb4ba1553" class="">The <code>volatile</code> keyword ensures visibility of changes to variables across threads.</p><p id="2367e450-6467-80cb-b506-df4cae31f235" class="">Without <code>volatile</code>, threads may cache variable values and not read updates from main memory.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-807d-9050-ccec72b72982" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">volatile boolean flag = true;
+</code></pre><p id="2367e450-6467-8064-9c46-cd37e1dd7f41" class="">Used in multi-threaded programs to avoid stale data and maintain consistency.</p><hr id="2367e450-6467-80b9-ab56-c6b9c1133a94"/><h3 id="2367e450-6467-801e-94e0-e7a27c470193" class="">Q21. <code>System.out</code>, <code>System.err</code>, and <code>System.in</code></h3><p id="2367e450-6467-80f7-8a55-efb984d2a32d" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-8014-af5c-cd6ffdd8abe1" class="bulleted-list"><li style="list-style-type:disc"><code>System.out</code>: Standard output stream (prints normal messages)</li></ul><ul id="2367e450-6467-809a-aa36-d3bf5a6738ea" class="bulleted-list"><li style="list-style-type:disc"><code>System.err</code>: Error output stream (prints error messages)</li></ul><ul id="2367e450-6467-8012-87cf-e102fb0ee6f5" class="bulleted-list"><li style="list-style-type:disc"><code>System.in</code>: Standard input stream (used to read input from keyboard)</li></ul><hr id="2367e450-6467-8001-b583-c78ff59396a6"/><h3 id="2367e450-6467-8023-be31-ca7b26f6ce3c" class="">Q22. Access Specifiers in Java</h3><p id="2367e450-6467-80ed-b424-e14133a0bbb9" class=""><strong>Answer:</strong></p><table id="2367e450-6467-80ac-b972-c5e0b5c5cda6" class="simple-table"><thead class="simple-table-header"><tr id="2367e450-6467-807b-a449-e5cfafc9f54f"><th id="eNot" class="simple-table-header-color simple-table-header">Modifier</th><th id="z{Tm" class="simple-table-header-color simple-table-header">Class</th><th id="&lt;vkP" class="simple-table-header-color simple-table-header">Package</th><th id="tgaQ" class="simple-table-header-color simple-table-header">Subclass</th><th id="pP|X" class="simple-table-header-color simple-table-header">World</th></tr></thead><tbody><tr id="2367e450-6467-8074-b95a-cae0d3e6046e"><td id="eNot" class=""><code>private</code></td><td id="z{Tm" class="">✔</td><td id="&lt;vkP" class="">✖</td><td id="tgaQ" class="">✖</td><td id="pP|X" class="">✖</td></tr><tr id="2367e450-6467-80f3-a966-c47c5f69175b"><td id="eNot" class="">Default</td><td id="z{Tm" class="">✔</td><td id="&lt;vkP" class="">✔</td><td id="tgaQ" class="">✖</td><td id="pP|X" class="">✖</td></tr><tr id="2367e450-6467-8091-99f0-c2fe1797e082"><td id="eNot" class=""><code>protected</code></td><td id="z{Tm" class="">✔</td><td id="&lt;vkP" class="">✔</td><td id="tgaQ" class="">✔</td><td id="pP|X" class="">✖</td></tr><tr id="2367e450-6467-80f2-b59c-f913ce91570b"><td id="eNot" class=""><code>public</code></td><td id="z{Tm" class="">✔</td><td id="&lt;vkP" class="">✔</td><td id="tgaQ" class="">✔</td><td id="pP|X" class="">✔</td></tr></tbody></table><p id="2367e450-6467-80e1-b642-dd0cd57e2be3" class="">Use access modifiers to restrict access to class members and encapsulate data.</p><hr id="2367e450-6467-80b2-8d50-ed06c3f3689f"/><h3 id="2367e450-6467-8012-963a-daa20464e33b" class="">Q23. Difference: <code>final</code>, <code>finally</code>, and <code>finalize()</code></h3><p id="2367e450-6467-80b3-a460-c09f09ce5d17" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-80cc-a03d-c3d61a9e3738" class="bulleted-list"><li style="list-style-type:disc"><code>final</code>: Used to declare constants, prevent method overriding or inheritance.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80fc-bfd2-d2a50a89258e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">final int x = 10;
+</code></pre><ul id="2367e450-6467-801f-b5d2-fa24f771d927" class="bulleted-list"><li style="list-style-type:disc"><code>finally</code>: Always executes after try-catch. Used to release resources.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8043-9d87-e68006fd1766" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">try {} catch(Exception e) {} finally { // clean-up }
+</code></pre><ul id="2367e450-6467-805e-b33b-c3cc572106da" class="bulleted-list"><li style="list-style-type:disc"><code>finalize()</code>: Method called by Garbage Collector before object is destroyed. Deprecated since Java 9.</li></ul><hr id="2367e450-6467-8052-9c8a-f2aafec2e725"/><h3 id="2367e450-6467-80e5-89e1-dcf255aba538" class="">Q24. WAP to toggle characters of a string</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80db-ae9d-eeb96877b5fd" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public String toggleCase(String input) {
+    StringBuilder result = new StringBuilder();
+    for (char c : input.toCharArray()) {
+        if (Character.isUpperCase(c))
+            result.append(Character.toLowerCase(c));
+        else if (Character.isLowerCase(c))
+            result.append(Character.toUpperCase(c));
+        else
+            result.append(c);
+    }
+    return result.toString();
+}
+</code></pre><hr id="2367e450-6467-808c-a17b-d1abef5ce30d"/><h3 id="2367e450-6467-8016-aaa6-dfad6f0b7e39" class="">Q25. WAP to count the occurrence of digits in a number</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80d6-8472-ec3f10e346fc" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void countDigits(int number) {
+    int[] count = new int[10];
+    while (number &gt; 0) {
+        count[number % 10]++;
+        number /= 10;
+    }
+    for (int i = 0; i &lt; 10; i++) {
+        if (count[i] &gt; 0)
+            System.out.println(&quot;Digit &quot; + i + &quot;: &quot; + count[i]);
+    }
+}
+</code></pre><hr id="2367e450-6467-809b-aa0e-fd0acf35daad"/><h3 id="2367e450-6467-8067-b7cd-c616e64ed93d" class="">Q26. WAP to reverse an array</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-802d-a9b1-e0f14fd5d6f4" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public void reverseArray(int[] arr) {
+    int start = 0, end = arr.length - 1;
+    while (start &lt; end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
+</code></pre><hr id="2367e450-6467-80fc-afbc-c5e8957ec6e6"/><h3 id="2367e450-6467-808a-ba5a-f2d0e7bd2de2" class="">Q27. Anagram Strings</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-805e-894a-eadfee59f7af" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public boolean isAnagram(String s1, String s2) {
+    if (s1.length() != s2.length()) return false;
+    char[] a1 = s1.toCharArray();
+    char[] a2 = s2.toCharArray();
+    Arrays.sort(a1);
+    Arrays.sort(a2);
+    return Arrays.equals(a1, a2);
+}
+</code></pre><hr id="2367e450-6467-808d-9b87-f49b5a4e9037"/><h3 id="2367e450-6467-805f-98b8-f4b41656298f" class="">Q28. WAP to find first and last occurrence in array</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80f2-ab93-f08f42056ffe" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public int[] findFirstLast(int[] arr, int x) {
+    int first = -1, last = -1;
+    for (int i = 0; i &lt; arr.length; i++) {
+        if (arr[i] == x) {
+            if (first == -1) first = i;
+            last = i;
+        }
+    }
+    return new int[] {first, last};
+}
+</code></pre><hr id="2367e450-6467-806c-a879-ceae280521ba"/><h3 id="2367e450-6467-80d1-8076-d000dbb8d182" class="">Q29. Why is String immutable in Java?</h3><p id="2367e450-6467-802b-aa57-d40f08edcaef" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-80a3-88ab-ef1554afdf74" class="bulleted-list"><li style="list-style-type:disc"><strong>Security:</strong> String is used in class loading and networking. Mutability may lead to security issues.</li></ul><ul id="2367e450-6467-8010-a47f-eb3a415a727d" class="bulleted-list"><li style="list-style-type:disc"><strong>Thread-Safety:</strong> Immutable objects are thread-safe by default.</li></ul><ul id="2367e450-6467-8093-b329-e3c01bd82cd6" class="bulleted-list"><li style="list-style-type:disc"><strong>Caching:</strong> String Pool allows reuse, reducing memory footprint.</li></ul><ul id="2367e450-6467-806d-91a4-d2c77d0e45db" class="bulleted-list"><li style="list-style-type:disc"><strong>Hashcode caching:</strong> Immutable ensures consistent hashcode, which is vital for collections like HashMap.</li></ul><hr id="2367e450-6467-80b7-8590-d83ae83872d4"/><h3 id="2367e450-6467-8028-a45c-ce0b042f335f" class="">Q30. Difference between Deep and Shallow Copy</h3><p id="2367e450-6467-806c-a19c-e260efd61837" class=""><strong>Answer:</strong></p><ul id="2367e450-6467-80fe-99a3-d6f13c7ee528" class="bulleted-list"><li style="list-style-type:disc"><strong>Shallow Copy:</strong> Creates a new object, but references the same inner objects.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-80e8-a48b-dc1388ea7ce3" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Person p1 = new Person();
+Person p2 = p1; // Shallow
+</code></pre><ul id="2367e450-6467-80aa-a6e9-e3fc540e4bb1" class="bulleted-list"><li style="list-style-type:disc"><strong>Deep Copy:</strong> Creates a new object and also copies all nested objects.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2367e450-6467-8089-af9d-faf8d6d05c7a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Person p2 = new Person(p1); // Deep (requires clone or manual copy)
+</code></pre><p id="2367e450-6467-8007-b2ac-c95499171163" class="">Use deep copy when mutable objects are involved to avoid side effects.</p><hr id="2367e450-6467-800a-bec2-dd1f23438ed6"/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
