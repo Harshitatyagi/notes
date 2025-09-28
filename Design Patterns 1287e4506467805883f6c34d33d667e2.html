@@ -1,0 +1,907 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Design Patterns</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1287e450-6467-8058-83f6-c34d33d667e2" class="page sans"><header><h1 class="page-title">Design Patterns</h1><p class="page-description"></p></header><div class="page-body"><p id="1287e450-6467-8062-80db-ecb63bb2f9a3" class="">
+</p><figure id="1287e450-6467-80dd-b97b-cbc8a0aed662" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image.png"><img style="width:707.9791870117188px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image.png"/></a></figure><figure id="1287e450-6467-8080-91f5-ed3cfc37b34b" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%201.png"><img style="width:707.9896240234375px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%201.png"/></a></figure><figure id="1287e450-6467-8074-b897-e7c791072222" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%202.png"><img style="width:707.9791870117188px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%202.png"/></a></figure><figure id="1287e450-6467-8077-92bd-e18c0efa07a0" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%203.png"><img style="width:707.9896240234375px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%203.png"/></a></figure><figure id="1287e450-6467-809a-b0fe-e04ac8a5e3c4" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%204.png"><img style="width:707.9791870117188px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%204.png"/></a></figure><figure id="1287e450-6467-8085-a4f9-c2bc2a70851a" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%205.png"><img style="width:707.9791870117188px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%205.png"/></a></figure><figure id="1287e450-6467-80ea-b180-f88d19e19acb" class="image"><a href="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%206.png"><img style="width:707.9896240234375px" src="Design%20Patterns%201287e4506467805883f6c34d33d667e2/image%206.png"/></a></figure><p id="1287e450-6467-8088-8dd0-dde7183e7fb1" class="">
+</p><p id="1287e450-6467-8081-8fd3-c903e6732410" class="">Here&#x27;s the lazy initialization singleton code with detailed comments for you to use directly:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1287e450-6467-809b-a3cd-e5810108f36a" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">package com.globalsoftwaresupport;
+
+public class DatabaseConnector {
+
+    // Lazy initialization of the singleton instance.
+    // The instance is not created until the first time it is needed.
+    private static DatabaseConnector INSTANCE;
+
+    // Private constructor to prevent external instantiation.
+    // This ensures that the class cannot be instantiated from outside this class.
+    private DatabaseConnector() {
+        // Prevent reflection attack
+        // We can add extra protection to prevent instantiation via reflection,
+        // but that&#x27;s a more advanced step.
+    }
+
+    // Public method to provide global access to the singleton instance.
+    // This method ensures only one instance of the class is created.
+    public static DatabaseConnector getInstance() {
+
+        // Check if the instance is null (i.e., has not been created yet).
+        if(INSTANCE == null) {
+            // If multiple threads access this method simultaneously, they might both
+            // try to create the instance.Using synchronized ensures that only one thread
+            // can enter this block and create the instance.
+            synchronized(DatabaseConnector.class) {
+                // If INSTANCE is still null, create a new instance.
+                // This block guarantees that the instance is created only once.
+                if (INSTANCE == null) {
+                    INSTANCE = new DatabaseConnector();
+                }
+            }
+        }
+
+        // Return the singleton instance.
+        return INSTANCE;
+    }
+
+    // Method to simulate connecting to a database.
+    public void connect() {
+        System.out.println(&quot;Connecting to the database...&quot;);
+    }
+
+    // Method to simulate disconnecting from a database.
+    public void disconnect() {
+        System.out.println(&quot;Disconnecting...&quot;);
+    }
+}
+</code></pre><h3 id="1287e450-6467-805d-a668-c7a9d9ad700b" class="">Notes:</h3><ul id="1287e450-6467-8046-90e1-d24e10039611" class="bulleted-list"><li style="list-style-type:disc"><strong>Lazy Initialization</strong>: The instance is only created when <code>getInstance()</code> is called for the first time, optimizing resource usage.</li></ul><ul id="1287e450-6467-80c0-b350-e4078a5ff06d" class="bulleted-list"><li style="list-style-type:disc"><strong>Thread Safety</strong>: The <code>synchronized</code> block ensures that only one thread can create the instance at a time, preventing race conditions in a multithreaded environment.</li></ul><ul id="1287e450-6467-80e8-9a0b-ec0b1a62941c" class="bulleted-list"><li style="list-style-type:disc"><strong>Double-Checked Locking</strong>: Inside the synchronized block, the instance is checked again (<code>if (INSTANCE == null)</code>) to prevent multiple threads from creating instances.</li></ul><ul id="1287e450-6467-80ae-80ef-c3c4584391e2" class="bulleted-list"><li style="list-style-type:disc"><strong>Private Constructor</strong>: Ensures the class cannot be instantiated from outside, making it a true singleton.</li></ul><p id="1287e450-6467-801e-ab02-d63d377d4a24" class="">You can save this code to a file as it includes all the necessary comments for understanding the lazy initialization singleton pattern.</p><p id="2347e450-6467-8061-9835-ee7ce3ac9f1a" class="">
+</p><p id="2347e450-6467-80aa-85f4-d22f52aa7c63" class="">
+</p><h2 id="2347e450-6467-808b-8405-ee5495e128ac" class="">🏭 <strong>Factory Design Pattern – Notes</strong></h2><hr id="2347e450-6467-80f0-8c90-dbd9184bac22"/><hr id="2347e450-6467-8037-8d5c-d86909669b0f"/><h3 id="2347e450-6467-80f8-acb1-d76d9c2ca088" class="">📌 <strong>Definition</strong></h3><p id="2347e450-6467-80e5-8009-e230e8307c42" class="">The <strong>Factory Pattern</strong> provides an interface to create objects but allows subclasses or a factory method to decide which class to instantiate.</p><blockquote id="2347e450-6467-8034-95d5-cfd6c4fa9f47" class="">🔧 Use when: The object creation logic depends on input or varies by type, and you want to encapsulate this logic outside of your core business code.</blockquote><hr id="2347e450-6467-80f6-935d-f15d8c914969"/><h3 id="2347e450-6467-8007-ac9a-c45b497373b4" class="">🔍 <strong>Why Use It?</strong></h3><ul id="2347e450-6467-8050-87f6-c17875d98232" class="bulleted-list"><li style="list-style-type:disc">✅ Avoids <strong>tight coupling</strong> between object creation and usage</li></ul><ul id="2347e450-6467-80b2-b4a4-d351a761b815" class="bulleted-list"><li style="list-style-type:disc">✅ Promotes <strong>Open/Closed Principle</strong> – add new types without modifying core code</li></ul><ul id="2347e450-6467-8030-b8f6-d68e7e0cb824" class="bulleted-list"><li style="list-style-type:disc">✅ Makes the code <strong>more testable, extensible, and modular</strong></li></ul><ul id="2347e450-6467-80e8-a488-e13839e57d36" class="bulleted-list"><li style="list-style-type:disc">✅ Ideal when you have a <strong>common interface and multiple implementations</strong></li></ul><hr id="2347e450-6467-8097-ba4a-c2902fe430d9"/><h3 id="2347e450-6467-8001-bf8a-ca694ee8c506" class="">🛠️ <strong>How to Identify When to Use Factory Pattern</strong></h3><blockquote id="2347e450-6467-80fc-820c-d53cfdfb3de6" class="">Ask yourself:<p id="2347e450-6467-8096-b67f-d35405963f5c" class=""><strong>“Do I have multiple types of an object that share behavior but differ in implementation?”</strong></p><p id="2347e450-6467-80ff-8256-e608ca72a0eb" class="">If yes, Factory Pattern is a good fit.</p></blockquote><hr id="2347e450-6467-8073-885e-d5d6c9583c52"/><h3 id="2347e450-6467-804f-80d7-e8db6bc65004" class="">🧱 <strong>Structure</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-8069-8a88-e5d0f13c1ac9" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Step 1: Define the interface
+interface Notification {
+    void send();
+}
+
+// Step 2: Create subclasses
+class SMSNotification implements Notification {
+    public void send() {
+        System.out.println(&quot;Sending SMS&quot;);
+    }
+}
+
+class EmailNotification implements Notification {
+    public void send() {
+        System.out.println(&quot;Sending Email&quot;);
+    }
+}
+
+// Step 3: Create the Factory
+class NotificationFactory {
+    public static Notification getNotification(String type) {
+        if (type.equalsIgnoreCase(&quot;sms&quot;)) return new SMSNotification();
+        else if (type.equalsIgnoreCase(&quot;email&quot;)) return new EmailNotification();
+        throw new IllegalArgumentException(&quot;Unknown type&quot;);
+    }
+}
+
+// Step 4: Client code
+Notification notification = NotificationFactory.getNotification(&quot;sms&quot;);
+notification.send();
+</code></pre><hr id="2347e450-6467-806f-8301-c3d2ab3bf1a9"/><h3 id="2347e450-6467-801f-a6fc-d31d5ec190f9" class="">📦 <strong>Real-World Use Cases</strong></h3><table id="2347e450-6467-8020-b9ac-d190ca63388e" class="simple-table"><thead class="simple-table-header"><tr id="2347e450-6467-805e-bdba-d2ab9c898c77"><th id="zg?u" class="simple-table-header-color simple-table-header">System</th><th id="r@dg" class="simple-table-header-color simple-table-header">Factory Used For</th></tr></thead><tbody><tr id="2347e450-6467-80e9-8f40-cd2c1c4edf34"><td id="zg?u" class="">Parking Lot</td><td id="r@dg" class="">Create <code>Vehicle</code> or <code>Ticket</code> objects based on type</td></tr><tr id="2347e450-6467-80fa-b7c5-eec6c1760b40"><td id="zg?u" class="">Elevator</td><td id="r@dg" class="">Create <code>Request</code> or <code>Elevator</code> objects</td></tr><tr id="2347e450-6467-80f0-8967-cc80e79d8f4b"><td id="zg?u" class="">Ice Cream Shop</td><td id="r@dg" class="">Create <code>Product</code> (Cup, Cone, Sundae)</td></tr><tr id="2347e450-6467-80a1-a53d-f9cb7fb29dee"><td id="zg?u" class="">Notification System</td><td id="r@dg" class="">Create <code>Notification</code> (SMS, Email, Push)</td></tr><tr id="2347e450-6467-800b-9ae1-ed0b7a118e33"><td id="zg?u" class="">Tic Tac Toe</td><td id="r@dg" class="">Create different <code>Player</code> objects (Bot, Human)</td></tr></tbody></table><hr id="2347e450-6467-809a-a995-d3b4773fba4f"/><h3 id="2347e450-6467-80f7-829a-fb881c52c484" class="">🧠 <strong>Key Design Principles</strong></h3><ul id="2347e450-6467-80b6-a8f2-cde0c671644c" class="bulleted-list"><li style="list-style-type:disc"><strong>Open/Closed Principle (OCP):</strong> Add new types without modifying existing code.</li></ul><ul id="2347e450-6467-8010-ab5c-d5ad04740786" class="bulleted-list"><li style="list-style-type:disc"><strong>Single Responsibility Principle (SRP):</strong> Factory class handles object creation.</li></ul><ul id="2347e450-6467-8002-83b0-f0697384f73f" class="bulleted-list"><li style="list-style-type:disc"><strong>Dependency Inversion:</strong> High-level modules depend on abstractions, not concrete classes.</li></ul><hr id="2347e450-6467-8015-84c5-cd9d09957c74"/><h3 id="2347e450-6467-8087-add5-d23b29f05e8c" class="">⚠️ <strong>Common Mistakes to Avoid</strong></h3><ul id="2347e450-6467-8044-b3c8-cd33f33ab3b5" class="bulleted-list"><li style="list-style-type:disc">❌ Mixing creation logic inside the main class (violates SRP &amp; OCP)</li></ul><ul id="2347e450-6467-80f4-bae2-c60deffde8fb" class="bulleted-list"><li style="list-style-type:disc">❌ Not handling invalid input properly</li></ul><ul id="2347e450-6467-803c-95a0-f3ebc59a1441" class="bulleted-list"><li style="list-style-type:disc">❌ Forgetting to define a clear abstraction (interface or base class)</li></ul><hr id="2347e450-6467-807d-9796-eee8840edbe7"/><h3 id="2347e450-6467-80e1-a2e4-cf90a1145ac2" class="">🧵 <strong>One-Liner Summary</strong></h3><blockquote id="2347e450-6467-8083-a8fd-f3dc2368d2bd" class="">&quot;Use the Factory Pattern when your code needs to create objects based on conditions without exposing the instantiation logic.&quot;</blockquote><hr id="2347e450-6467-80fc-bc6a-ca56a47af9b4"/><p id="2347e450-6467-802c-9f52-d4e31dfcd3db" class="">
+</p><p id="2347e450-6467-8047-9e83-df3ddf0408e3" class="">There is one more variation of it Abstract Factory. Studied but not documenting. </p><p id="2347e450-6467-800f-8c2a-c9aeb5f37877" class="">
+</p><p id="2347e450-6467-8067-80b6-d4db5d7dbfd8" class="">
+</p><hr id="2347e450-6467-80ad-9efd-c918d8113d4b"/><h2 id="2347e450-6467-804e-8524-d98f0952dde3" class="">👁️‍🗨️ <strong>Observer Design Pattern – Notes</strong></h2><hr id="2347e450-6467-808f-a3a0-d12289fa2201"/><h3 id="2347e450-6467-80a5-a91c-d53f7e6e618b" class="">📌 <strong>Definition</strong></h3><blockquote id="2347e450-6467-809f-92ac-dd05bba58b3c" class="">The Observer Pattern defines a one-to-many dependency between objects so that when one object (the Subject) changes its state, all its dependents (Observers) are automatically notified and updated.</blockquote><hr id="2347e450-6467-8017-9250-cefcb5d02cbc"/><h3 id="2347e450-6467-8030-89b5-fab5c95789ae" class="">🔍 <strong>When to Use</strong></h3><ul id="2347e450-6467-80c2-a8bb-c47b4eff3a9e" class="bulleted-list"><li style="list-style-type:disc">When multiple components need to react to <strong>changes in another object</strong>.</li></ul><ul id="2347e450-6467-8077-bd4d-c7efc1d6061a" class="bulleted-list"><li style="list-style-type:disc">You want to implement an <strong>event system</strong> without tightly coupling the source and listeners.</li></ul><ul id="2347e450-6467-8049-a6b8-e326092d91a5" class="bulleted-list"><li style="list-style-type:disc">Especially useful in <strong>real-time update systems</strong> or <strong>publish/subscribe models</strong>.</li></ul><hr id="2347e450-6467-8073-9cc9-cb1a19989ab2"/><h3 id="2347e450-6467-8012-987f-d5d1d339d5cc" class="">🧠 <strong>Real-world Analogy</strong></h3><p id="2347e450-6467-80a1-ae01-f6dbd359a629" class="">Think of a <strong>YouTube Channel (Subject)</strong> and its <strong>Subscribers (Observers)</strong>:</p><ul id="2347e450-6467-8019-bfea-c7abc20cf6d8" class="bulleted-list"><li style="list-style-type:disc">When a new video is uploaded (state change),</li></ul><ul id="2347e450-6467-800c-9523-ff6eb695bf7f" class="bulleted-list"><li style="list-style-type:disc">All subscribers are notified.</li></ul><hr id="2347e450-6467-80a6-8fe8-d53d5ca2142d"/><h3 id="2347e450-6467-80f5-b552-ddd77599276d" class="">🛠️ <strong>Structure</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-80f5-8f47-f166ae2ebb06" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Step 1: Observer Interface
+interface Observer {
+    void update(String message);
+}
+
+// Step 2: Subject Interface
+interface Subject {
+    void register(Observer o);
+    void unregister(Observer o);
+    void notifyObservers(String message);
+}
+
+// Step 3: Concrete Subject
+class Channel implements Subject {
+    private List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
+
+    public void register(Observer o) { observers.add(o); }
+    public void unregister(Observer o) { observers.remove(o); }
+
+    public void notifyObservers(String message) {
+        for (Observer o : observers) {
+            o.update(message);
+        }
+    }
+
+    public void uploadNewVideo(String videoTitle) {
+        notifyObservers(&quot;New video uploaded: &quot; + videoTitle);
+    }
+}
+
+// Step 4: Concrete Observer
+class Subscriber implements Observer {
+    private String name;
+    public Subscriber(String name) { this.name = name; }
+
+    public void update(String message) {
+        System.out.println(name + &quot; received: &quot; + message);
+    }
+}
+
+// Usage
+public class Main {
+    public static void main(String[] args) {
+        Channel ytChannel = new Channel();
+        Observer user1 = new Subscriber(&quot;Lakshman&quot;);
+        Observer user2 = new Subscriber(&quot;Ravi&quot;);
+
+        ytChannel.register(user1);
+        ytChannel.register(user2);
+
+        ytChannel.uploadNewVideo(&quot;Observer Pattern in 5 Minutes!&quot;);
+    }
+}
+</code></pre><hr id="2347e450-6467-804e-b29f-e0ef36879234"/><h3 id="2347e450-6467-80f0-ae77-fcfb077966f1" class="">🔄 Real-World Use Cases</h3><table id="2347e450-6467-8069-9232-f436511af9a4" class="simple-table"><thead class="simple-table-header"><tr id="2347e450-6467-80f2-b36e-d6f9e65654b4"><th id="u:Qa" class="simple-table-header-color simple-table-header">System</th><th id="hEON" class="simple-table-header-color simple-table-header">Observer Pattern Used For</th></tr></thead><tbody><tr id="2347e450-6467-8001-bfd8-ecbc0e4f2aa4"><td id="u:Qa" class=""><strong>Parking Lot</strong></td><td id="hEON" class="">Update display boards or notify admins when full</td></tr><tr id="2347e450-6467-80e9-911a-d2eaa53f72ce"><td id="u:Qa" class=""><strong>Elevator System</strong></td><td id="hEON" class="">Floors observe elevator movements (arrive, door open)</td></tr><tr id="2347e450-6467-80d1-b757-e06578dd9c91"><td id="u:Qa" class=""><strong>Notification System</strong></td><td id="hEON" class="">Push updates to users (email/SMS)</td></tr><tr id="2347e450-6467-80cf-ae45-e11cd7922e98"><td id="u:Qa" class=""><strong>Game System (Tic Tac Toe)</strong></td><td id="hEON" class="">UI observes game state (win, draw)</td></tr><tr id="2347e450-6467-8006-ba4a-eea88f615a0f"><td id="u:Qa" class=""><strong>Stock Market App</strong></td><td id="hEON" class="">Traders get notified of price changes</td></tr></tbody></table><hr id="2347e450-6467-808c-94ee-cbadd9b84f2e"/><h3 id="2347e450-6467-8031-a46c-eef4b338af21" class="">✅ Benefits</h3><ul id="2347e450-6467-8033-a56e-efa724e5ab0c" class="bulleted-list"><li style="list-style-type:disc">Decouples <strong>event producers</strong> from <strong>event consumers</strong></li></ul><ul id="2347e450-6467-8059-8954-cf15067fa89b" class="bulleted-list"><li style="list-style-type:disc">Easy to add/remove observers at runtime</li></ul><ul id="2347e450-6467-8002-81d0-c454d1590104" class="bulleted-list"><li style="list-style-type:disc">Promotes <strong>low coupling</strong> and <strong>high flexibility</strong></li></ul><hr id="2347e450-6467-8055-aab4-eb7b2463c603"/><h3 id="2347e450-6467-8032-97e0-f1f283f74272" class="">⚠️ Common Mistakes</h3><ul id="2347e450-6467-80bf-af6a-cd058994dd03" class="bulleted-list"><li style="list-style-type:disc">Forgetting to unregister observers → memory leaks</li></ul><ul id="2347e450-6467-803b-8a52-d3dd475142c7" class="bulleted-list"><li style="list-style-type:disc">Tight coupling between Subject and Observer logic</li></ul><ul id="2347e450-6467-80cd-a9b7-c5896fd1d0a4" class="bulleted-list"><li style="list-style-type:disc">Not using interfaces → hard to extend/test</li></ul><hr id="2347e450-6467-80b2-8cc0-cad60636ce7f"/><h3 id="2347e450-6467-8050-9bf1-e489e64b038c" class="">🧠 Design Principle</h3><ul id="2347e450-6467-807a-b254-e00e7e82d43e" class="bulleted-list"><li style="list-style-type:disc"><strong>&quot;Program to an interface, not an implementation&quot;</strong></li></ul><ul id="2347e450-6467-80b1-aebf-fc7a5e611678" class="bulleted-list"><li style="list-style-type:disc">Promotes <strong>Dependency Inversion Principle</strong> (DIP)</li></ul><hr id="2347e450-6467-8024-9f04-f2e44cbac7ee"/><h3 id="2347e450-6467-80a5-9bd3-d5c36793ff86" class="">🧵 One-Liner Summary</h3><blockquote id="2347e450-6467-8025-b323-c2b7945fd18e" class="">&quot;Use Observer Pattern when you have a subject whose changes should automatically notify and update multiple dependent components.&quot;</blockquote><hr id="2347e450-6467-8029-8a93-c822e7bc174e"/><h3 id="2347e450-6467-8060-a812-cd2dbab8463c" class="">🔍 Related Patterns</h3><ul id="2347e450-6467-80b1-b689-f3ca42eeca84" class="bulleted-list"><li style="list-style-type:disc"><strong>Publisher-Subscriber</strong> (loosely related but message broker-based)</li></ul><ul id="2347e450-6467-8000-80c9-d602f499bfb1" class="bulleted-list"><li style="list-style-type:disc"><strong>Mediator</strong> (if many observers need centralized coordination)</li></ul><hr id="2347e450-6467-8079-bbcb-d3fa6fb1a134"/><p id="2347e450-6467-809a-909e-f5466bc82ad5" class="">Would you like me to prepare a <strong>UML diagram</strong> or a <strong>real-world LLD problem (like Elevator or Stock Ticker)</strong> implemented using this pattern?</p><p id="2347e450-6467-801b-acbf-d00019e52713" class="">
+</p><p id="2347e450-6467-803d-b849-db5e0bf08d88" class="">
+</p><p id="2347e450-6467-8081-97ea-d1c3219ec21b" class="">
+</p><hr id="2347e450-6467-805f-a6ad-d96930e6aa18"/><h2 id="2347e450-6467-80df-8ba8-c7e50a00bdb2" class="">🧠 <strong>Strategy Design Pattern</strong></h2><h3 id="2347e450-6467-803d-86a7-d7d8534bf32a" class="">📌 Purpose:</h3><blockquote id="2347e450-6467-80f7-aeac-f5efb48f71fd" class="">Define a family of algorithms, encapsulate each one, and make them interchangeable.</blockquote><p id="2347e450-6467-80bb-b96e-d12d5e1e7297" class="">Used when <strong>you want to select an algorithm at runtime</strong>, <strong>decouple business logic</strong> from specific implementations.</p><hr id="2347e450-6467-80d4-837e-c162cd0a968e"/><h3 id="2347e450-6467-805f-b469-c3788c067230" class="">📦 <strong>Real-world Analogy</strong> – Payment Gateway</h3><p id="2347e450-6467-80eb-876a-eaf81b5d184a" class="">Let’s say you are building an <strong>e-commerce app</strong>. It supports:</p><ul id="2347e450-6467-8013-872c-f403f82e446b" class="bulleted-list"><li style="list-style-type:disc">✅ Multiple <strong>payment methods</strong>: Credit Card, PayPal, UPI.</li></ul><ul id="2347e450-6467-80d7-9e1f-cd444d9f7775" class="bulleted-list"><li style="list-style-type:disc">✅ Multiple <strong>discount strategies</strong>: New User, Festival, No Discount.</li></ul><ul id="2347e450-6467-80b0-bb05-e8a50b5c1443" class="bulleted-list"><li style="list-style-type:disc">✅ Multiple <strong>tax rules</strong>: Based on region (India, US, EU).</li></ul><p id="2347e450-6467-8059-8158-c8670e34c426" class="">Each of these can be swapped <strong>independently</strong>, and they follow <strong>Strategy Pattern</strong>.</p><hr id="2347e450-6467-80a2-ab15-ddc7684dd942"/><h3 id="2347e450-6467-80ab-89ec-f528344b855f" class="">💡 Key Interfaces:</h3><h3 id="2347e450-6467-8001-8ab3-ee5e143de087" class="">1️⃣ Payment Strategy:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-8077-8ba3-e648ac5c13b3" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface PaymentStrategy {
+    void pay(double amount);
+}
+</code></pre><h3 id="2347e450-6467-80b4-b6b3-d39802eff49b" class="">2️⃣ Discount Strategy:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-804f-ac3b-c50bc0728784" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface DiscountStrategy {
+    double applyDiscount(double amount);
+}
+</code></pre><h3 id="2347e450-6467-8023-a285-cfb92ec8b2ce" class="">3️⃣ Tax Strategy:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-8094-8e8d-fe0ca44a0bbd" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public interface TaxStrategy {
+    double calculateTax(double amount);
+}
+</code></pre><hr id="2347e450-6467-8043-a545-eb3c5872ec47"/><h3 id="2347e450-6467-80d3-9218-dee71339c7ee" class="">✅ Implementations</h3><h3 id="2347e450-6467-80ec-9405-c0919cee3f2f" class="">Payment Strategies:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-808d-8a65-c0d8270fec15" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class CreditCardPayment implements PaymentStrategy {
+    public void pay(double amount) {
+        System.out.println(&quot;Paid ₹&quot; + amount + &quot; using Credit Card&quot;);
+    }
+}
+
+public class PayPalPayment implements PaymentStrategy {
+    public void pay(double amount) {
+        System.out.println(&quot;Paid ₹&quot; + amount + &quot; using PayPal&quot;);
+    }
+}
+</code></pre><h3 id="2347e450-6467-802d-8c6c-fe34af6fc792" class="">Discount Strategies:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-80ab-8182-ca2d12148ed0" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class NewUserDiscount implements DiscountStrategy {
+    public double applyDiscount(double amount) {
+        return amount * 0.90; // 10% off
+    }
+}
+
+public class FestivalDiscount implements DiscountStrategy {
+    public double applyDiscount(double amount) {
+        return amount * 0.80; // 20% off
+    }
+}
+</code></pre><h3 id="2347e450-6467-8065-9d72-e98cb0f6f1c4" class="">Tax Strategies:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-8017-9175-cb9850038542" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class IndiaTax implements TaxStrategy {
+    public double calculateTax(double amount) {
+        return amount * 0.18; // 18% GST
+    }
+}
+
+public class USTax implements TaxStrategy {
+    public double calculateTax(double amount) {
+        return amount * 0.07; // 7% Sales Tax
+    }
+}
+</code></pre><hr id="2347e450-6467-805e-98b5-f74b28cdeb93"/><h3 id="2347e450-6467-809d-9582-ff10602413bb" class="">🎮 Context Class</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-807b-a4f2-d0d65818f198" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class PaymentProcessor {
+    private PaymentStrategy paymentStrategy;
+    private DiscountStrategy discountStrategy;
+    private TaxStrategy taxStrategy;
+
+    public PaymentProcessor(PaymentStrategy p, DiscountStrategy d, TaxStrategy t) {
+        this.paymentStrategy = p;
+        this.discountStrategy = d;
+        this.taxStrategy = t;
+    }
+
+    public void processPayment(double baseAmount) {
+        double discounted = discountStrategy.applyDiscount(baseAmount);
+        double tax = taxStrategy.calculateTax(discounted);
+        double finalAmount = discounted + tax;
+        paymentStrategy.pay(finalAmount);
+    }
+}
+</code></pre><hr id="2347e450-6467-8000-948b-c20b4916630c"/><h3 id="2347e450-6467-8027-b04b-efc4915db7b9" class="">🧪 Sample Usage</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2347e450-6467-8049-8332-d422704cfa8e" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class Main {
+    public static void main(String[] args) {
+        PaymentStrategy payment = new PayPalPayment();
+        DiscountStrategy discount = new FestivalDiscount();
+        TaxStrategy tax = new IndiaTax();
+
+        PaymentProcessor processor = new PaymentProcessor(payment, discount, tax);
+        processor.processPayment(1000.0);
+    }
+}
+</code></pre><hr id="2347e450-6467-809e-b968-f4ea42477e7e"/><h3 id="2347e450-6467-8019-9d63-ed85400667b1" class="">📍 Benefits:</h3><ul id="2347e450-6467-8025-94c6-e952d26d361f" class="bulleted-list"><li style="list-style-type:disc">Open/Closed Principle (easily add new strategies)</li></ul><ul id="2347e450-6467-809e-bda4-f3b93d21b9de" class="bulleted-list"><li style="list-style-type:disc">Cleaner, modular design</li></ul><ul id="2347e450-6467-80c0-a924-fce1eba57303" class="bulleted-list"><li style="list-style-type:disc">Can unit test each strategy independently</li></ul><hr id="2347e450-6467-80fe-96c9-ea077108064c"/><h3 id="2347e450-6467-8044-aee1-c3a71e1ecef4" class="">🧠 Common Interview Use Cases:</h3><ul id="2347e450-6467-80be-a0b7-de6b3be91cc7" class="bulleted-list"><li style="list-style-type:disc">Bot difficulty levels (Tic Tac Toe, Chess)</li></ul><ul id="2347e450-6467-80fa-b587-ff539331b2a5" class="bulleted-list"><li style="list-style-type:disc">Ride pricing in cab apps</li></ul><ul id="2347e450-6467-80d4-a033-f15c39ad1044" class="bulleted-list"><li style="list-style-type:disc">Sorting/searching with pluggable strategies</li></ul><ul id="2347e450-6467-80d0-a79e-ea8384f71af9" class="bulleted-list"><li style="list-style-type:disc">Payment/discount/tax handling</li></ul><hr id="2347e450-6467-8025-b289-eb19bdddb2cf"/></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,788 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Design Pattern 3- Structural Design Pattern</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="17b7e450-6467-80c4-a703-c9b24dc037c6" class="page sans"><header><h1 class="page-title">Design Pattern 3- Structural Design Pattern</h1><p class="page-description"></p></header><div class="page-body"><p id="17b7e450-6467-809e-b939-c608e786eccf" class="">
+</p><h3 id="17b7e450-6467-806f-9181-c115467e3137" class=""><strong>What is a Structural Design Pattern?</strong></h3><p id="17b7e450-6467-808d-91f9-c3e172ab2bc3" class="">A <strong>Structural Design Pattern</strong> focuses on the composition of classes and objects to form larger structures while keeping the system flexible and efficient. These patterns simplify the design by identifying simple ways to realize complex relationships between entities.</p><p id="17b7e450-6467-802d-8c98-d24ddc5d4fdc" class="">The primary goal of structural design patterns is to ease the design by ensuring that objects and classes can work together without tightly coupling them. This makes the system more scalable and maintainable.</p><p id="17b7e450-6467-8002-af8a-e83a7e8b4e6e" class="">
+</p><h2 id="17b7e450-6467-8047-8529-e79c9b7be7e3" class="">Adapter Pattern</h2><p id="17b7e450-6467-8096-bd83-faa30bf6d7b2" class="">
+</p><figure id="17b7e450-6467-80ae-a92b-c169fe4dea4e" class="image"><a href="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image.png"><img style="width:707.96875px" src="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image.png"/></a></figure><figure id="17b7e450-6467-801b-aa5c-e90f17e541da" class="image"><a href="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%201.png"><img style="width:707.9556884765625px" src="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%201.png"/></a></figure><figure id="17b7e450-6467-8085-b7fb-cba8c59f0620" class="image"><a href="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%202.png"><img style="width:707.9817504882812px" src="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%202.png"/></a></figure><figure id="17b7e450-6467-80eb-a70d-d893579b9c40" class="image"><a href="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%203.png"><img style="width:707.9817504882812px" src="Design%20Pattern%203-%20Structural%20Design%20Pattern%2017b7e450646780c4a703c9b24dc037c6/image%203.png"/></a></figure><p id="17c7e450-6467-8013-9a39-c800aeb5bb0a" class="">
+</p><h3 id="17c7e450-6467-8082-80b0-ed6a00d2626b" class=""><strong>Scenario: Legacy Payment Gateway Integration</strong></h3><p id="17c7e450-6467-80b5-88b6-c29ec9fd8a0d" class="">Imagine you are developing an e-commerce application. Your application integrates with a modern payment gateway that uses a <strong>standard interface</strong> to process payments. However, your company also has an older payment system (a legacy payment gateway) that needs to be supported, but its interface is completely different.</p><hr id="17c7e450-6467-80ef-b5e9-fd8081e21f0e"/><h3 id="17c7e450-6467-80b4-a25d-cb7bb89a5856" class=""><strong>Problem Without Adapter Pattern</strong></h3><p id="17c7e450-6467-80e9-ac44-c93152e612bb" class="">The modern payment gateway has a simple interface like this:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17c7e450-6467-80cd-a689-c200ad9bf77b" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Modern Payment Gateway Interface
+interface ModernPaymentGateway {
+    void processPayment(String accountNumber, double amount);
+}</code></pre><p id="17c7e450-6467-807a-b1b9-e4209121c418" class="">The legacy payment system, however, works differently. Instead of a method to directly process payments, it requires:</p><ol type="1" id="17c7e450-6467-80eb-80e4-de467ad67d73" class="numbered-list" start="1"><li>Setting the customer ID.</li></ol><ol type="1" id="17c7e450-6467-8085-b366-fd367ffbacaa" class="numbered-list" start="2"><li>Entering the amount.</li></ol><ol type="1" id="17c7e450-6467-80aa-9386-f3ad061bd506" class="numbered-list" start="3"><li>Calling a <code>makePayment()</code> method to finalize the transaction.</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17c7e450-6467-80b4-9273-fad51f1db322" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Legacy Payment System
+class LegacyPaymentSystem {
+    public void setCustomerId(String customerId) {
+        System.out.println(&quot;Customer ID set to &quot; + customerId);
+    }
+
+    public void setPaymentAmount(double amount) {
+        System.out.println(&quot;Payment amount set to &quot; + amount);
+    }
+
+    public void makePayment() {
+        System.out.println(&quot;Payment processed successfully!&quot;);
+    }
+}
+</code></pre><h3 id="17c7e450-6467-808d-bd4d-c5c71a74700b" class=""><strong>Issues Without Adapter Pattern</strong>:</h3><ol type="1" id="17c7e450-6467-80da-87a3-fb6045967dc2" class="numbered-list" start="1"><li><strong>Incompatible Interfaces</strong>:<ul id="17c7e450-6467-8051-96d9-d6a1df7f4cc2" class="bulleted-list"><li style="list-style-type:disc">The modern payment system expects a method <code>processPayment(String, double)</code> to handle everything in one step.</li></ul><ul id="17c7e450-6467-8003-95f5-e831e2c6b6eb" class="bulleted-list"><li style="list-style-type:disc">The legacy system requires multiple steps (<code>setCustomerId</code>, <code>setPaymentAmount</code>, and <code>makePayment</code>), which doesn’t match the modern interface.</li></ul></li></ol><ol type="1" id="17c7e450-6467-803c-86b5-e039b7362544" class="numbered-list" start="2"><li><strong>No Direct Way to Reuse the Legacy System</strong>:<ul id="17c7e450-6467-806a-a958-f3bb7dbd2cce" class="bulleted-list"><li style="list-style-type:disc">Without changing the legacy system itself (which may not be possible if it’s an external or third-party library), there’s no straightforward way to make it compatible with the modern interface.</li></ul></li></ol><ol type="1" id="17c7e450-6467-80a0-8d2e-fc926c42eb7c" class="numbered-list" start="3"><li><strong>Maintenance Challenges</strong>:<ul id="17c7e450-6467-80f0-aa01-ec4690420aca" class="bulleted-list"><li style="list-style-type:disc">Even if you try to write custom logic everywhere to handle the legacy system, you’ll end up duplicating code and increasing complexity, making the system harder to maintain.</li></ul></li></ol><hr id="17c7e450-6467-8057-9ce8-e3ede63119e2"/><h3 id="17c7e450-6467-808d-bc93-c1785ebb4e5c" class=""><strong>Solution With Adapter Pattern</strong></h3><p id="17c7e450-6467-8034-8772-d184789a6e56" class="">To solve this, we can use the <strong>Adapter Pattern</strong>. The idea is to create an adapter class that wraps the <strong>LegacyPaymentSystem</strong> and implements the <strong>ModernPaymentGateway</strong> interface. This adapter will internally translate the modern method calls into the legacy system’s calls.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17c7e450-6467-804f-8810-dd5a9f99afd3" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Adapter for Legacy Payment System
+class LegacyPaymentAdapter implements ModernPaymentGateway {
+    private LegacyPaymentSystem legacyPaymentSystem;
+
+    public LegacyPaymentAdapter(LegacyPaymentSystem legacyPaymentSystem) {
+        this.legacyPaymentSystem = legacyPaymentSystem;
+    }
+
+    @Override
+    public void processPayment(String accountNumber, double amount) {
+        // Translate the modern interface call to legacy system calls
+        legacyPaymentSystem.setCustomerId(accountNumber);
+        legacyPaymentSystem.setPaymentAmount(amount);
+        legacyPaymentSystem.makePayment();
+    }
+}
+</code></pre><hr id="17c7e450-6467-80a9-96b7-d4c177438c8a"/><h3 id="17c7e450-6467-807d-ad6d-c6417d3b3fcc" class=""><strong>Client Code</strong></h3><p id="17c7e450-6467-8062-85e7-db6eed01929c" class="">Now, the client code only interacts with the modern interface, and the adapter handles the complexity of using the legacy system:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17c7e450-6467-8035-98bf-cf0169bcc332" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class ECommerceApplication {
+    public static void main(String[] args) {
+        // Using the modern payment gateway directly
+        ModernPaymentGateway modernGateway = new SomeModernPaymentGateway();
+        modernGateway.processPayment(&quot;123456&quot;, 500.0);
+
+        // Using the legacy payment system through the adapter
+        LegacyPaymentSystem legacySystem = new LegacyPaymentSystem();
+        ModernPaymentGateway legacyAdapter = new LegacyPaymentAdapter(legacySystem);
+        legacyAdapter.processPayment(&quot;987654&quot;, 1000.0);
+    }
+}
+</code></pre><hr id="17c7e450-6467-8011-80ae-f43c07ab6c11"/><h3 id="17c7e450-6467-8099-b131-c2119d41b9bb" class=""><strong>Benefits of Using the Adapter Pattern</strong></h3><ol type="1" id="17c7e450-6467-8090-996b-f489dd4053d1" class="numbered-list" start="1"><li><strong>Reusing Legacy Code Without Modification</strong>:<ul id="17c7e450-6467-80cf-8869-fb0db4fc45ed" class="bulleted-list"><li style="list-style-type:disc">The legacy system remains unchanged. The adapter wraps it and makes it compatible with the modern interface. This is crucial when working with third-party or external systems where you cannot modify the code.</li></ul></li></ol><ol type="1" id="17c7e450-6467-80d8-9b69-c6eb0ec499ec" class="numbered-list" start="2"><li><strong>Uniform Interface</strong>:<ul id="17c7e450-6467-804f-9f31-c51608533b7b" class="bulleted-list"><li style="list-style-type:disc">The client code interacts with a single interface (<code>ModernPaymentGateway</code>) regardless of whether the underlying implementation is modern or legacy. This makes the client code simpler and easier to maintain.</li></ul></li></ol><ol type="1" id="17c7e450-6467-80d4-89f1-dc2ce407bfb2" class="numbered-list" start="3"><li><strong>Easy Integration of New Systems</strong>:<ul id="17c7e450-6467-80fd-8dc7-f13bb1f965b7" class="bulleted-list"><li style="list-style-type:disc">If you need to integrate more legacy systems or switch to a new modern payment gateway, you only need to implement or update adapters without affecting the client code.</li></ul></li></ol><ol type="1" id="17c7e450-6467-8060-bdc5-dd39fe4b20ff" class="numbered-list" start="4"><li><strong>Scalable and Maintainable Code</strong>:<ul id="17c7e450-6467-80c1-adc7-c7483b66032e" class="bulleted-list"><li style="list-style-type:disc">The adapter encapsulates all the complexity of the legacy system. This reduces code duplication and makes the system easier to extend and maintain.</li></ul></li></ol><hr id="17c7e450-6467-8038-ac12-d6c6fd706583"/><h3 id="17c7e450-6467-80a3-a2e9-eac77beaa09d" class=""><strong>Comparison</strong></h3><table id="17c7e450-6467-8074-b1d6-d08dc98ef09d" class="simple-table"><tbody><tr id="17c7e450-6467-80ff-9e32-c29ab99896cd"><td id="{HHf" class="">Without Adapter Pattern</td><td id="RwW;" class="">With Adapter Pattern</td></tr><tr id="17c7e450-6467-808c-877b-d8dcfbc3ce9f"><td id="{HHf" class="">Client code is tightly coupled to the legacy system.</td><td id="RwW;" class="">Client code only depends on the modern interface.</td></tr><tr id="17c7e450-6467-80a8-ba40-e128bc94fc55"><td id="{HHf" class="">Complex logic for handling different systems is spread across the codebase.</td><td id="RwW;" class="">Complexity is isolated in the adapter.</td></tr><tr id="17c7e450-6467-80af-b387-e80ddfb8cb92"><td id="{HHf" class="">Hard to maintain and extend.</td><td id="RwW;" class="">Easy to extend by adding new adapters.</td></tr><tr id="17c7e450-6467-8058-b3eb-cb60dc06257d"><td id="{HHf" class="">Requires significant changes when integrating new systems.</td><td id="RwW;" class="">Minimal changes needed for integration.</td></tr></tbody></table><hr id="17c7e450-6467-8059-b020-f6386c675204"/><h3 id="17c7e450-6467-80c0-a3ae-fab0d8a8d47a" class=""><strong>Conclusion</strong></h3><p id="17c7e450-6467-8084-846a-c2e1dfedd6eb" class="">This example shows that the <strong>Adapter Pattern</strong> is essential when:</p><ul id="17c7e450-6467-8093-b14e-d72f751b1871" class="bulleted-list"><li style="list-style-type:disc">You need to integrate systems with incompatible interfaces.</li></ul><ul id="17c7e450-6467-80a8-bd14-d80557e6dd2c" class="bulleted-list"><li style="list-style-type:disc">Modifying existing systems is not an option.</li></ul><ul id="17c7e450-6467-8017-a451-ecd78ff8e326" class="bulleted-list"><li style="list-style-type:disc">You want to provide a unified interface to client code.</li></ul><p id="17c7e450-6467-8089-87e4-e7a2092fa6cb" class="">By using the Adapter Pattern, you achieve <strong>loose coupling</strong>, <strong>reusability</strong>, and <strong>scalability</strong>, making your codebase more maintainable and flexible for future changes.</p><hr id="17c7e450-6467-80e2-b4ca-f24cc6b2f8d3"/><p id="17c7e450-6467-8071-b7db-ceadc41e655f" class="">Would you like me to create a visual flow or diagram to accompany these notes for better clarity?</p><p id="1857e450-6467-80af-9e17-f8e430c18207" class="">
+</p><p id="1857e450-6467-8034-a8d2-e52ceda6b1c9" class="">
+</p><h1 id="1857e450-6467-80b6-8849-fdae2a4d2b7f" class="">Decorator Design Pattern Notes</h1><h2 id="1857e450-6467-80e2-be7f-df342a5ad5e7" class=""><strong>Definition</strong></h2><ul id="1857e450-6467-80d8-be80-e9b70ec74992" class="bulleted-list"><li style="list-style-type:disc"><strong>Structural design pattern</strong> that allows <strong>dynamic addition of responsibilities</strong> to objects by wrapping them in decorator classes.</li></ul><ul id="1857e450-6467-8010-ae1f-d212775b0e7a" class="bulleted-list"><li style="list-style-type:disc">Alternative to subclassing; provides flexible extension of functionality at runtime.</li></ul><hr id="1857e450-6467-8000-8777-fab19fc93375"/><h2 id="1857e450-6467-802c-863d-fce3160b1707" class=""><strong>Intent</strong></h2><ul id="1857e450-6467-80eb-9a84-fe50b1fdcd75" class="bulleted-list"><li style="list-style-type:disc">Attach additional responsibilities to an object dynamically without affecting other instances of the same class.</li></ul><ul id="1857e450-6467-802d-b585-f0ccf65b6920" class="bulleted-list"><li style="list-style-type:disc">Follows the <strong>Open/Closed Principle</strong> (open for extension, closed for modification).</li></ul><hr id="1857e450-6467-8021-acc4-d24c08ac1a73"/><h2 id="1857e450-6467-80e9-a024-ee4e45088c3f" class=""><strong>Structure</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1857e450-6467-805e-9d50-de4ea11e26f4" class="code code-wrap"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">        +----------------+          +------------------+
+        |   Component    |          |    Decorator     |
+        +----------------+          +------------------+
+        | + operation()  |&lt;---------| - component: Comp|
+        +----------------+          | + operation()    |
+                ^                   +------------------+
+                |                             ^
+                |                             |
++----------------------+             +------------------+
+| ConcreteComponent    |             | ConcreteDecorator|
++----------------------+             +------------------+
+| + operation()        |             | + operation()    |
++----------------------+             +------------------+
+</code></pre><hr id="1857e450-6467-8051-93b6-d80348b7087e"/><h2 id="1857e450-6467-8098-9f1e-c531ea4b34c3" class=""><strong>Participants</strong></h2><ol type="1" id="1857e450-6467-80cf-9f4a-e6d0c7a87e92" class="numbered-list" start="1"><li><strong>Component</strong><ul id="1857e450-6467-80d4-9a6b-f3afa9023f3f" class="bulleted-list"><li style="list-style-type:disc">Interface/abstract class defining the operations (e.g., <code>Coffee</code>).</li></ul></li></ol><ol type="1" id="1857e450-6467-8083-9225-fbf08d57e24c" class="numbered-list" start="2"><li><strong>ConcreteComponent</strong><ul id="1857e450-6467-80fa-a8f8-f5abcbaa7524" class="bulleted-list"><li style="list-style-type:disc">Implements the Component interface (e.g., <code>SimpleCoffee</code>).</li></ul></li></ol><ol type="1" id="1857e450-6467-8056-935a-fc3d2f786c93" class="numbered-list" start="3"><li><strong>Decorator</strong><ul id="1857e450-6467-80c4-adae-f4c1cbfb0b9c" class="bulleted-list"><li style="list-style-type:disc">Maintains a reference to a <code>Component</code> and implements the Component interface.</li></ul><ul id="1857e450-6467-806f-b4c2-c8f4cfeed858" class="bulleted-list"><li style="list-style-type:disc">Base class for all decorators (e.g., <code>CoffeeDecorator</code>).</li></ul></li></ol><ol type="1" id="1857e450-6467-8008-9e8c-f9c2562529e7" class="numbered-list" start="4"><li><strong>ConcreteDecorator</strong><ul id="1857e450-6467-80b3-8698-fe2530232bcb" class="bulleted-list"><li style="list-style-type:disc">Adds specific responsibilities (e.g., <code>MilkDecorator</code>, <code>SugarDecorator</code>).</li></ul></li></ol><hr id="1857e450-6467-80ad-a62e-f873f52bd44b"/><h2 id="1857e450-6467-8071-88bb-e762a9d20224" class=""><strong>Example Code</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1857e450-6467-80fa-b746-c735511a6400" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Component
+interface Coffee {
+    double getCost();
+    String getDescription();
+}
+
+// ConcreteComponent
+class SimpleCoffee implements Coffee {
+    public double getCost() { return 2.0; }
+    public String getDescription() { return &quot;Simple Coffee&quot;; }
+}
+
+// Base Decorator
+abstract class CoffeeDecorator implements Coffee {
+    protected Coffee decoratedCoffee;
+    public CoffeeDecorator(Coffee coffee) { this.decoratedCoffee = coffee; }
+}
+
+// ConcreteDecorator
+class MilkDecorator extends CoffeeDecorator {
+    public MilkDecorator(Coffee coffee) { super(coffee); }
+    public double getCost() { return decoratedCoffee.getCost() + 0.5; }
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + &quot;, Milk&quot;;
+    }
+}
+</code></pre><p id="1857e450-6467-8034-8f6f-d5a511814456" class=""><strong>Usage:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1857e450-6467-8025-8bd8-f47a3f13d7d1" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">Coffee coffee = new MilkDecorator(new SugarDecorator(new SimpleCoffee()));
+System.out.println(coffee.getDescription()); // &quot;Simple Coffee, Sugar, Milk&quot;
+</code></pre><hr id="1857e450-6467-8071-8381-ff967d5a9e2a"/><h2 id="1857e450-6467-8024-bc55-d4abed30c333" class=""><strong>Pros &amp; Cons</strong></h2><h3 id="1857e450-6467-8091-a092-dd08b44359d4" class="">✅ <strong>Pros</strong></h3><ul id="1857e450-6467-80ea-9d29-c607fa518e69" class="bulleted-list"><li style="list-style-type:disc"><strong>Flexibility</strong>: Add/remove responsibilities at runtime.</li></ul><ul id="1857e450-6467-807d-b47f-dd7fe5116496" class="bulleted-list"><li style="list-style-type:disc"><strong>Avoids class explosion</strong> compared to subclassing.</li></ul><ul id="1857e450-6467-803d-ab92-dbfbd1c1d300" class="bulleted-list"><li style="list-style-type:disc"><strong>Single Responsibility Principle</strong>: Each decorator focuses on one feature.</li></ul><h3 id="1857e450-6467-800c-ae3b-ca0e18cc21b3" class="">❌ <strong>Cons</strong></h3><ul id="1857e450-6467-8058-8737-cf21e2e2cce6" class="bulleted-list"><li style="list-style-type:disc"><strong>Complexity</strong>: Many small classes may clutter the codebase.</li></ul><ul id="1857e450-6467-80bb-ab32-cc58b4e4572c" class="bulleted-list"><li style="list-style-type:disc"><strong>Order-sensitive</strong>: Incorrect decorator order may lead to unintended behavior.</li></ul><ul id="1857e450-6467-80db-aa26-c8d669c60461" class="bulleted-list"><li style="list-style-type:disc"><strong>Hard to debug</strong>: Wrapping layers can complicate tracking.</li></ul><hr id="1857e450-6467-80bb-906f-f9222be9d42d"/><h2 id="1857e450-6467-80c5-8642-fbf96d2047cd" class=""><strong>Use Cases</strong></h2><ul id="1857e450-6467-8090-8f0c-fbc5a246bcde" class="bulleted-list"><li style="list-style-type:disc">Adding features to GUI components (e.g., scrollbars, borders).</li></ul><ul id="1857e450-6467-801c-a994-c5f2395a3540" class="bulleted-list"><li style="list-style-type:disc">Extending I/O functionality (e.g., Java <code>BufferedInputStream</code>).</li></ul><ul id="1857e450-6467-801c-886d-dee03ae34029" class="bulleted-list"><li style="list-style-type:disc">Dynamic addition of logging, encryption, or compression.</li></ul><hr id="1857e450-6467-80a7-a257-fb23afbc7edd"/><h2 id="1857e450-6467-8004-9fc8-ee3af0643ac6" class=""><strong>Related Patterns</strong></h2><ul id="1857e450-6467-80cf-bd8d-d51872ceebac" class="bulleted-list"><li style="list-style-type:disc"><strong>Adapter</strong>: Changes an object’s interface; <strong>Decorator</strong> enhances it.</li></ul><ul id="1857e450-6467-80d6-a8b5-d959042bc42d" class="bulleted-list"><li style="list-style-type:disc"><strong>Composite</strong>: Manages hierarchies, while <strong>Decorator</strong> adds responsibilities.</li></ul><ul id="1857e450-6467-80bc-abef-e60f4a900fc9" class="bulleted-list"><li style="list-style-type:disc"><strong>Strategy</strong>: Changes object’s behavior internally; <strong>Decorator</strong> changes it externally.</li></ul><hr id="1857e450-6467-8055-a0f8-fc0dfa8a9649"/><h2 id="1857e450-6467-8096-a6d6-ce70a77e7f76" class=""><strong>Implementation Steps</strong></h2><ol type="1" id="1857e450-6467-8065-bda7-d14a4f2d243d" class="numbered-list" start="1"><li>Define the <strong>Component</strong> interface.</li></ol><ol type="1" id="1857e450-6467-8061-9309-e5114f7df1c9" class="numbered-list" start="2"><li>Create <strong>ConcreteComponent</strong> classes.</li></ol><ol type="1" id="1857e450-6467-80fb-b363-f297807fe099" class="numbered-list" start="3"><li>Build a base <strong>Decorator</strong> class that references the Component.</li></ol><ol type="1" id="1857e450-6467-80b5-ab26-f023fe175ecf" class="numbered-list" start="4"><li>Implement <strong>ConcreteDecorator</strong> classes to add functionalities.</li></ol><ol type="1" id="1857e450-6467-8050-af22-e443972b07e2" class="numbered-list" start="5"><li>Compose decorators in client code as needed.</li></ol><hr id="1857e450-6467-803e-8722-c8e241fe2895"/><p id="1857e450-6467-80ec-81af-f25713c2d948" class=""><strong>Real-World Example</strong>: Java I/O classes (<code>FileInputStream</code>, <code>BufferedInputStream</code>, <code>GZIPInputStream</code>).</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,977 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>SOLID PRINCIPLES</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="692f649a-5ee2-4d22-bc01-400e81732147" class="page sans"><header><h1 class="page-title">SOLID PRINCIPLES</h1><p class="page-description"></p></header><div class="page-body"><p id="dd541172-d8af-4a71-8f4d-74e6edabb81c" class="">
+</p><ul id="35fd102e-9dbe-400d-bec7-c1233b04ef1b" class="bulleted-list"><li style="list-style-type:disc">in software engineering <strong>SOLID</strong> is an acronym for <strong>5</strong> design principles</li></ul><ul id="c83817d3-0ceb-4cdf-b1fb-5cf9a2c73d17" class="bulleted-list"><li style="list-style-type:disc">why to use design patterns?</li></ul><ul id="9e525a23-2435-4b06-938c-ad8ae08d28dd" class="bulleted-list"><li style="list-style-type:disc">The aim of design patterns is to make software design more understandable and <strong>maintainable</strong></li></ul><ul id="24d7daae-e832-4e4d-894c-36f988f127c6" class="bulleted-list"><li style="list-style-type:disc">these principles are mainly promoted by <strong>Robert C. Martin</strong> in his book back in <strong>2000</strong></li></ul><p id="8276fb6a-b874-437b-9859-7edd57628d05" class="">
+</p><figure id="bf953fbf-8804-46d4-8e4b-84fc3bd3ed42" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image.png"><img style="width:708px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image.png"/></a></figure><figure id="95a7e670-57f9-4735-82a4-23264dc05e9e" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%201.png"><img style="width:708px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%201.png"/></a></figure><figure id="bf3153ac-e43b-4034-b425-f62adab5a12e" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%202.png"><img style="width:708px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%202.png"/></a></figure><p id="1267e450-6467-806c-88bc-fc194e4eec2a" class="">
+</p><figure id="1267e450-6467-80c5-8628-e16125917308" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%203.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%203.png"/></a></figure><p id="1267e450-6467-80a2-8771-d86a2f7af41d" class="">
+</p><figure id="1267e450-6467-802c-b2b4-dd11fdeb077b" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%204.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%204.png"/></a></figure><p id="1267e450-6467-80f8-a787-da132861ed7e" class="">The <strong>Open/Closed Principle (OCP)</strong> is one of the five SOLID principles of object-oriented design. It states that:</p><ul id="1267e450-6467-8005-8f7e-e11a2eae3f51" class="bulleted-list"><li style="list-style-type:disc"><strong>Software entities (such as classes, modules, functions, etc.) should be open for extension but closed for modification.</strong></li></ul><h3 id="1267e450-6467-80c1-9322-d4db0cccc3be" class="">What does this mean?</h3><ul id="1267e450-6467-806d-9159-c9e93d8099c0" class="bulleted-list"><li style="list-style-type:disc"><strong>Open for extension</strong>: You should be able to extend or add new functionality to a class or module without changing its existing code.</li></ul><ul id="1267e450-6467-803e-8802-cd3488d7828e" class="bulleted-list"><li style="list-style-type:disc"><strong>Closed for modification</strong>: Once a class or module is developed and tested, its source code should not be modified unless necessary. Instead, new behavior should be added by extending the class or module.</li></ul><p id="1267e450-6467-8057-aab2-c703e8c6bd69" class="">
+</p><figure id="1267e450-6467-80ff-80c7-f35a3da6eaf5" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%205.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%205.png"/></a></figure><figure id="1267e450-6467-8028-b74a-d790dcc6eb33" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%206.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%206.png"/></a></figure><p id="1267e450-6467-8035-86bb-e423af33c098" class="">
+</p><p id="1267e450-6467-80a8-a4df-f389a4fb7094" class="">
+</p><p id="1267e450-6467-806d-b92f-d5716b098e16" class="">In this scenario, different interview questions require specific actions, but this design still violates OCP because any time a new question type is introduced, we need to modify the <code>InterviewQuestionProcessor</code>.</p><h3 id="1267e450-6467-8069-891c-dcd2f8d6df39" class="">Violation of OCP :</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1267e450-6467-8070-816a-d81466fe0fb8" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Interface for interview questions
+interface InterviewQuestion {
+    void askQuestion();
+}
+
+// Concrete classes
+class MathInterviewQuestion implements InterviewQuestion {
+    @Override
+    public void askQuestion() {
+        System.out.println(&quot;Solve: What is 10 * 10?&quot;);
+    }
+}
+
+class ScienceInterviewQuestion implements InterviewQuestion {
+    @Override
+    public void askQuestion() {
+        System.out.println(&quot;Explain the process of photosynthesis.&quot;);
+    }
+}
+
+// Processor that violates OCP by adding custom logic for each question type
+class InterviewQuestionProcessor {
+    public void processQuestion(InterviewQuestion question) {
+        if (question instanceof MathInterviewQuestion) {
+            System.out.println(&quot;Showing math question: &quot;);
+            question.askQuestion();
+            System.out.println(&quot;Provide a calculator for assistance.&quot;);
+        } else if (question instanceof ScienceInterviewQuestion) {
+            System.out.println(&quot;Showing science question: &quot;);
+            question.askQuestion();
+            System.out.println(&quot;Provide reference material for diagrams.&quot;);
+        }
+    }
+}
+</code></pre><h3 id="1267e450-6467-8020-9995-e83aac417856" class="">Why This Violates OCP:</h3><ul id="1267e450-6467-80a6-ab30-df30f8ff68bd" class="bulleted-list"><li style="list-style-type:disc"><strong>Different logic</strong>: The <code>if</code> block for <code>MathInterviewQuestion</code> adds extra logic (providing a calculator), while the <code>else if</code> block for <code>ScienceInterviewQuestion</code> adds different logic (providing reference material).</li></ul><ul id="1267e450-6467-80a1-bead-c4b47501ec3a" class="bulleted-list"><li style="list-style-type:disc"><strong>OCP Violation</strong>: Every time a new question type (e.g., <code>HistoryInterviewQuestion</code>) is added, you&#x27;ll need to modify the <code>InterviewQuestionProcessor</code> and add more custom logic in a new <code>if</code> or <code>else if</code> block, which violates the Open/Closed Principle.</li></ul><h3 id="1267e450-6467-8055-bb7e-c42e41d0b5c8" class="">Fix (Adhering to OCP):</h3><p id="1267e450-6467-80e8-8f93-d94535707daf" class="">In this fix, we delegate the specific behavior (e.g., showing a calculator or reference material) to each question class, removing the need to modify <code>InterviewQuestionProcessor</code> when adding new question types.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1267e450-6467-80b3-90d7-f5f8e26d7ba9" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Interface for interview questions
+interface InterviewQuestion {
+    void askQuestion();
+    void provideHelp();  // New method to handle different logic
+}
+
+// Concrete classes
+class MathInterviewQuestion implements InterviewQuestion {
+    @Override
+    public void askQuestion() {
+        System.out.println(&quot;Solve: What is 10 * 10?&quot;);
+    }
+
+    @Override
+    public void provideHelp() {
+        System.out.println(&quot;Provide a calculator for assistance.&quot;);
+    }
+}
+
+class ScienceInterviewQuestion implements InterviewQuestion {
+    @Override
+    public void askQuestion() {
+        System.out.println(&quot;Explain the process of photosynthesis.&quot;);
+    }
+
+    @Override
+    public void provideHelp() {
+        System.out.println(&quot;Provide reference material for diagrams.&quot;);
+    }
+}
+
+// New question type without modifying processor
+class HistoryInterviewQuestion implements InterviewQuestion {
+    @Override
+    public void askQuestion() {
+        System.out.println(&quot;Who was the first president of the USA?&quot;);
+    }
+
+    @Override
+    public void provideHelp() {
+        System.out.println(&quot;Provide historical timelines.&quot;);
+    }
+}
+
+// Processor that adheres to OCP
+class InterviewQuestionProcessor {
+    public void processQuestion(InterviewQuestion question) {
+        System.out.println(&quot;Showing question: &quot;);
+        question.askQuestion();
+        question.provideHelp();  // Now uses polymorphism
+    }
+}
+</code></pre><h3 id="1267e450-6467-8067-a008-da044202beb4" class="">Key Idea:</h3><ul id="1267e450-6467-80fc-be6d-f29b891ac675" class="bulleted-list"><li style="list-style-type:disc"><strong>Violation</strong>: The first version violates OCP because the processor contains specific logic for each question type, and adding new types requires modifying the processor.</li></ul><ul id="1267e450-6467-809f-828b-eb2684bbeb9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Fix</strong>: The second version adheres to OCP by pushing the specific logic (like providing help materials) into the individual question classes. Now, the <code>InterviewQuestionProcessor</code> uses polymorphism and never needs to be modified when new question types are added.</li></ul><p id="1267e450-6467-807c-9d6b-d0a54bfa425c" class="">
+</p><figure id="1267e450-6467-80ab-8e71-ce378ef2ea8d" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%207.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%207.png"/></a></figure><figure id="1267e450-6467-8081-a453-da4a36d71de9" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%208.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%208.png"/></a></figure><p id="1267e450-6467-8099-84cd-d1c5c4ec1931" class="">
+</p><figure id="1267e450-6467-80a8-bbf9-d9474f68e17d" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%209.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%209.png"/></a></figure><figure id="1267e450-6467-8080-9906-e738db93cc61" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2010.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2010.png"/></a></figure><figure id="1277e450-6467-8058-b0e6-f80dc215315b" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2011.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2011.png"/></a></figure><figure id="1277e450-6467-8026-86e9-f114b19a4ec9" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2012.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2012.png"/></a></figure><figure id="1277e450-6467-8091-aa4c-f9db88ff0387" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2013.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2013.png"/></a></figure><p id="14c7e450-6467-80ec-8f18-ef78c5eea9b7" class="">The <strong>Interface Segregation Principle (ISP)</strong> in SOLID states that a class should not be forced to implement interfaces it does not use. In other words, an interface should have only the methods that are relevant to the specific behavior it represents.</p><hr id="14c7e450-6467-8086-977c-d74b187c70d8"/><h3 id="14c7e450-6467-80d7-b6bf-ea87def2a23f" class="">Example Without Following ISP</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14c7e450-6467-8003-adfc-d05fa9fb5678" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// A single, large interface
+interface Worker {
+    void work();           // All workers can work
+    void eat();            // All workers must eat
+    void attendMeetings(); // All workers must attend meetings
+}
+
+// Low-level modules
+class Developer implements Worker {
+    @Override
+    public void work() {
+        System.out.println(&quot;Developer writing code...&quot;);
+    }
+
+    @Override
+    public void eat() {
+        System.out.println(&quot;Developer having lunch...&quot;);
+    }
+
+    @Override
+    public void attendMeetings() {
+        System.out.println(&quot;Developer attending technical meetings...&quot;);
+    }
+}
+
+class Robot implements Worker {
+    @Override
+    public void work() {
+        System.out.println(&quot;Robot performing automated tasks...&quot;);
+    }
+
+    @Override
+    public void eat() {
+        // Robots don&#x27;t eat, but they are forced to implement this method
+        throw new UnsupportedOperationException(&quot;Robots do not eat!&quot;);
+    }
+
+    @Override
+    public void attendMeetings() {
+        // Robots don&#x27;t attend meetings, but they are forced to implement this method
+        throw new UnsupportedOperationException(&quot;Robots do not attend meetings!&quot;);
+    }
+}
+</code></pre><hr id="14c7e450-6467-802b-8816-fa21e6aeb322"/><h3 id="14c7e450-6467-807e-9e63-e70d5e485637" class="">Issues Without ISP:</h3><ol type="1" id="14c7e450-6467-80eb-a29c-cb5a1491bf2c" class="numbered-list" start="1"><li><strong>Unnecessary Implementation</strong>: <code>Robot</code> is forced to implement <code>eat()</code> and <code>attendMeetings()</code>, which are irrelevant for robots.</li></ol><ol type="1" id="14c7e450-6467-8099-9ecc-f9aa4378a5fb" class="numbered-list" start="2"><li><strong>Violation of Interface Segregation</strong>: Clients using the <code>Worker</code> interface (e.g., <code>Robot</code> users) have to deal with methods they do not need, leading to potential misuse or runtime exceptions.</li></ol><ol type="1" id="14c7e450-6467-801b-80ab-c87049dc6d41" class="numbered-list" start="3"><li><strong>Rigid Design</strong>: Adding new types of workers with unique requirements might require frequent changes to the large interface, violating the <strong>Open/Closed Principle</strong>.</li></ol><hr id="14c7e450-6467-8060-b470-d2bf2e706441"/><h3 id="14c7e450-6467-8018-b449-c9d5e89b769f" class="">Example Following ISP</h3><p id="14c7e450-6467-80d1-9c8f-de6ea7648fc9" class="">Refactor the interface into smaller, specific interfaces, each representing a distinct responsibility:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14c7e450-6467-80f0-a421-c3b78ac4f841" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Small, specific interfaces
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+interface MeetingAttender {
+    void attendMeetings();
+}
+
+// Implementations
+class Developer implements Workable, Eatable, MeetingAttender {
+    @Override
+    public void work() {
+        System.out.println(&quot;Developer writing code...&quot;);
+    }
+
+    @Override
+    public void eat() {
+        System.out.println(&quot;Developer having lunch...&quot;);
+    }
+
+    @Override
+    public void attendMeetings() {
+        System.out.println(&quot;Developer attending technical meetings...&quot;);
+    }
+}
+
+class Robot implements Workable {
+    @Override
+    public void work() {
+        System.out.println(&quot;Robot performing automated tasks...&quot;);
+    }
+}
+</code></pre><hr id="14c7e450-6467-8096-a743-ff1447722f13"/><h3 id="14c7e450-6467-8017-baf8-f21c54fbfbf4" class="">Benefits of ISP:</h3><ol type="1" id="14c7e450-6467-8063-b490-db6a2ab352be" class="numbered-list" start="1"><li><strong>Clearer Design</strong>: Each interface has a specific responsibility, making it easier to understand and use.</li></ol><ol type="1" id="14c7e450-6467-80dc-bdfc-f528948fe4e3" class="numbered-list" start="2"><li><strong>Flexible Code</strong>: New types of workers can implement only the interfaces relevant to them.</li></ol><ol type="1" id="14c7e450-6467-8047-b38d-e5274e66263a" class="numbered-list" start="3"><li><strong>Avoid Unnecessary Methods</strong>: <code>Robot</code> now implements only the <code>Workable</code> interface, avoiding the need to implement irrelevant methods like <code>eat()</code> or <code>attendMeetings()</code>.</li></ol><hr id="14c7e450-6467-8091-8196-e531457c537e"/><h3 id="14c7e450-6467-80e7-b1e3-d802b96675d0" class="">Usage in a Client Class</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14c7e450-6467-80f8-85ed-d115a06b853f" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">public class WorkStation {
+    public void startWork(Workable worker) {
+        worker.work();
+    }
+
+    public void lunchBreak(Eatable worker) {
+        worker.eat();
+    }
+
+    public void scheduleMeeting(MeetingAttender worker) {
+        worker.attendMeetings();
+    }
+
+    public static void main(String[] args) {
+        WorkStation station = new WorkStation();
+
+        Developer developer = new Developer();
+        station.startWork(developer);   // Developer working
+        station.lunchBreak(developer); // Developer eating
+        station.scheduleMeeting(developer); // Developer attending meetings
+
+        Robot robot = new Robot();
+        station.startWork(robot);      // Robot working
+        // station.lunchBreak(robot); // Compilation error! Robots cannot eat
+        // station.scheduleMeeting(robot); // Compilation error! Robots cannot attend meetings
+    }
+}
+</code></pre><hr id="14c7e450-6467-8058-9811-e1bb2f781212"/><h3 id="14c7e450-6467-8048-b5b0-d086c7a9d1b6" class="">Key Takeaways:</h3><ul id="14c7e450-6467-8056-b0e3-d04464968bc9" class="bulleted-list"><li style="list-style-type:disc"><strong>Without ISP</strong>: Classes are forced to implement irrelevant methods, leading to potential misuse and brittle designs.</li></ul><ul id="14c7e450-6467-80c3-833c-edcfb392450b" class="bulleted-list"><li style="list-style-type:disc"><strong>With ISP</strong>: Classes implement only the behaviors they require, resulting in a cleaner, more modular design.</li></ul><ul id="14c7e450-6467-807c-b4c4-da8cc741653d" class="bulleted-list"><li style="list-style-type:disc"><strong>Practical Resolution</strong>: Always break large interfaces into smaller, specific ones that focus on distinct responsibilities.</li></ul><p id="14c7e450-6467-80d9-9662-c785e0a810f6" class="">
+</p><figure id="1277e450-6467-803d-a670-daa83d7e2aa0" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2014.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2014.png"/></a></figure><p id="14c7e450-6467-80da-b120-c95d5cd1febe" class="">
+</p><figure id="1277e450-6467-80c8-9c9e-f822472b4e46" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2015.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2015.png"/></a></figure><figure id="1277e450-6467-8057-9e1f-f3a45ea8d4bb" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2016.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2016.png"/></a></figure><figure id="1277e450-6467-80c3-9333-fd734353b2eb" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2017.png"><img style="width:707.9791870117188px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2017.png"/></a></figure><figure id="1277e450-6467-802b-8257-d09c58709037" class="image"><a href="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2018.png"><img style="width:707.9896240234375px" src="SOLID%20PRINCIPLES%20692f649a5ee24d22bc01400e81732147/image%2018.png"/></a></figure><p id="14c7e450-6467-80cb-a922-fce6e0465e6e" class="">
+</p><p id="14c7e450-6467-808b-b9c1-e58e3d6d8f4b" class="">The <strong>D</strong> in <strong>SOLID</strong> stands for the <strong>Dependency Inversion Principle (DIP)</strong>. It suggests that high-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details; details should depend on abstractions.</p><h3 id="14c7e450-6467-80d0-8b56-ecf4ce71db12" class="">Code Example Without Following DIP</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14c7e450-6467-8063-bbf1-eed4428b0e76" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Low-level module
+class Keyboard {
+    public void type() {
+        System.out.println(&quot;Typing on Keyboard...&quot;);
+    }
+}
+
+// High-level module
+class Computer {
+    private Keyboard keyboard;
+
+    public Computer() {
+        // Direct dependency on a concrete implementation
+        this.keyboard = new Keyboard();
+    }
+
+    public void useComputer() {
+        keyboard.type();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Computer computer = new Computer();
+        computer.useComputer();
+    }
+}
+</code></pre><h3 id="14c7e450-6467-80d9-9c4c-e0257a2a4f5c" class="">Issues with this Approach:</h3><ol type="1" id="14c7e450-6467-8020-bc06-fcf980fbf51e" class="numbered-list" start="1"><li><strong>Tightly Coupled Code</strong>: The <code>Computer</code> class depends on the concrete <code>Keyboard</code> class. If we need to use a different type of input device, like a <code>VirtualKeyboard</code>, we have to modify the <code>Computer</code> class.</li></ol><ol type="1" id="14c7e450-6467-8047-be3c-cda6a0b2ab3a" class="numbered-list" start="2"><li><strong>Poor Scalability</strong>: Adding new input devices requires changing the <code>Computer</code> class, violating the <strong>Open/Closed Principle</strong>.</li></ol><ol type="1" id="14c7e450-6467-80b6-ac29-c4fd06934606" class="numbered-list" start="3"><li><strong>Difficult Testing</strong>: It’s hard to mock or replace the <code>Keyboard</code> class for unit testing.</li></ol><hr id="14c7e450-6467-8050-bea4-f471791f3988"/><h3 id="14c7e450-6467-801c-950b-fdb081fd816e" class="">Code Example Following DIP</h3><p id="14c7e450-6467-806f-9b63-e9eba46d1e84" class="">Here’s how we can refactor the code to follow the Dependency Inversion Principle:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14c7e450-6467-800b-adf7-f135333f2acd" class="code code-wrap"><code class="language-Java" style="white-space:pre-wrap;word-break:break-all">// Abstraction
+interface InputDevice {
+    void input();
+}
+
+// Low-level module
+class Keyboard implements InputDevice {
+    @Override
+    public void input() {
+        System.out.println(&quot;Typing on Keyboard...&quot;);
+    }
+}
+
+// Another Low-level module
+class VirtualKeyboard implements InputDevice {
+    @Override
+    public void input() {
+        System.out.println(&quot;Typing on Virtual Keyboard...&quot;);
+    }
+}
+
+// High-level module
+class Computer {
+    private InputDevice inputDevice;
+
+    // Dependency injected via constructor
+    public Computer(InputDevice inputDevice) {
+        this.inputDevice = inputDevice;
+    }
+
+    public void useComputer() {
+        inputDevice.input();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Inject Keyboard as the dependency
+        InputDevice keyboard = new Keyboard();
+        Computer computer = new Computer(keyboard);
+        computer.useComputer();
+
+        // Inject VirtualKeyboard as the dependency
+        InputDevice virtualKeyboard = new VirtualKeyboard();
+        Computer computerWithVirtualKeyboard = new Computer(virtualKeyboard);
+        computerWithVirtualKeyboard.useComputer();
+    }
+}
+</code></pre><hr id="14c7e450-6467-8013-86a9-d0f71ca8c102"/><h3 id="14c7e450-6467-80a5-bda6-c96d1fd0b219" class="">How DIP Resolves the Issue:</h3><ol type="1" id="14c7e450-6467-8046-9d50-c438b1dd8436" class="numbered-list" start="1"><li><strong>Loosely Coupled Code</strong>: The <code>Computer</code> class depends on the abstraction <code>InputDevice</code>, not on a specific implementation like <code>Keyboard</code> or <code>VirtualKeyboard</code>.</li></ol><ol type="1" id="14c7e450-6467-8050-9964-e43470a9a2c8" class="numbered-list" start="2"><li><strong>Better Scalability</strong>: Adding new input devices (e.g., a <code>TouchScreen</code>) doesn’t require changing the <code>Computer</code> class.</li></ol><ol type="1" id="14c7e450-6467-80bd-bc6c-e0d5da045cc2" class="numbered-list" start="3"><li><strong>Improved Testability</strong>: You can easily mock the <code>InputDevice</code> interface for unit testing without modifying the <code>Computer</code> class.</li></ol><p id="14c7e450-6467-804d-94bf-f431279ae41a" class="">By adhering to DIP, your code becomes more maintainable, extensible, and testable.</p><p id="14c7e450-6467-807f-92b3-e97b8c0c6a08" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

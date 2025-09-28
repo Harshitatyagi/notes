@@ -1,0 +1,744 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>GOLDMAN SACHS Interview questions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.highlight-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(204, 121, 47, 1);
+	fill: rgba(204, 121, 47, 1);
+}
+.block-color-yellow {
+	color: rgba(195, 148, 67, 1);
+	fill: rgba(195, 148, 67, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(179, 84, 136, 1);
+	fill: rgba(179, 84, 136, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2197e450-6467-80b4-b096-f12b5504b826" class="page sans"><header><h1 class="page-title">GOLDMAN SACHS Interview questions</h1><p class="page-description"></p></header><div class="page-body"><p id="2197e450-6467-80f9-a88e-c2c802e47239" class="">
+</p><p id="2197e450-6467-80dc-b1d6-ddb53bca3c5c" class="">
+</p><ol type="1" id="2197e450-6467-80e0-a636-f7c95fe8ee6e" class="numbered-list" start="1"><li><a href="https://www.geeksforgeeks.org/problems/largest-number-formed-from-an-array1117/1">https://www.geeksforgeeks.org/problems/largest-number-formed-from-an-array1117/1</a> <br/>Given an array of integers <strong>arr[] </strong>representing non-negative integers, arrange them so that after concatenating all of them in order, it results in the <strong>largest </strong>possible<strong> number</strong>. Since the result may be very large, return it as a string.</li></ol><p id="2197e450-6467-8026-af19-ffa813b1a9c7" class="">
+</p><p id="2197e450-6467-809e-ae66-d29fe1ed877d" class="">
+</p><p id="2197e450-6467-8046-8845-f4259e0c7565" class="">INTUITION : Understanding of lexicographical sort is required because ultimately we want that every character should be sorted </p><p id="2197e450-6467-80a6-9472-d868f445b015" class="">lexo sort :  for “10” and “1” it will compare 10+1 and 1+10 which is bigger and return the bigger one hence it always give a output such that if first char is same it will compare the second char, third char so on.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2197e450-6467-80cd-87e5-f59feab89acd" class="code code-wrap"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">// User function template for C++
+class Solution {
+public:
+string findLargest(vector&lt;int&gt; &amp;arr) {
+// code here
+vector&lt;string&gt; arr1;
+
+
+for(int ele: arr) {
+    arr1.push_back(to_string(ele));
+}
+// custom comparator to sort the string lexicographically 
+    sort(arr1.begin(),arr1.end(),[](const string &amp;x,const string &amp;y){
+     return (x+y)&gt;(y+x);
+    });
+
+    if(arr1[0]==&quot;0&quot;)return &quot;0&quot;;
+
+
+    string res=&quot;&quot;;
+    for(auto i : arr1)
+    {
+        res+=i;
+    }
+
+    return res;
+}
+};
+</code></pre><ol type="1" id="2197e450-6467-801e-863c-cf8a0ae8fd49" class="numbered-list" start="2"><li><mark class="highlight-teal_background">Find second smallest number in an array</mark></li></ol><ol type="1" id="2197e450-6467-80e8-8492-d78e8a16dab9" class="numbered-list" start="3"><li><mark class="highlight-teal_background"> First Unique Character in the given string : </mark><mark class="highlight-teal_background"><a href="https://leetcode.com/problems/first-unique-character-in-a-string/description/">https://leetcode.com/problems/first-unique-character-in-a-string/description/</a></mark></li></ol><ol type="1" id="2197e450-6467-8098-a61e-e4246dc6ec12" class="numbered-list" start="4"><li><mark class="highlight-teal_background">Encode given string by replacing substrings with prefix same as itself with *</mark></li></ol><ol type="1" id="2197e450-6467-8002-8c6f-c8f940b14506" class="numbered-list" start="5"><li><a href="https://www.geeksforgeeks.org/dsa/encode-given-string-by-replacing-substrings-with-prefix-same-as-itself-with/">h</a><mark class="highlight-yellow_background"><a href="https://www.geeksforgeeks.org/dsa/encode-given-string-by-replacing-substrings-with-prefix-same-as-itself-with/">ttps://www.geeksforgeeks.org/dsa/encode-given-string-by-replacing-substrings-with-prefix-same-as-itself-with/</a></mark><mark class="highlight-yellow_background"> unsolved</mark></li></ol><p id="2197e450-6467-8043-bb23-cbd380325400" class="">6 <a href="https://www.csestack.org/snow-between-hills-coding-challenge/">https://www.csestack.org/snow-between-hills-coding-challenge/</a> - same as trapping rainwater</p><ol type="1" id="2197e450-6467-8062-90b0-e6b7feec0565" class="numbered-list" start="7"><li>Maximum sum path in the matrix from bottom-right to top left(reverse of GFG below question). <strong><a href="https://www.geeksforgeeks.org/maximum-sum-path-in-a-matrix-from-top-left-to-bottom-right/">https://www.geeksforgeeks.org/maximum-sum-path-in-a-matrix-from-top-left-to-bottom-right/</a></strong><strong> </strong></li></ol><ol type="1" id="2197e450-6467-8058-83bb-ff04d24bf5da" class="numbered-list" start="8"><li><mark class="highlight-red_background">Find the Median from Sorted Arrays:</mark><mark class="highlight-red_background"><a href="https://leetcode.com/problems/median-of-two-sorted-arrays/description/">https://leetcode.com/problems/median-of-two-sorted-arrays/description/</a></mark></li></ol><ol type="1" id="2197e450-6467-80b1-b0fb-f67b45d85e82" class="numbered-list" start="9"><li>Find the median of the running stream of Integers <a href="https://leetcode.com/problems/find-median-from-data-stream/description/">https://leetcode.com/problems/find-median-from-data-stream/description/</a></li></ol><ol type="1" id="2197e450-6467-801c-b005-d95335f2866e" class="numbered-list" start="10"><li> Puzzle:<strong><a href="https://www.geeksforgeeks.org/puzzle-21-3-ants-and-triangle/">https://www.geeksforgeeks.org/puzzle-21-3-ants-and-triangle/</a></strong> Puzzle: https://www.mathsisfun.com/puzzles/weighing-9-balls-solution.html</li></ol><ol type="1" id="2197e450-6467-80e6-805a-f3e0a27f8337" class="numbered-list" start="11"><li>A forest is represented with a hashmap. This hashmap has this key -&gt; value relationship: <strong>child -&gt; parent</strong>.Every node has a unique integer element. I needed to find out the largest tree&#x27;s root node. If there is a tie, return the smallest root.The tree with the highest number of nodes, is the largest one. The edges are directed from parent to child.Input:{{1 -&gt; 2}, {3 -&gt; 4}}Output:2</li></ol><ol type="1" id="2197e450-6467-80ab-8c90-eca63695df8d" class="numbered-list" start="12"><li>Given an input string, find out the first non-repeating character and replace further characters with it till it&#x27;s occurrence is found, put # if none.e.g, input : aabcbaf, output : a#bbccc</li></ol><ol type="1" id="2197e450-6467-8089-971a-fb445c24ea62" class="numbered-list" start="13"><li> Given a linked list, find out if it is palindrome. Do it with O(1) space complexity.</li></ol><ol type="1" id="2197e450-6467-8045-826b-db028e1236d7" class="numbered-list" start="14"><li>Given a list of 2n size. Let&#x27;s say that the first half (0 to n-1 elements) of the array is a subarray A and the second half (n to 2n-1 elements) of the array is a subarray B. Shuffle the array such that it becomes like this: [A1, B1, A2, B2, A3, B3, ..., An-1, Bn-1]I gave a solution which was using an extra array. The interviewer asked me to optimize it by using O(1) space.</li></ol><ol type="1" id="2197e450-6467-802c-92f3-fb22298bc277" class="numbered-list" start="15"><li>Given a BST, find the Kth largest element from it.<p id="2197e450-6467-8000-b8c3-f8b9b1afd15d" class="">I traversed the tree in this fashion: right -&gt; root -&gt; left and maintained a counter counting the no. of elements visited.When the counter hits K, current element will be returned.</p><p id="2197e450-6467-8045-a742-cb8941bf7973" class="">As a follow-up, the interviewer asked me what if the tree is just a binary tree and not a BST. By the time, I could provide an optimized solution, the time was up.</p></li></ol><ol type="1" id="2197e450-6467-8060-aa3b-fc23cb81b1e3" class="numbered-list" start="16"><li><strong> Maximum In Sliding Windows Of Size K</strong></li></ol><ol type="1" id="2197e450-6467-80bd-9734-f4bfb056d4a6" class="numbered-list" start="17"><li><strong><a href="https://leetcode.com/problems/maximal-square/description//">Maximal Square</a></strong></li></ol><ol type="1" id="2197e450-6467-800d-b82d-df2a169586b8" class="numbered-list" start="18"><li><strong><a href="https://leetcode.com/problems/ugly-number-ii/description/?envType=problem-list-v2&amp;envId=50w545lj">Ugly Number II</a></strong></li></ol><p id="2197e450-6467-80bd-8eb4-c79f6268833d" class="">
+</p><p id="2197e450-6467-8006-a9a5-da27aabb0674" class="">
+</p><p id="2197e450-6467-8090-ad43-e6135cfe436f" class="">
+</p><p id="2197e450-6467-80ee-8ae5-fcad0e90621d" class="">
+</p><p id="2197e450-6467-800e-be57-f668603df16e" class="">
+</p><p id="2197e450-6467-80ab-8b0a-db333cee2718" class="">
+</p><p id="2197e450-6467-808d-864a-d7080816248f" class="">
+</p><p id="2197e450-6467-8038-bf6e-ca06d5e0d76f" class="">
+</p><p id="2197e450-6467-80dd-96f0-e774ffef8186" class="">
+</p><p id="2197e450-6467-802c-980b-def75a119dc7" class="">
+</p><p id="2197e450-6467-800b-9132-dddd68972c79" class="">
+</p><p id="2197e450-6467-80c4-94c7-f7796d2ef74e" class="">
+</p><p id="2197e450-6467-8080-9af8-d3337fe92eb0" class="">COPIED FROM GITHUB : <a href="https://github.com/dedeepya42/goldmansachs">https://github.com/dedeepya42/goldmansachs</a></p><p id="2197e450-6467-8030-8ad9-e583c675725c" class="">Coderpad Questions</p><ol type="1" id="2197e450-6467-80ba-83d1-e9d80f9109ed" class="numbered-list" start="1"><li>Suppose we are given a string “aaabbbbbccccdaa”, then we to print “a3b5c4d1a2”.</li></ol><ol type="1" id="2197e450-6467-8089-9d4f-ef531607c1e2" class="numbered-list" start="2"><li>Given an array in which there are arrays that are of length two, the first index of that array has the student name and the second index has the marks scored. Find the maximum average scored by any student. The array can have multiple subjects of marks for a particular student.</li></ol><ol type="1" id="2197e450-6467-8058-b516-d48a6b5135d9" class="numbered-list" start="3"><li>a/b + c/d = simple form</li></ol><ol type="1" id="2197e450-6467-80bf-9827-c1fabaa8c4a3" class="numbered-list" start="4"><li>grid [][] contain coins find optimal path to collect most coins (only allowed north and east)</li></ol><ol type="1" id="2197e450-6467-80f1-9743-c40200d11f29" class="numbered-list" start="5"><li>Given a string ” A B A B C A B A B C D”, you have to compress it into the following format: A B * C * D. Here, till A B * of the output, A B repeats twice, but till A B * C *, A B A B C repeats twice. I could not solve this and went to next question.</li></ol><ol type="1" id="2197e450-6467-8024-b6d8-f49d2773d93d" class="numbered-list" start="6"><li>Given a matrix of numbers, the task was to collect the maximum numbers possible when going from bottom left corner of the matrix to top right corner of the matrix. The only two directions you can move are up and right. I was able to solve this.</li></ol><ol type="1" id="2197e450-6467-808d-981e-c9017060a8aa" class="numbered-list" start="7"><li>Given two fractions which are represented as an array of two elements (numerator and denominator), the task to find the reduced fraction which is the sum of two fractions.</li></ol><ol type="1" id="2197e450-6467-803c-9aad-d8fd5ed2d2c9" class="numbered-list" start="8"><li>Given two sorted arrays, find the median of them.</li></ol><ol type="1" id="2197e450-6467-8078-b011-dff9db5f0096" class="numbered-list" start="9"><li>Trapping rain water problem.</li></ol><ol type="1" id="2197e450-6467-80e8-9fe9-c036a61020a3" class="numbered-list" start="10"><li>Find minimum sub array whose sum is at least to the given target. eg: Sub array: 1, 2, 5, 6, 11, 2 Target: 12 Answer: 11, 2</li></ol><ol type="1" id="2197e450-6467-8058-a2a6-e26eb39f6402" class="numbered-list" start="11"><li><a href="https://leetcode.com/problems/trapping-rain-water/">https://leetcode.com/problems/trapping-rain-water/</a> (Trapping the rainwater).</li></ol><ol type="1" id="2197e450-6467-80e3-b4e7-d944118efeb3" class="numbered-list" start="12"><li>A variant of Knapsack (0-1 )- <a href="https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/">https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/</a> (She wanted the DP solution only. She was not accepting the recursive solution)</li></ol><ol type="1" id="2197e450-6467-80aa-981f-dbc229b5dc58" class="numbered-list" start="13"><li>There are some students, sitting in a circle. Each student is assigned a roll no (1 to n). There is a teacher who was given an initial roll no and he has to remove the student with initial roll no. and then has to remove the student who was at that position starting from the removed student. Your function should return the last student left. Example: 2, 3, 1, 4, 5 start with 3, remove 3, then remove 5, then remove 1 (follow circle), then remove 4. Ans – 2. Problem is similar to <a href="https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/">https://www.geeksforgeeks.org/josephus-problem-set-1-a-on-solution/</a></li></ol><ol type="1" id="2197e450-6467-805f-a3d4-d0193b1038cf" class="numbered-list" start="14"><li>Given a list of students with their scores in different subjects find the student with a max average score.</li></ol><ol type="1" id="2197e450-6467-8028-824e-d6e352423498" class="numbered-list" start="15"><li>Median of two sorted arrays (without extra space). Link – <a href="https://www.geeksforgeeks.org/median-two-sorted-arrays-different-sizes-ologminn-m/">https://www.geeksforgeeks.org/median-two-sorted-arrays-different-sizes-ologminn-m/</a></li></ol><ol type="1" id="2197e450-6467-80e2-9d83-fc9592ff6b52" class="numbered-list" start="16"><li>Given a log file, each line begins with some IP address, find the most frequent IP address.</li></ol><ol type="1" id="2197e450-6467-8013-8279-f6bdc06189fb" class="numbered-list" start="17"><li><a href="https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/">https://www.geeksforgeeks.org/find-minimum-element-in-a-sorted-and-rotated-array/</a></li></ol><ol type="1" id="2197e450-6467-8007-aaf1-c8ca0609201f" class="numbered-list" start="18"><li><a href="https://www.geeksforgeeks.org/median-two-sorted-arrays-different-sizes-ologminn-m/">https://www.geeksforgeeks.org/median-two-sorted-arrays-different-sizes-ologminn-m/</a> O(n) accepted</li></ol><ol type="1" id="2197e450-6467-800e-a8cf-e6d04bf1e7d5" class="numbered-list" start="19"><li><a href="https://leetcode.com/problems/string-compression/">https://leetcode.com/problems/string-compression/</a></li></ol><ol type="1" id="2197e450-6467-8065-92dd-e7f7f5aada62" class="numbered-list" start="20"><li><a href="https://www.geeksforgeeks.org/container-with-most-water/">https://www.geeksforgeeks.org/container-with-most-water/</a></li></ol><ol type="1" id="2197e450-6467-80cd-a024-c716e148de38" class="numbered-list" start="21"><li>Repeated Character Whose First Appearance is Leftmost</li></ol><ol type="1" id="2197e450-6467-8070-9030-ebcc6c84448c" class="numbered-list" start="22"><li>Find the first maximum length even word from a string</li></ol><ol type="1" id="2197e450-6467-8032-bc9e-dacec41d2695" class="numbered-list" start="23"><li>Write a function that takes input and output as shown under:- Input (string) Output (string) —– —— aaa a3 aabbcc a2b2c2 aaabcdd a3b1c1d2 a a1</li></ol><ol type="1" id="2197e450-6467-8046-8ead-da5b5f1d3459" class="numbered-list" start="24"><li></li></ol><p id="2197e450-6467-809e-b6bf-ce70853982e3" class="">Note: You can only travel either north (up) or east (right). b) Consider adding some additional tests in doTestsPass(). c) Implement optimalPath() correctly. d) Here is an example: ^ {{0, 0, 0, 0, 5}, New_York (finish) N {0, 1, 1, 1, 0}, So_Cal (start) {2, 0, 0, 0, 0}} S v The total for this example would be 10 (2+0+1+1+1+0+5).</p><ol type="1" id="2197e450-6467-80ab-b259-d96ab00011af" class="numbered-list" start="1"><li>Given a string. Write a function to find the first non-repeating character in it. If there is no non-repeating character, return 0; e.g. Input (string) Output (char) —– —— aabbccd d abbccddee a iijjkkllmm 0</li></ol><ol type="1" id="2197e450-6467-8052-9c4b-d78657fefc37" class="numbered-list" start="2"><li>Implement a function that takes two unsigned integers as arguments namely numerator &amp; denominator and outputs a string representing the fraction in decimal form. If there is a repeating and non-terminating digit that appears in the decimal form, write that in parenthesis. e.g. Input (UINT n, UINT d) Output (string) —– —— 2, 5 0.4 1, 2 0.5 1, 3 0.(3) 12, 5 2.4 11, 20 0.55 5, 3 1.(6)</li></ol><ol type="1" id="2197e450-6467-8009-adcd-e33b25367c06" class="numbered-list" start="3"><li>Repeating first index. &quot;rahulgorai&quot; - return r</li></ol><p id="21e7e450-6467-8053-8348-f9d8b9b0e34f" class="">
+</p><p id="21e7e450-6467-80af-9de0-e67976ab1c2e" class="">
+</p><p id="21e7e450-6467-80cf-a3a3-c3f8ee86625a" class="">
+</p><p id="21e7e450-6467-8097-824a-e5733d5aad23" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
